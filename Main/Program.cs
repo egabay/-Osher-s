@@ -8,5 +8,6 @@ namespace Main
 {
     class Program
     {
+        int stam; 
     }
 }
