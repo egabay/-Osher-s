@@ -29,12 +29,34 @@ namespace A16_Ex03
         }
 
         public FuelVehicle(string i_ModelName, string i_LicenseNumber, float i_RemainingEnergyPercent,
-            int i_NumberOfWheel, string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure,
+            int i_NumberOfWheel, string i_WheelManufacturName, float i_CurrentAirPressure, float i_MaximumAirPressure,
             Enums.eFuelType i_FuleType, float i_CurrentFuelAmountByLiters, float i_MaximunFuelAmountByLiters)
-            : base(i_ModelName, i_LicenseNumber, i_RemainingEnergyPercent, i_NumberOfWheel, i_ManufacturerName,
+            : base(i_ModelName, i_LicenseNumber, i_RemainingEnergyPercent, i_NumberOfWheel, i_WheelManufacturName,
                 i_CurrentAirPressure, i_MaximumAirPressure)
         {
-            //Need to add here
+            m_FuelType = i_FuleType;
+            m_CurrentFuelAmountByLiters = i_CurrentFuelAmountByLiters;
+            m_MaximunFuelAmountByLiters = i_MaximunFuelAmountByLiters; 
         }
+
+        protected internal override void RefuelingVehicle(float i_LitersToFool, Enums.eFuelType i_TFuelType)
+        {
+            try
+            {
+                if (i_TFuelType == m_FuelType)
+                {
+                    if ((m_CurrentFuelAmountByLiters + i_LitersToFool) <= m_MaximunFuelAmountByLiters)
+                    {
+                        m_CurrentFuelAmountByLiters += i_LitersToFool; 
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                
+                throw; //need to add an exception
+            }
+        }
+         
     }
 }

@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="FuelCar.cs" />
     <Compile Include="FuelVehicle.cs" />
     <Compile Include="MotorCycle.cs" />
     <Compile Include="OverChargedException.cs" />

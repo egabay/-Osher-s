@@ -13,5 +13,21 @@ namespace A16_Ex03
             Octan98,
             Soler
         }
+
+        public enum eCarColor
+        {
+            Red,
+            Blue,
+            Black,
+            White
+        }
+
+        public enum eCarNumberOfDoors
+        {
+            Two,
+            Three,
+            Four,
+            Five
+        }
     }
 }
