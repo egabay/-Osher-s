@@ -10,29 +10,29 @@ namespace A16_Ex03
         protected float m_CurrentAirPressure;
         protected float m_MaximumAirPressure;
 
-        public string ManufacturerNameWheel
+        public string WheelManufacturerName
         {
             get { return m_ManufacturerName; }
             set { m_ManufacturerName = value; }
         }
 
-        public float CurrentAirPressureWheel
+        public float WheelCurrentAirPressure
         {
             get { return m_CurrentAirPressure; }
             set { m_CurrentAirPressure = value; }
 
         }
 
-        public float MaximumAirPressureWheel
+        public float WheelMaximumAirPressure
         {
             get { return m_MaximumAirPressure; }
             set { m_MaximumAirPressure = value; }
         }
 
-        public Wheel(string i_ManufacturerNameWheel, float i_CurrentAirPressureWheel)
+        public Wheel(string i_WheelManufacturerName, float i_WheelCurrentAirPressure)
         {
-            m_ManufacturerName = i_ManufacturerNameWheel;
-            m_CurrentAirPressure = CurrentAirPressureWheel;
+            m_ManufacturerName = i_WheelManufacturerName;
+            m_CurrentAirPressure = WheelCurrentAirPressure;
         }
 
         /// Need to add a catch for this method

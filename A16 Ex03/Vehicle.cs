@@ -38,14 +38,14 @@ namespace A16_Ex03
         }
 
         public Vehicle(string i_VehicleModelName, string i_VehicleLicenseNumber, float i_VehicleEnergyPercent,
-            int i_VehicleNumberOfWheels, string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure)
+            int i_VehicleNumberOfWheels, string i_WheelManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure)
         {
             m_ModelName = i_VehicleModelName;
             m_LicenseNumber = i_VehicleLicenseNumber;
             m_RemainingEnergyPercent = i_VehicleEnergyPercent;
             m_NumberOfWheels = i_VehicleNumberOfWheels; 
-            m_WheelCollection = new Wheel(i_ManufacturerName, i_CurrentAirPressure);
-            m_WheelCollection.MaximumAirPressureWheel = i_MaximumAirPressure; 
+            m_WheelCollection = new Wheel(i_WheelManufacturerName, i_CurrentAirPressure);
+            m_WheelCollection.WheelMaximumAirPressure = i_MaximumAirPressure; 
         }
         
         public Wheel VehicleWheelCollection
@@ -53,5 +53,7 @@ namespace A16_Ex03
             get { return m_WheelCollection; }
             set { m_WheelCollection = value; }
         }
+
+        protected internal virtual void RefuelingVehicle(float i_LitersToFool, Enums.eFuelType i_TFuelType) { }
     }
 }
