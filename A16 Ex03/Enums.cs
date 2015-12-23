@@ -29,5 +29,13 @@ namespace A16_Ex03
             Four,
             Five
         }
+
+        public enum eLicenseType
+        {
+            A,
+            A1,
+            A4,
+            C
+        }
     }
 }

@@ -39,24 +39,15 @@ namespace A16_Ex03
             m_MaximunFuelAmountByLiters = i_MaximunFuelAmountByLiters; 
         }
 
-        protected internal override void RefuelingVehicle(float i_LitersToFool, Enums.eFuelType i_TFuelType)
+        protected internal override void RefuelingVehicle(float i_LitersToFool, Enums.eFuelType i_FuelType)
         {
-            try
+            if (i_FuelType != m_FuelType || (m_CurrentFuelAmountByLiters + i_LitersToFool) <= m_MaximunFuelAmountByLiters)
             {
-                if (i_TFuelType == m_FuelType)
-                {
-                    if ((m_CurrentFuelAmountByLiters + i_LitersToFool) <= m_MaximunFuelAmountByLiters)
-                    {
-                        m_CurrentFuelAmountByLiters += i_LitersToFool; 
-                    }
-                }
+                throw new OverRefuelException(i_LitersToFool, i_FuelType);
             }
-            catch (Exception)
-            {
-                
-                throw; //need to add an exception
-            }
+            m_CurrentFuelAmountByLiters += i_LitersToFool;
         }
+
          
     }
 }
