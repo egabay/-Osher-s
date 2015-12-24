@@ -14,6 +14,7 @@ namespace A16_Ex03
 
     class MotorCycle : Vehicle
     {
+        private Engine m_Engine;
         private int m_EngineSize;
         private eLicenseType m_LicenseType;
         public MotorCycle(string i_VehicleModelName, string i_VehicleLicenseNumber, 
