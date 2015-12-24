@@ -4,13 +4,12 @@ using System.Text;
 
 namespace A16_Ex03
 {
-    class OverChargedException:Exception
+    class OverEnergyStorageMaxException : Exception
     {
         private float m_ChargeAmount;
         private float m_MaxToCharge;
-        public OverChargedException(float i_AmountToCharge,float i_MaxToCharge):
-                                    base(String.Format("Error occured while trying to fill {0} into max of {1} battery to charge ",
-                                                                                      i_AmountToCharge,i_MaxToCharge))
+        public OverEnergyStorageMaxException(float i_AmountToCharge, float i_MaxToCharge)
+            : base(String.Format("Error occured while trying to fill {0} into max of {1} energy to fill ", i_AmountToCharge, i_MaxToCharge))
         {
             m_ChargeAmount = i_AmountToCharge;
             m_MaxToCharge = i_MaxToCharge;
@@ -22,7 +21,7 @@ namespace A16_Ex03
         }
         public float ChargeAmount
         {
-            get { return m_ChargeAmount;}
+            get { return m_ChargeAmount; }
         }
     }
 }

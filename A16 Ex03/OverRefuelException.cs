@@ -9,11 +9,11 @@ namespace A16_Ex03
         private float m_LitersToRefuel;
         private Enums.eFuelType m_FuelType;
 
-        public OverRefuelException(float i_LitersToFool, Enums.eFuelType i_FuelType) :
+        public OverRefuelException(float i_LitersToFill, Enums.eFuelType i_FuelType) :
             base(
-            string.Format("Error occured while trying to refuel {0} into fuel type {1}", i_LitersToFool, i_FuelType))
+            string.Format("Error occured while trying to refuel {0} into fuel type {1}", i_LitersToFill, i_FuelType))
         {
-            m_LitersToRefuel = i_LitersToFool;
+            m_LitersToRefuel = i_LitersToFill;
             m_FuelType = i_FuelType;
         }
 

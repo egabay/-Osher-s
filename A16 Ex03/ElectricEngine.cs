@@ -4,24 +4,20 @@ using System.Text;
 
 namespace A16_Ex03
 {
-    class ElectricEngine
+    class ElectricEngine : Engine
     {
-        float m_TimeLeftToZeroCharge;
-        float m_MaxBatteryHours;
-
-        public ElectricEngine()
+        public ElectricEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity)
+            : base(i_CurrentEnergyStorageStatus, i_MaximumEnergyStorageCapacity)
         {
-            
+
         }
-
-        public void ChargeBattery(float i_AmountOfTimeToCharge)
+        public void RefillEnergyStorage(float i_AmountEnergyToFill)
         {
-            if (m_MaxBatteryHours - m_TimeLeftToZeroCharge < i_AmountOfTimeToCharge)
+            if (m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus < i_AmountEnergyToFill)
             {
-                throw new OverChargedException(i_AmountOfTimeToCharge, m_MaxBatteryHours - m_TimeLeftToZeroCharge);
+                throw new OverEnergyStorageMaxException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
             }
-             m_TimeLeftToZeroCharge += i_AmountOfTimeToCharge;
-            
+            m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
         }
     }
 }
