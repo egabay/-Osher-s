@@ -5,13 +5,19 @@ using System.Text;
 
 namespace A16_Ex03
 {
+    enum eNumberOfWheels
+    {
+        Two,
+        Four,
+        Twelve
+    }
     internal abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicenseNumber;
         protected float m_RemainingEnergyPercent;
-        protected Wheel m_WheelCollection; 
-        protected int m_NumberOfWheels; 
+        protected Wheel m_WheelCollection;
+        protected eNumberOfWheels m_NumberOfWheels; 
 
         public string VehicleModelName
         {
@@ -31,14 +37,14 @@ namespace A16_Ex03
             set { m_RemainingEnergyPercent = value; }
         }
 
-        public int VehicleNumberOfWheels
+        public eNumberOfWheels VehicleNumberOfWheels
         {
             get { return m_NumberOfWheels; }
             set { m_NumberOfWheels = value; }
         }
 
         public Vehicle(string i_VehicleModelName, string i_VehicleLicenseNumber, float i_VehicleEnergyPercent,
-            int i_VehicleNumberOfWheels, string i_WheelManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure)
+            eNumberOfWheels i_VehicleNumberOfWheels, string i_WheelManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure)
         {
             m_ModelName = i_VehicleModelName;
             m_LicenseNumber = i_VehicleLicenseNumber;
@@ -54,6 +60,6 @@ namespace A16_Ex03
             set { m_WheelCollection = value; }
         }
 
-        protected internal virtual void RefuelingVehicle(float i_LitersToFool, Enums.eFuelType i_TFuelType) { }
+        protected internal virtual void RefuelingVehicle(float i_LitersToFool, eFuelType i_TFuelType) { }
     }
 }

@@ -11,7 +11,7 @@ namespace A16_Ex03
         public BadFuelTypeException(eFuelType i_FuelTypeToFill, eFuelType i_FuelTypeRequired)
             : base(String.Format("Error occured while trying to fill Fuel Type : {0} Into {1} Tank", i_FuelTypeToFill, i_FuelTypeRequired))
         {
-            m_FuelTypeRequired = m_FuelTypeRequired;
+            m_FuelTypeRequired = i_FuelTypeRequired;
             m_FuelTypeToFill = i_FuelTypeToFill;
         }
         public eFuelType FuelTypeToFill

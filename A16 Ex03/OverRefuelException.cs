@@ -7,9 +7,9 @@ namespace A16_Ex03
     class OverRefuelException : Exception
     {
         private float m_LitersToRefuel;
-        private Enums.eFuelType m_FuelType;
+        private eFuelType m_FuelType;
 
-        public OverRefuelException(float i_LitersToFill, Enums.eFuelType i_FuelType) :
+        public OverRefuelException(float i_LitersToFill, eFuelType i_FuelType) :
             base(
             string.Format("Error occured while trying to refuel {0} into fuel type {1}", i_LitersToFill, i_FuelType))
         {
@@ -22,7 +22,7 @@ namespace A16_Ex03
             get { return m_LitersToRefuel; }
         }
 
-        public Enums.eFuelType FuelType
+        public eFuelType FuelType
         {
             get { return m_FuelType; }
         }

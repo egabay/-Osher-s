@@ -38,9 +38,9 @@
     <Compile Include="BadFuelTypeException.cs" />
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Engine.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="FuelEngine.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="MotorCycle.cs" />
     <Compile Include="OverEnergyStorageMaxException.cs" />

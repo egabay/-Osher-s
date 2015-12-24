@@ -19,8 +19,8 @@ namespace A16_Ex03
         Four,
         Five
     }
-    
-    
+
+
     internal class Car : Vehicle
     {
         protected const int k_NumberOfWheels = 4;
@@ -29,7 +29,17 @@ namespace A16_Ex03
         private eColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
 
-        
+        public Car(string i_VehicleModelName, string i_VehicleLicenseNumber,
+                        float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
+                        string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure, eNumberOfDoors i_NumberOfDoors, eColor i_Color) :
+            base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
+                          i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
+        {
+            m_Color = i_Color;
+            m_NumberOfDoors = i_NumberOfDoors;
+            m_NumberOfWheels = eNumberOfWheels.Four;
+        }
+
         public eColor Color
         {
             get { return m_Color; }
@@ -41,6 +51,8 @@ namespace A16_Ex03
             get { return m_NumberOfDoors; }
             set { m_NumberOfDoors = value; }
         }
+
+
 
 
     }
