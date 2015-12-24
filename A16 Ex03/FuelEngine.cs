@@ -11,6 +11,7 @@ namespace A16_Ex03
         Octan95,
         Soler
     }
+
     class FuelEngine : Engine
     {
         eFuelType m_FuelType;
@@ -19,6 +20,7 @@ namespace A16_Ex03
         {
             m_FuelType = i_FuelType;
         }
+
         public void RefillEnergyStorage(float i_AmountEnergyToFill,eFuelType i_FuelType)
         {
             if(i_FuelType==m_FuelType)

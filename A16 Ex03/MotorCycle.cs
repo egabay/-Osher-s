@@ -17,6 +17,9 @@ namespace A16_Ex03
         private Engine m_Engine;
         private int m_EngineSize;
         private eLicenseType m_LicenseType;
+        protected const int k_MotorCycleNumberOfWheels = 2;
+        internal static float s_MaximumAirPressure = 32;
+        internal static float s_LitersFuelTank = 6;
         public MotorCycle(string i_VehicleModelName, string i_VehicleLicenseNumber, 
                         float i_VehicleEnergyPercent, int i_VehicleNumberOfWheels, 
                         string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure,eLicenseType i_LicenseType,int i_EngineSize) : 

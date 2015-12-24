@@ -39,11 +39,9 @@
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="FuelCar.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="FuelEngine.cs" />
-    <Compile Include="FuelMotorCycle.cs" />
-    <Compile Include="FuelTruck.cs" />
-    <Compile Include="FuelVehicle.cs" />
+    <Compile Include="Truck.cs" />
     <Compile Include="MotorCycle.cs" />
     <Compile Include="OverEnergyStorageMaxException.cs" />
     <Compile Include="OverRefuelException.cs" />
