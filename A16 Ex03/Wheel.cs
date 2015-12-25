@@ -31,13 +31,13 @@ namespace Ex03.GarageLogic
         public Wheel(string i_WheelManufacturerName, float i_WheelCurrentAirPressure)
         {
             m_ManufacturerName = i_WheelManufacturerName;
-            m_CurrentAirPressure = WheelCurrentAirPressure;
+            m_CurrentAirPressure = i_WheelCurrentAirPressure;
         }
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
             string retVal;
-            builder.AppendFormat("Wheel Manufacture Name : {0} , Wheel Current Air Pressure: {1}", m_ManufacturerName, m_MaximumAirPressure);
+            builder.AppendFormat("Wheel Manufacture Name : {0} , Wheel Current Air Pressure: {1},\n Wheel MaxAirPressure : {2}", m_ManufacturerName,m_CurrentAirPressure ,m_MaximumAirPressure);
             retVal = builder.ToString();
             return retVal;
         }
@@ -50,11 +50,11 @@ namespace Ex03.GarageLogic
             }
             else if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
             {
-                m_CurrentAirPressure += i_AmountOfAirPressureToAdd; 
+                m_CurrentAirPressure += i_AmountOfAirPressureToAdd;
             }
             else
             {
-             //   throw new ValueOutOfRangeException();
+                //Todo   throw new ValueOutOfRangeException();
             }
         }
     }

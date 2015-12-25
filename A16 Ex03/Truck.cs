@@ -12,15 +12,9 @@ namespace Ex03.GarageLogic
         protected float m_MaximumCarryingWeight;
         protected bool v_IsCarryDangerousMaterials;
 
-        public Truck(string i_VehicleModelName, string i_VehicleLicenseNumber,
-                        float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
-                        string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure, float i_MaximumCarryWeight, bool i_IsCarryDangerousMaterials) :
-            base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
-                          i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
+        public Truck()
         {
-            m_MaximumCarryingWeight = i_MaximumCarryWeight;
-            v_IsCarryDangerousMaterials = i_IsCarryDangerousMaterials;
-            m_NumberOfWheels = eNumberOfWheels.Twelve;
+
         }
         protected override string GetAttributes()
         {

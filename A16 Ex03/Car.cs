@@ -28,27 +28,13 @@ namespace Ex03.GarageLogic
         private Engine m_Engine;
         private eColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
-        private string p1;
-        private string p2;
-        private double p3;
-        private eNumberOfWheels eNumberOfWheels;
-        private string p4;
-        private int p5;
-        private int p6;
-        private eNumberOfDoors eNumberOfDoors;
-        private eColor eColor;
 
-        public Car(string i_VehicleModelName, string i_VehicleLicenseNumber,
-            float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
-            string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure,
-            eNumberOfDoors i_NumberOfDoors, eColor i_Color) :
-                base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
-                    i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
+
+
+        public Car()
         {
-            m_Color = i_Color;
-            m_NumberOfDoors = i_NumberOfDoors;
-            m_NumberOfWheels = eNumberOfWheels.Four;
-        }     
+
+        }
         protected override string GetAttributes()
         {
             string retVal;
