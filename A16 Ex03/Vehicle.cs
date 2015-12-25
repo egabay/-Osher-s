@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    enum eNumberOfWheels
+    public enum eNumberOfWheels
     {
         Two,
         Four,
         Twelve
     }
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         protected string m_ModelName;
         protected string m_LicenseNumber;
@@ -59,7 +59,14 @@ namespace A16_Ex03
             get { return m_WheelCollection; }
             set { m_WheelCollection = value; }
         }
-
-        protected internal virtual void RefuelingVehicle(float i_LitersToFool, eFuelType i_TFuelType) { }
+        public override  string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            string retVal;
+            builder.AppendFormat("License Number : {0} ,Model Name : {1} ,{2} ,{3}", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes());
+            retVal = builder.ToString();
+            return retVal;
+        }
+        protected abstract string GetAttributes();
     }
 }

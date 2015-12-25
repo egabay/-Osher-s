@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    class Truck : Vehicle
+    public class Truck : Vehicle
     {
         protected const int k_NumberOfWheels = 12;
         internal static float s_MaximumAirPressure = 34;
@@ -22,7 +22,14 @@ namespace A16_Ex03
             v_IsCarryDangerousMaterials = i_IsCarryDangerousMaterials;
             m_NumberOfWheels = eNumberOfWheels.Twelve;
         }
-
+        protected override string GetAttributes()
+        {
+            string retVal;
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("Maximum Carry Weight : {0}, Carry Dungerous Materials : {1}", m_MaximumCarryingWeight, v_IsCarryDangerousMaterials.ToString());
+            retVal = builder.ToString();
+            return retVal;
+        }
         public float TruckMaximumCarryingWeight
         {
             get { return m_MaximumCarryingWeight; }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    internal class Wheel
+    public class Wheel
     {
         protected string m_ManufacturerName;
         protected float m_CurrentAirPressure;
@@ -34,7 +34,14 @@ namespace A16_Ex03
             m_ManufacturerName = i_WheelManufacturerName;
             m_CurrentAirPressure = WheelCurrentAirPressure;
         }
-
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            string retVal;
+            builder.AppendFormat("Wheel Manufacture Name : {0} , Wheel Current Air Pressure: {1}", m_ManufacturerName, m_MaximumAirPressure);
+            retVal = builder.ToString();
+            return retVal;
+        }
         /// Need to add a catch for this method
         public void WeightingWheel(float i_AmountOfPressure)
         {

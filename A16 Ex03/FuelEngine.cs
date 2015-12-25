@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    enum eFuelType
+    public enum eFuelType
     {
         Octan98,
         Octan96,
@@ -12,7 +12,7 @@ namespace A16_Ex03
         Soler
     }
 
-    class FuelEngine : Engine
+    public class FuelEngine : Engine
     {
         eFuelType m_FuelType;
         public FuelEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity, eFuelType i_FuelType)
@@ -31,7 +31,7 @@ namespace A16_Ex03
                 }
                 else
                 {
-                    throw new OverEnergyStorageMaxException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
+                    throw new ValueOutOfRangeException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
                 }
             }
             else

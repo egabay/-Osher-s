@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    enum eLicenseType
+    public enum eLicenseType
     {
         A,
         A1,
@@ -12,7 +12,7 @@ namespace A16_Ex03
         C
     }
 
-    class MotorCycle : Vehicle
+    public class MotorCycle : Vehicle
     {
         private Engine m_Engine;
         private int m_EngineSize;
@@ -30,6 +30,14 @@ namespace A16_Ex03
             m_LicenseType = i_LicenseType;
             m_EngineSize = i_EngineSize;
             m_NumberOfWheels = eNumberOfWheels.Two;
+        }
+        protected override string GetAttributes()
+        {
+            string retVal;
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("License Type : {0}, Engine Size : {1}", LicenseType.ToString(), EngineSize);
+            retVal = builder.ToString();
+            return retVal;
         }
 
         public eLicenseType LicenseType

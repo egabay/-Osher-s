@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
 
     /*    בכלי רכב שעובד על דלק ניתן למצוא את המידע הבא ולהפעיל את הפעולות הבאות:

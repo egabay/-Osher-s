@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    class ElectricEngine : Engine
+    public class ElectricEngine : Engine
     {
         public ElectricEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity)
             : base(i_CurrentEnergyStorageStatus, i_MaximumEnergyStorageCapacity)
@@ -15,7 +15,7 @@ namespace A16_Ex03
         {
             if (m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus < i_AmountEnergyToFill)
             {
-                throw new OverEnergyStorageMaxException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
+                throw new ValueOutOfRangeException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
             }
             m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
         }
