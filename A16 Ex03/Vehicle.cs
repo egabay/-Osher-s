@@ -59,11 +59,11 @@ namespace Ex03.GarageLogic
             get { return m_WheelCollection; }
             set { m_WheelCollection = value; }
         }
-        public override  string ToString()
+        public override sealed string ToString()
         {
             StringBuilder builder = new StringBuilder();
             string retVal;
-            builder.AppendFormat("License Number : {0} ,Model Name : {1} ,{2} ,{3}", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes());
+            builder.AppendFormat("License Number : {0} \n,Model Name : {1} \n,{2} \n,{3}\n", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes());
             retVal = builder.ToString();
             return retVal;
         }
