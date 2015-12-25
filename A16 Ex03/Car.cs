@@ -30,10 +30,11 @@ namespace A16_Ex03
         private eNumberOfDoors m_NumberOfDoors;
 
         public Car(string i_VehicleModelName, string i_VehicleLicenseNumber,
-                        float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
-                        string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure, eNumberOfDoors i_NumberOfDoors, eColor i_Color) :
-            base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
-                          i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
+            float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
+            string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure,
+            eNumberOfDoors i_NumberOfDoors, eColor i_Color) :
+                base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
+                    i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
         {
             m_Color = i_Color;
             m_NumberOfDoors = i_NumberOfDoors;
@@ -51,9 +52,5 @@ namespace A16_Ex03
             get { return m_NumberOfDoors; }
             set { m_NumberOfDoors = value; }
         }
-
-
-
-
     }
 }

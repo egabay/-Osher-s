@@ -15,23 +15,25 @@ namespace A16_Ex03
     class FuelEngine : Engine
     {
         eFuelType m_FuelType;
+
         public FuelEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity, eFuelType i_FuelType)
             : base(i_CurrentEnergyStorageStatus, i_MaximumEnergyStorageCapacity)
         {
             m_FuelType = i_FuelType;
         }
 
-        public void RefillEnergyStorage(float i_AmountEnergyToFill,eFuelType i_FuelType)
+        public void RefillEnergyStorage(float i_AmountEnergyToFill, eFuelType i_FuelType)
         {
-            if(i_FuelType==m_FuelType)
+            if (i_FuelType == m_FuelType)
             {
-                if(i_AmountEnergyToFill<=m_MaximumEnergyStorageCapacity-m_CurrentEnergyStorageStatus)
+                if (i_AmountEnergyToFill <= m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus)
                 {
                     m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
                 }
                 else
                 {
-                    throw new OverEnergyStorageMaxException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
+                    throw new OverEnergyStorageMaxException(i_AmountEnergyToFill,
+                        m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
                 }
             }
             else

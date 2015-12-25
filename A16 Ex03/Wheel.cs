@@ -20,7 +20,6 @@ namespace A16_Ex03
         {
             get { return m_CurrentAirPressure; }
             set { m_CurrentAirPressure = value; }
-
         }
 
         public float WheelMaximumAirPressure
@@ -36,16 +35,19 @@ namespace A16_Ex03
         }
 
         /// Need to add a catch for this method
-        public void WeightingWheel(float i_AmountOfPressure)
+        public void WeightingWheel(float i_AmountOfAirPressureToAdd)
         {
-            try
+            if (i_AmountOfAirPressureToAdd < 0)
             {
-                bool newAirPressue = (m_CurrentAirPressure += i_AmountOfPressure) <= m_MaximumAirPressure;
+                Console.WriteLine("Your amount should be more then 0");
             }
-            catch (Exception)
+            else if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
             {
-                
-                throw;
+                m_CurrentAirPressure += i_AmountOfAirPressureToAdd; 
+            }
+            else
+            {
+                throw new ValueOutOfRangeException();
             }
         }
     }
