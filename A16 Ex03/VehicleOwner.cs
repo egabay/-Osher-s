@@ -4,9 +4,11 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class VehicleOwner
+    class VehicleOwner
     {
-        private string m_OwnersName;
-        private string m_
+        public VehicleOwner()
+        {           
+        }
+
     }
 }

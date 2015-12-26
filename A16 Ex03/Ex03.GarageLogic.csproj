@@ -43,8 +43,10 @@
     <Compile Include="Builders\FueledMotorCycleBuilder.cs" />
     <Compile Include="Builders\TruckBuilder.cs" />
     <Compile Include="Builders\VehicleBuilder.cs" />
+    <Compile Include="GarageData.cs" />
     <Compile Include="Parts\ElectricEngine.cs" />
     <Compile Include="Parts\Engine.cs" />
+    <Compile Include="VehicleOwner.cs" />
     <Compile Include="Vehicles\Car.cs" />
     <Compile Include="Parts\FuelEngine.cs" />
     <Compile Include="Vehicles\Truck.cs" />
