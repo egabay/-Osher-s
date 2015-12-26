@@ -44,6 +44,16 @@ namespace Ex03.GarageLogic
             get { return m_EngineSize; }
             set { m_EngineSize = value; }
         }
+        public sealed override object FirstDifferentProperty
+        {
+            get{ return m_LicenseType; }
+            set{ m_LicenseType = (eLicenseType)value; }
+        }
+        public sealed override object SecondDifferentProperty
+        {
+            get { return m_EngineSize; }
+            set { m_EngineSize = (int)value; }
+        }
     }
 
 }

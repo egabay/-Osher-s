@@ -37,7 +37,9 @@
   <ItemGroup>
     <Compile Include="BadFuelTypeException.cs" />
     <Compile Include="Builders\Constructor.cs" />
+    <Compile Include="Builders\ElectricCarBuilder.cs" />
     <Compile Include="Builders\ElectricMotorCycleBuilder.cs" />
+    <Compile Include="Builders\FueledCarBuilder.cs" />
     <Compile Include="Builders\FueledMotorCycleBuilder.cs" />
     <Compile Include="Builders\VehicleBuilder.cs" />
     <Compile Include="ElectricEngine.cs" />

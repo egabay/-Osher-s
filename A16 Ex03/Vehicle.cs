@@ -19,6 +19,20 @@ namespace Ex03.GarageLogic
         protected Wheel m_WheelCollection;
         protected eNumberOfWheels m_NumberOfWheels;
         private Engine m_Engine;
+        private object m_FirstProperty;
+        private object m_SecondProperty;
+
+        public abstract object FirstDifferentProperty
+        {
+            get;
+            set;
+        }
+        public abstract object SecondDifferentProperty
+        {
+            get;
+            set;
+        }
+
 
         public Vehicle()
         {
