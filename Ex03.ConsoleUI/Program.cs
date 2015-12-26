@@ -53,13 +53,11 @@ namespace Ex03.ConsoleUI
                 {
                     case eMenuItem.AddNewVehicle:
                         Constructor a = new Constructor();
-                        ElectricMotorCycleBuilder z = new ElectricMotorCycleBuilder();
+                        VehicleBuilder z = new ElectricMotorCycleBuilder();
                         Vehicle motor;
                         motor = a.Construct(z, "Suzu", "123", 52f, 22f, "Mishlin", 22f, eLicenseType.A4, 250);
                         Console.WriteLine(motor.ToString());
                         Console.ReadLine();
-
-
                         //   addNewVehicle();
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
