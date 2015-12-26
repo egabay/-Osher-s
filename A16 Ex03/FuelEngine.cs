@@ -24,16 +24,24 @@ namespace A16_Ex03
 
         public void RefillEnergyStorage(float i_AmountEnergyToFill, eFuelType i_FuelType)
         {
+            float minFuelLiters = 0;
             if (i_FuelType == m_FuelType)
             {
-                if (i_AmountEnergyToFill <= m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus)
+                if ((i_AmountEnergyToFill > 0) && (i_AmountEnergyToFill <= m_MaximumEnergyStorageCapacity))
                 {
-                    m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
+                    if (i_AmountEnergyToFill <= m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus)
+                    {
+                        m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
+                    }
+                    else
+                    {
+                        throw new OverEnergyStorageMaxException(i_AmountEnergyToFill,
+                            m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
+                    }
                 }
                 else
                 {
-                    throw new OverEnergyStorageMaxException(i_AmountEnergyToFill,
-                        m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
+                    throw new ValueOutOfRangeException(m_MaximumEnergyStorageCapacity, minFuelLiters);
                 }
             }
             else

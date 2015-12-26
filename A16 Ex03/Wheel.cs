@@ -34,20 +34,23 @@ namespace A16_Ex03
             m_CurrentAirPressure = WheelCurrentAirPressure;
         }
 
-        /// Need to add a catch for this method
         public void WeightingWheel(float i_AmountOfAirPressureToAdd)
         {
-            if (i_AmountOfAirPressureToAdd < 0)
+            float minAirPressure = 0;
+            if ((i_AmountOfAirPressureToAdd > 0) && (i_AmountOfAirPressureToAdd <= m_MaximumAirPressure))
             {
-                Console.WriteLine("Your amount should be more then 0");
-            }
-            else if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
-            {
-                m_CurrentAirPressure += i_AmountOfAirPressureToAdd; 
+                if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
+                {
+                    m_CurrentAirPressure += i_AmountOfAirPressureToAdd;
+                }
+                else
+                {
+                    throw new OverEnergyStorageMaxException(i_AmountOfAirPressureToAdd, m_MaximumAirPressure);
+                }
             }
             else
             {
-                throw new ValueOutOfRangeException();
+                throw new ValueOutOfRangeException(m_MaximumAirPressure, minAirPressure);
             }
         }
     }
