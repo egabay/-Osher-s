@@ -56,7 +56,10 @@ namespace Ex03.ConsoleUI
                         VehicleBuilder z = new ElectricMotorCycleBuilder();
                         Vehicle motor;
                         motor = a.Construct(z, "Suzu", "123", 52f, 22f, "Mishlin", 22f, eLicenseType.A4, 250);
-                        Console.WriteLine(motor.ToString());
+                        VehicleOwner own=new VehicleOwner();
+                        GarageData data=new GarageData();
+                        data.AddNewVehicle(motor, own);
+                        Console.WriteLine(data.GetDetails("1333"));
                         Console.ReadLine();
                         //   addNewVehicle();
                         break;
