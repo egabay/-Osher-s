@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    enum eColor
+    public enum eColor
     {
         Red,
         Blue,
@@ -12,7 +12,7 @@ namespace A16_Ex03
         White
     }
 
-    enum eNumberOfDoors
+    public enum eNumberOfDoors
     {
         Two,
         Three,
@@ -21,7 +21,7 @@ namespace A16_Ex03
     }
 
 
-    internal class Car : Vehicle
+    public class Car : Vehicle
     {
         protected const int k_NumberOfWheels = 4;
         internal static float s_MaxWheelsAirPressure = 29;
@@ -29,16 +29,19 @@ namespace A16_Ex03
         private eColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
 
-        public Car(string i_VehicleModelName, string i_VehicleLicenseNumber,
-            float i_VehicleEnergyPercent, eNumberOfWheels i_VehicleNumberOfWheels,
-            string i_ManufacturerName, float i_CurrentAirPressure, float i_MaximumAirPressure,
-            eNumberOfDoors i_NumberOfDoors, eColor i_Color) :
-                base(i_VehicleModelName, i_VehicleLicenseNumber, i_VehicleEnergyPercent,
-                    i_VehicleNumberOfWheels, i_ManufacturerName, i_CurrentAirPressure, i_MaximumAirPressure)
+
+
+        public Car()
         {
-            m_Color = i_Color;
-            m_NumberOfDoors = i_NumberOfDoors;
-            m_NumberOfWheels = eNumberOfWheels.Four;
+
+        }
+        protected override string GetAttributes()
+        {
+            string retVal;
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("Number Of Doors : {0}, Car Color : {1}", m_NumberOfDoors.ToString(), m_Color.ToString());
+            retVal = builder.ToString();
+            return retVal;
         }
 
         public eColor Color

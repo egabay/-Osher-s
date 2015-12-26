@@ -2,28 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
     class ValueOutOfRangeException : Exception
     {
-        private float m_MaxValue;
-        private float m_MinValue;
-
-        public ValueOutOfRangeException(float i_MaxValue, float i_MinValue)
-            : base(string.Format("Your amount should be between {0} to {1}", i_MinValue, i_MaxValue))
+        private float m_ChargeAmount;
+        private float m_MaxToCharge;
+        public ValueOutOfRangeException(float i_AmountToCharge, float i_MaxToCharge)
+            : base(String.Format("Error occured while trying to fill {0} into max of {1} energy to fill ", i_AmountToCharge, i_MaxToCharge))
         {
-            m_MinValue = i_MinValue;
-            m_MaxValue = i_MaxValue;
+            m_ChargeAmount = i_AmountToCharge;
+            m_MaxToCharge = i_MaxToCharge;
         }
 
-        public float MaxToFill
+        public float MaxToCharge
         {
-            get { return m_MaxValue; }
+            get { return m_MaxToCharge; }
         }
-
-        public float MinToFill
+        public float ChargeAmount
         {
-            get { return m_MinValue; }
+            get { return m_ChargeAmount; }
         }
     }
 }

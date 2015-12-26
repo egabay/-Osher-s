@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace A16_Ex03
+namespace Ex03.GarageLogic
 {
-    internal class Wheel
+    public class Wheel
     {
         protected string m_ManufacturerName;
         protected float m_CurrentAirPressure;
@@ -31,26 +31,30 @@ namespace A16_Ex03
         public Wheel(string i_WheelManufacturerName, float i_WheelCurrentAirPressure)
         {
             m_ManufacturerName = i_WheelManufacturerName;
-            m_CurrentAirPressure = WheelCurrentAirPressure;
+            m_CurrentAirPressure = i_WheelCurrentAirPressure;
         }
-
+        public override string ToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            string retVal;
+            builder.AppendFormat("Wheel Manufacture Name : {0} , Wheel Current Air Pressure: {1},\n Wheel MaxAirPressure : {2}", m_ManufacturerName,m_CurrentAirPressure ,m_MaximumAirPressure);
+            retVal = builder.ToString();
+            return retVal;
+        }
+        /// Need to add a catch for this method
         public void WeightingWheel(float i_AmountOfAirPressureToAdd)
         {
-            float minAirPressure = 0;
-            if ((i_AmountOfAirPressureToAdd > 0) && (i_AmountOfAirPressureToAdd <= m_MaximumAirPressure))
+            if (i_AmountOfAirPressureToAdd < 0)
             {
-                if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
-                {
-                    m_CurrentAirPressure += i_AmountOfAirPressureToAdd;
-                }
-                else
-                {
-                    throw new OverEnergyStorageMaxException(i_AmountOfAirPressureToAdd, m_MaximumAirPressure);
-                }
+                Console.WriteLine("Your amount should be more then 0");
+            }
+            else if ((m_CurrentAirPressure + i_AmountOfAirPressureToAdd) <= m_MaximumAirPressure)
+            {
+                m_CurrentAirPressure += i_AmountOfAirPressureToAdd;
             }
             else
             {
-                throw new ValueOutOfRangeException(m_MaximumAirPressure, minAirPressure);
+                //Todo   throw new ValueOutOfRangeException();
             }
         }
     }
