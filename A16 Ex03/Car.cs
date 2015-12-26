@@ -35,6 +35,7 @@ namespace Ex03.GarageLogic
         {
 
         }
+
         protected override string GetAttributes()
         {
             string retVal;
