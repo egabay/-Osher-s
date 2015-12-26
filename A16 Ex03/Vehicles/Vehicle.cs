@@ -36,7 +36,6 @@ namespace Ex03.GarageLogic
 
         public Vehicle()
         {
-
         }
         public string VehicleModelName
         {
