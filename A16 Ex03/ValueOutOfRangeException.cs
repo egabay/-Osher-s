@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private float m_ChargeAmount;
         private float m_MaxToCharge;
         public ValueOutOfRangeException(float i_AmountToCharge, float i_MaxToCharge)
-            : base(String.Format("Error occured while trying to fill {0} into max of {1} energy to fill ", i_AmountToCharge, i_MaxToCharge))
+            : base(String.Format("Error occured while trying to fill {0} into max of {1} to fill ", i_AmountToCharge, i_MaxToCharge))
         {
             m_ChargeAmount = i_AmountToCharge;
             m_MaxToCharge = i_MaxToCharge;

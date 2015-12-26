@@ -41,7 +41,7 @@ namespace Ex03.GarageLogic
             retVal = builder.ToString();
             return retVal;
         }
-        /// Need to add a catch for this method
+
         public void WeightingWheel(float i_AmountOfAirPressureToAdd)
         {
             if (i_AmountOfAirPressureToAdd < 0)
@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                //Todo   throw new ValueOutOfRangeException();
+                throw new ValueOutOfRangeException(i_AmountOfAirPressureToAdd, m_MaximumAirPressure - m_CurrentAirPressure);
             }
         }
     }

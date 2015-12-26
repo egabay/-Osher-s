@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
         {
             if(i_FuelType==m_FuelType)
             {
-                if(i_AmountEnergyToFill<=m_MaximumEnergyStorageCapacity-m_CurrentEnergyStorageStatus)
+                if((i_AmountEnergyToFill<=m_MaximumEnergyStorageCapacity-m_CurrentEnergyStorageStatus)&&(i_AmountEnergyToFill>=0))
                 {
                     m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
                 }
@@ -36,7 +36,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new BadFuelTypeException(i_FuelType, m_FuelType);
+                throw new ArgumentException(string.Format("Error trying to Fill {0} Into {1} Tank", i_FuelType, m_FuelType));
             }
         }
     }

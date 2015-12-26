@@ -13,11 +13,14 @@ namespace Ex03.GarageLogic
         }
         public void RefillEnergyStorage(float i_AmountEnergyToFill)
         {
-            if (m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus < i_AmountEnergyToFill)
+            if ((m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus >= i_AmountEnergyToFill) && (i_AmountEnergyToFill >= 0))
+            {
+                m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
+            }
+            else
             {
                 throw new ValueOutOfRangeException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
             }
-            m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
         }
     }
 }

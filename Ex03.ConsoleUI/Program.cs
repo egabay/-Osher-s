@@ -10,7 +10,7 @@ namespace Ex03.ConsoleUI
     {
         enum eVehicleType
         {
-            None=0,
+            None = 0,
             FueledMotorCycle,
             ElectricMotorCycle,
         }
@@ -52,36 +52,36 @@ namespace Ex03.ConsoleUI
                 switch (manuItemSelection)
                 {
                     case eMenuItem.AddNewVehicle:
-                        Constructor a=new Constructor();
+                        Constructor a = new Constructor();
                         ElectricMotorCycleBuilder z = new ElectricMotorCycleBuilder();
                         Vehicle motor;
-                        motor = a.Construct(z, "Suzu", "123", 52f, 22f, "Mishlin", 22f, eLicenseType.A4,250);
+                        motor = a.Construct(z, "Suzu", "123", 52f, 22f, "Mishlin", 22f, eLicenseType.A4, 250);
                         Console.WriteLine(motor.ToString());
                         Console.ReadLine();
-                        
 
-                     //   addNewVehicle();
+
+                        //   addNewVehicle();
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
-                      //  ShowVehiclesByLicenseNumber();
+                        //  ShowVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                    //    changeVehicleStatus();
+                        //    changeVehicleStatus();
                         break;
                     case eMenuItem.FillAirPressure:
-                   //     fillAirToMaximum();
+                        //     fillAirToMaximum();
                         break;
                     case eMenuItem.ReFillFuelVehicle:
-                   //     ReFillFuelVehicle();
+                        //     ReFillFuelVehicle();
                         break;
                     case eMenuItem.ChargeVehicleBattery:
-                   //     chargeVehicleBattery();
+                        //     chargeVehicleBattery();
                         break;
                     case eMenuItem.DisplayVehicleFullDetailsByLicenseNumber:
-                 //       DisplayVehicleFullDetailsByLicenseNumber();
+                        //       DisplayVehicleFullDetailsByLicenseNumber();
                         break;
                     case eMenuItem.Exit:
-                 //       exitGarageProgram();
+                        //       exitGarageProgram();
                         break;
                 }
             }
