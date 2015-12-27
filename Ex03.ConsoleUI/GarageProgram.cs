@@ -85,7 +85,7 @@ namespace Ex03.ConsoleUI
                             (eVehicleManu)Enum.Parse(typeof(eVehicleManu), ValidSelection(vehicleSelection, 5));
                         VehicleDefaultDetails(out modelName, out licenseNumber, out currentEnergyPrecent,
                                               out currentEnergy, out wheelManufacturName, out wheelCurrentAirPressure,
-                                              out ownerName,out ownerPhone);
+                                              out ownerName, out ownerPhone);
                         innerOwner.Name = ownerName;
                         innerOwner.PhoneNumber = ownerPhone;
                         switch (manuVehicleSelection)
@@ -96,9 +96,6 @@ namespace Ex03.ConsoleUI
                                 Vehicle innerFuelMotorCycle = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber,
                                                 currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                                 innerLicenseType, engineCm);
-
-                                //ToDo: Add method to select a fuel type and enter here : 
-                                //((FuelEngine)(innerFuelMotorCycle.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
@@ -111,8 +108,6 @@ namespace Ex03.ConsoleUI
                                 innerVehicleBuilder = new FueledCarBuilder();
                                 Vehicle innerFuelCar = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber, currentEnergyPrecent,
                                                  currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(), DoorsSelection());
-                                //ToDo: Add method to select a fuel type and enter here : 
-                                //((FuelEngine)(innerFuelCar.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
@@ -139,7 +134,10 @@ namespace Ex03.ConsoleUI
                         //  ShowVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                        //    changeVehicleStatus();
+                        //TODO - Readline status to change and check readline data
+                        //========================================================
+                        //eVehicleStatus innerStatus;
+                        //ChangeVehicleStatus(innerStatus);
                         break;
                     case eMenuItem.FillAirPressure:
                         //     fillAirToMaximum();
@@ -184,11 +182,11 @@ namespace Ex03.ConsoleUI
             return innerVehicle;
         }
         private void VehicleDefaultDetails(out string o_ModelName, out string o_LicenseNumber, out float o_EnergyLeftPercentage,
-                                out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure ,out string o_OwnerName,out string o_OwnerPhone)
+                                out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure, out string o_OwnerName, out string o_OwnerPhone)
         {
             Console.WriteLine("Enter model name:");
             o_ModelName = Console.ReadLine();
-            o_ModelName = ValidString(o_ModelName); 
+            o_ModelName = ValidString(o_ModelName);
             Console.WriteLine("Enter license number:");
             o_LicenseNumber = Console.ReadLine();
             o_LicenseNumber = ValidLicense(o_LicenseNumber);
@@ -252,6 +250,24 @@ namespace Ex03.ConsoleUI
             o_EngineCm = Convert.ToInt32(Console.ReadLine());
         }
 
+
+        public void ChangeVehicleStatus(eVehicleStatus i_Status)
+        {
+            string innerLicenseNumber = GetLicenseNumberFromUser();
+            m_Data.ChangeStatus(innerLicenseNumber, i_Status);
+        }
+        public void FillAirToMax()
+        {
+            string innerLicenseNumber = GetLicenseNumberFromUser();
+        }
+        public string GetLicenseNumberFromUser()
+        {
+            string innerLicenseNumber;
+            Console.WriteLine("Enter license number to change the status to ");
+            innerLicenseNumber = Console.ReadLine();
+            innerLicenseNumber = ValidLicense(innerLicenseNumber);
+            return innerLicenseNumber;
+        }
         private string ValidSelection(string i_StrMenSelection, int i_NumberOfManu)
         {
             string correctSelection = null;
@@ -274,7 +290,7 @@ namespace Ex03.ConsoleUI
             return correctSelection;
         }
 
-        private static string ValidString(string i_ValidStringInput)
+        private string ValidString(string i_ValidStringInput)
         {
             while (string.IsNullOrEmpty(i_ValidStringInput))
             {
@@ -285,7 +301,7 @@ namespace Ex03.ConsoleUI
             return i_ValidStringInput;
         }
 
-        private static string ValidLicense(string i_ValidLicenseInput)
+        private string ValidLicense(string i_ValidLicenseInput)
         {
             int answer;
             bool isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
@@ -296,7 +312,7 @@ namespace Ex03.ConsoleUI
                 i_ValidLicenseInput = Console.ReadLine();
                 isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
             }
-            return i_ValidLicenseInput; 
+            return i_ValidLicenseInput;
         }
     }
 }
