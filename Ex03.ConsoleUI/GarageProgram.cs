@@ -277,7 +277,10 @@ Press a number:");
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber,
                 i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                 i_FirstProperty, i_SecondProperty);
-            m_Data.AddNewVehicle(innerVehicle, i_Owner);
+            if(!m_Data.AddNewVehicle(innerVehicle, i_Owner))
+            {
+                Console.WriteLine("The car is already in garage, status changed to InRepair");
+            }
             return innerVehicle;
         }
 
