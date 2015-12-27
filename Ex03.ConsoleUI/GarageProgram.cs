@@ -59,13 +59,13 @@ namespace Ex03.ConsoleUI
 
                 Console.Clear();
                 Console.WriteLine(@"Garage Menu:   
-1. Add new vehicle to the Garage
+1. Add new vehicle to the garage
 2. Display the list of vehicles by ID number < Licence number>
-3. Change vehicle status in the Garage
+3. Change vehicle status in the garage
 4. Change the air pressure to maximum
-5. Refill The Vehicle Energy Storage 
+5. Refill the vehicle energy storage 
 6. Display full details on vehicle
-7. Exit the Garage Program
+7. Exit the garage program
 Press a number:");
                 strMenSelection = Console.ReadLine();
                 manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), validSelection(strMenSelection, 7));
@@ -399,9 +399,9 @@ Press enter and back to manu");
             }
             else
             {
-                vehicleStatus();
+                eVehicleStatus manuVehicleStatus = vehicleStatus();
                 Console.WriteLine(@"The car status changed to: {0}
-Press enter and back to manu", i_Status);
+Press enter and back to manu", manuVehicleStatus);
                 Console.ReadLine(); 
             }
         }
@@ -435,7 +435,7 @@ Press enter and back to manu");
         {
             Console.WriteLine(@"Please enter your vehicle status:
 Vehicle status Menu :  
-1. InRepair,
+1. InRepair
 2. Paid
 3. Fixed
 Press a number:");
