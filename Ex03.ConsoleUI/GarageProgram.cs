@@ -135,6 +135,7 @@ Press a number:");
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
                          showVehiclesByLicenseNumber();
+                         Console.ReadLine();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
                         string innerLicenseNumberStatus = getLicenseNumberFromUser(); 
