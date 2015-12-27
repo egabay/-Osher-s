@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic.Builders
 {
-    class TruckBuilder:VehicleBuilder
+    public class TruckBuilder:VehicleBuilder
     {
         public TruckBuilder()
         {

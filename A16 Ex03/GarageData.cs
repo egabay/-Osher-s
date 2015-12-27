@@ -22,9 +22,12 @@ namespace Ex03.GarageLogic
             {
                 m_LicenseToOwner.Add(i_VehicleToAdd.VehicleLicenseNumber, i_VehicleOwnerToAdd);
                 m_LicenseToVehicle.Add(i_VehicleToAdd.VehicleLicenseNumber, i_VehicleToAdd);
+                i_VehicleOwnerToAdd.VehicleStatus = eVehicleStatus.InRepair;
             }
             return retVal;
         }
+
+
 
         public string GetDetails(string i_LicenseNumber)
         {
@@ -36,7 +39,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                retVal = "The vehicle license number Entered does not exist";
+                retVal = "The vehicle license number entered is not exists";
             }
             return retVal;
 

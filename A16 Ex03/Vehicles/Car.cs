@@ -6,6 +6,7 @@ namespace Ex03.GarageLogic
 {
     public enum eColor
     {
+        None,
         Red,
         Blue,
         Black,
@@ -14,6 +15,7 @@ namespace Ex03.GarageLogic
 
     public enum eNumberOfDoors
     {
+        None = 0,
         Two,
         Three,
         Four,

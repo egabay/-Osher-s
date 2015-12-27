@@ -6,9 +6,13 @@ namespace Ex03.GarageLogic.Builders
 {
     public class ElectricMotorCycleBuilder : VehicleBuilder
     {
-        public ElectricMotorCycleBuilder()
+        public ElectricMotorCycleBuilder(eLicenseType i_LicenseType, int i_EngineSize)
         {
             m_Vehicle = new MotorCycle();
+            MotorCycle motor = new MotorCycle();
+            motor = (MotorCycle)m_Vehicle;
+            motor.EngineSize = i_EngineSize;
+            motor.LicenseType = i_LicenseType;
         }
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
