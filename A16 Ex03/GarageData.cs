@@ -44,6 +44,18 @@ namespace Ex03.GarageLogic
                     retVal.Append(item.Key).AppendLine();
                 }
             }
+            if(retVal.ToString()==string.Empty)
+            {
+                if (i_Status != null)
+                {
+                    retVal.Append("There is no vehicles in the garage").AppendLine();
+                }
+                else
+                {
+                    retVal.Append("There is no vehicles in the garage in this status").AppendLine();
+                }
+
+            }
             return retVal.ToString();
         }
 
