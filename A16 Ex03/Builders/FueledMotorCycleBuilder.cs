@@ -10,15 +10,6 @@ namespace Ex03.GarageLogic.Builders
         {
             m_Vehicle = new MotorCycle();
         }
-        public FueledMotorCycleBuilder(eLicenseType i_LicenseType, int i_EngineSize)
-        {
-            m_Vehicle = new MotorCycle();
-            MotorCycle motor = new MotorCycle();
-            motor = (MotorCycle) m_Vehicle;
-            motor.EngineSize = i_EngineSize;
-            motor.LicenseType = i_LicenseType;
-        }
-
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             MotorCycle motorCycle = (MotorCycle) m_Vehicle;

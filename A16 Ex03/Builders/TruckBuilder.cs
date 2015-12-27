@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic.Builders
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             m_Vehicle.Engine = new FuelEngine(i_CurrentEnergyStorageStatus, 160f, eFuelType.Soler);
+            m_Vehicle.VehicleEnergyPercent = (i_CurrentEnergyStorageStatus/m_Vehicle.Engine.MaximumEnergyStorageCapacity) * 100;
         }
 
         public override void BuildWheels(string i_WheelManufacturerName, float i_WheelCurrentAirPressure)

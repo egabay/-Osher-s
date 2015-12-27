@@ -26,11 +26,6 @@ namespace Ex03.GarageLogic
             m_Vehicle.VehicleLicenseNumber = i_LicenseNumber;
         }
 
-        public void BuildEnergyLeftPercentage(float i_EnergyLeftPercentage)
-        {
-            m_Vehicle.VehicleEnergyPercent = i_EnergyLeftPercentage;
-        }
-
         public abstract void BuildEngine(float i_CurrentEnergyStorageStatus);
         public abstract void BuildWheels(string i_WheelManufacturerName, float i_WheelCurrentAirPressure);
 

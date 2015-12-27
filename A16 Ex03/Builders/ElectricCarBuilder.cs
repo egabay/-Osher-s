@@ -10,14 +10,6 @@ namespace Ex03.GarageLogic.Builders
         {
             m_Vehicle = new Car();
         }
-        public ElectricCarBuilder(eColor i_CarColor, eNumberOfDoors i_NumberOfDoors)
-        {
-            m_Vehicle = new Car();
-            Car motor = new Car();
-            motor = (Car)m_Vehicle;
-            motor.Color= i_CarColor;
-            motor.NumberOfDoors = i_NumberOfDoors;
-        }
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             m_Vehicle.Engine = new ElectricEngine(i_CurrentEnergyStorageStatus, 2.8f);

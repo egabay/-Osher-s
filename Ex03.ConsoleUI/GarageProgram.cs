@@ -90,7 +90,6 @@ namespace Ex03.ConsoleUI
                         manuVehicleSelection =
                             (eVehicleManu) Enum.Parse(typeof (eVehicleManu), ValidSelection(vehicleSelection, 5));
                         VehicleDefaultDetails(manuVehicleSelection, out modelName, out licenseNumber,
-                            out currentEnergyPrecent,
                             out currentEnergy, out wheelManufacturName, out wheelCurrentAirPressure,
                             out ownerName, out ownerPhone);
                         innerOwner.Name = ownerName;
@@ -102,7 +101,7 @@ namespace Ex03.ConsoleUI
                                 innerVehicleBuilder = new FueledMotorCycleBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
-                                    currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                     innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
@@ -110,20 +109,20 @@ namespace Ex03.ConsoleUI
                                 innerVehicleBuilder = new ElectricMotorCycleBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
-                                    currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                     innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
-                                    licenseNumber, currentEnergyPrecent,
+                                    licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(),
                                     DoorsSelection());
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
-                                    licenseNumber, currentEnergyPrecent,
+                                    licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(),
                                     DoorsSelection());
 
@@ -131,7 +130,7 @@ namespace Ex03.ConsoleUI
                             case eVehicleManu.Truck:
                                 innerVehicleBuilder = new TruckBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
-                                    licenseNumber, currentEnergyPrecent,
+                                    licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure, MaterialsSelection(),
                                     MaxWeight());
                                 break;
@@ -203,12 +202,11 @@ Menu :
         }
 
         private Vehicle CreateNewVehicle(Constructor i_Constructor, VehicleBuilder i_Builder, VehicleOwner i_Owner,
-            string i_ModelName, string i_LicenseNumber, float i_EnergyLeftPercentage,
+            string i_ModelName, string i_LicenseNumber,
             float i_CurrentEnergyStorageStatus, string i_WheelManufacturerName, float i_WheelCurrentAirPressure,
             object i_FirstProperty, object i_SecondProperty)
         {
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber,
-                i_EnergyLeftPercentage,
                 i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                 i_FirstProperty, i_SecondProperty);
             m_Data.AddNewVehicle(innerVehicle, i_Owner);
@@ -216,8 +214,7 @@ Menu :
         }
 
         private void VehicleDefaultDetails(eVehicleManu i_ManuVehicleSelection, out string o_ModelName,
-            out string o_LicenseNumber, out float o_EnergyLeftPercentage,
-            out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName,
+            out string o_LicenseNumber,out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName,
             out float o_WheelCurrentAirPressure, out string o_OwnerName, out string o_OwnerPhone)
         {
             Console.WriteLine("Enter model name:");
@@ -226,8 +223,6 @@ Menu :
             Console.WriteLine("Enter license number:");
             o_LicenseNumber = Console.ReadLine();
             o_LicenseNumber = ValidNumber(o_LicenseNumber);
-            Console.WriteLine("Enter your current Energy Left Percentage:");
-            o_EnergyLeftPercentage = Convert.ToSingle(Console.ReadLine());
             Console.WriteLine("Enter your current fuel capacity:");
             string fuelCapacity = Console.ReadLine();
             fuelCapacity = ValidNumber(fuelCapacity);
