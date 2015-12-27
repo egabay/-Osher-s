@@ -146,6 +146,12 @@ namespace Ex03.ConsoleUI
             }
         }
 
+        private void RefillVehicle(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeOptional =null)
+        {
+            
+        }
+
+
         private void CreateElectricCar(eLicenseType manuLicenseSelection, Constructor add, GarageData data,
             VehicleOwner owner)
         {

@@ -11,12 +11,12 @@ namespace Ex03.GarageLogic
 
         public bool AddNewVehicle(Vehicle i_VehicleToAdd, VehicleOwner i_VehicleOwnerToAdd)
         {
-            const bool isNotContained = true;
-            bool retVal = isNotContained;
+            const bool v_isNotContained = true;
+            bool retVal = v_isNotContained;
             if (m_LicenseToVehicle.ContainsKey(i_VehicleToAdd.VehicleLicenseNumber))
             {
                 i_VehicleOwnerToAdd.VehicleStatus=eVehicleStatus.InRepair;
-                retVal = !isNotContained;
+                retVal = !v_isNotContained;
             }
             else
             {
@@ -44,20 +44,38 @@ namespace Ex03.GarageLogic
             return retVal;
 
         }
-        public void FillEnergyResource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeIfFuelEngine=null)
+        public bool FillEnergyResource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeIfFuelEngine=null)
         {
+            const bool v_isNotContained = true;
+            bool retVal = v_isNotContained;
             Vehicle innerVehicle;
             if(m_LicenseToVehicle.TryGetValue(i_LicenseNumber,out innerVehicle))
             {
-               if(innerVehicle.Engine is ElectricEngine)
-               {
-                   ((ElectricEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
-               }
-               else
-               {
-                   ((FuelEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill, (eFuelType)i_FuelTypeIfFuelEngine);
-               }
+                try
+                {
+                    if (innerVehicle.Engine is ElectricEngine)
+                    {
+                        ((ElectricEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
+                    }
+                    else
+                    {
+                        ((FuelEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill, (eFuelType)i_FuelTypeIfFuelEngine);
+                    }
+                }
+                catch(ValueOutOfRangeException e)
+                {
+                    throw e;
+                }
+                catch(ArgumentException e)
+                {
+                    throw e;
+                }
             }
+            else
+            {
+                retVal = !v_isNotContained;
+            }
+            return retVal;
 
         }
     }
