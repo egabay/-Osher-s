@@ -33,6 +33,13 @@ namespace Ex03.ConsoleUI
             Truck
         }
 
+        public enum eMaterials
+        {
+            None = 0,
+            No,
+            Yes
+        }
+
         public void Run()
         {
             eMenuItem manuItemSelection = eMenuItem.None;
@@ -122,15 +129,11 @@ namespace Ex03.ConsoleUI
 
                                 break;
                             case eVehicleManu.Truck:
-                                Vehicle newTruck;
-                                Console.WriteLine("The truck have dangerous materials?");
-                                //Add bool 
-                                //max wheight
-                                /*  VehicleBuilder truck = new TruckBuilder();
-                                  newTruck = createConstructor.Construct(truck, modelName, licenseNumber, currentEnergy,
-                                      6f,
-                                      manufacturerName, currentAirPressure, CarSelection(), DoorsSelection());
-                                  m_Data.AddNewVehicle(newTruck, owner);*/
+                                innerVehicleBuilder = new TruckBuilder();
+                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                    licenseNumber, currentEnergyPrecent,
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, MaterialsSelection(),
+                                    MaxWeight());
                                 break;
                         }
 
@@ -165,6 +168,28 @@ namespace Ex03.ConsoleUI
                         break;
                 }
             }
+        }
+
+        private float MaxWeight()
+        {
+            Console.WriteLine("What is the maximum carrying weight?");
+            string weightString = Console.ReadLine();
+            weightString = ValidNumber(weightString);
+            float weight = Convert.ToSingle(weightString);
+            return weight;
+        }
+
+        private eMaterials MaterialsSelection()
+        {
+            Console.WriteLine(@"The truck have dangerous materials?
+Menu :   
+1. No
+2. Yes");
+            string materialsSelection = Console.ReadLine();
+            eMaterials manumaterialsSelection = eMaterials.None; 
+            manumaterialsSelection =
+                (eMaterials)Enum.Parse(typeof(eMaterials), ValidSelection(materialsSelection, 2));
+            return manumaterialsSelection;
         }
 
         private void ShowVehicleByLicenseNumber(string i_LicenseNumber)
@@ -387,7 +412,7 @@ Vehicle status Menu :
             eVehicleStatus manuStatusSelection;
             manuStatusSelection =
                 (eVehicleStatus)
-                    Enum.Parse(typeof(eVehicleStatus), ValidSelection(statusSelection, 3));
+                    Enum.Parse(typeof (eVehicleStatus), ValidSelection(statusSelection, 3));
             return manuStatusSelection;
         }
     }
