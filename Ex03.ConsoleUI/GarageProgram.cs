@@ -58,8 +58,7 @@ namespace Ex03.ConsoleUI
             while (manuItemSelection != eMenuItem.Exit)
             {
                 Console.Clear();
-                Console.WriteLine(@"Garage Menu :   
-
+                Console.WriteLine(@"Garage Menu:   
 1. Add new vehicle to the Garage
 2. Display the list of vehicles by ID number < Licence number>
 3. Change vehicle status in the Garage
@@ -67,8 +66,8 @@ namespace Ex03.ConsoleUI
 5. Refill Fuel Vehicle 
 6. Charge battery Vehicle 
 7. Display full details on vehicle
-8. Exit the Garage Program");
-
+8. Exit the Garage Program
+Press a number:");
                 strMenSelection = Console.ReadLine();
                 manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), ValidSelection(strMenSelection, 8));
                 switch (manuItemSelection)
@@ -76,13 +75,13 @@ namespace Ex03.ConsoleUI
                     case eMenuItem.AddNewVehicle:
                         Constructor innerConstructor = new Constructor();
                         Console.Clear();
-                        Console.WriteLine(@"Vehicle Menu :   
-
+                        Console.WriteLine(@"Vehicle Menu:
 1. Fuel motorcycle
 2. Electric motorcycle
 3. Fuel car
 4. Electric car
-5. Truck");
+5. Truck
+Press a number:");
                         string vehicleSelection = Console.ReadLine();
                         int engineCm;
                         eLicenseType manuLicenseSelection = eLicenseType.None;
@@ -143,7 +142,7 @@ namespace Ex03.ConsoleUI
                         ChangeVehicleStatus(VehicleStatus());
                         break;
                     case eMenuItem.FillAirPressure:
-                        //     fillAirToMaximum();
+                        FillAirToMax();
                         break;
                     case eMenuItem.ReFillFuelVehicle:
                         //     ReFillFuelVehicle();
@@ -179,7 +178,8 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(@"The truck have dangerous materials?
 Menu :   
 1. No
-2. Yes");
+2. Yes
+Press a number:");
             string materialsSelection = Console.ReadLine();
             eMaterials manumaterialsSelection = eMaterials.None;
             manumaterialsSelection =
@@ -273,7 +273,8 @@ Menu :
 1. Blue
 2. Black
 3. Red
-4. White");
+4. White
+Press a number:");
             string colorSelection = Console.ReadLine();
             eColor manuColorSelection = eColor.None;
             manuColorSelection =
@@ -288,7 +289,8 @@ Menu :
 1. Two
 2. Three
 3. Four
-4. Five");
+4. Five
+Press a number:");
             string doorsSelection = Console.ReadLine();
             eNumberOfDoors manuDoorsSelection = eNumberOfDoors.None;
             manuDoorsSelection =
@@ -335,6 +337,18 @@ Press enter and back to manu", i_Status);
         public void FillAirToMax()
         {
             string innerLicenseNumber = GetLicenseNumberFromUser();
+            if (!m_Data.MaximizeWheelPressure(innerLicenseNumber))
+            {
+                Console.WriteLine(@"This license number is not in the garage!
+Press enter and back to manu");
+                Console.ReadLine(); 
+            }
+            else
+            {
+                Console.WriteLine(@"The car air pressure filled to maximum!
+Press enter and back to manu");
+                Console.ReadLine();  
+            }
         }
 
         public string GetLicenseNumberFromUser()
@@ -413,7 +427,8 @@ Press enter and back to manu", i_Status);
 Vehicle status Menu :  
 1. InRepair,
 2. Paid
-3. Fixed");
+3. Fixed
+Press a number:");
             string statusSelection = Console.ReadLine();
             eVehicleStatus manuStatusSelection;
             manuStatusSelection =
@@ -429,7 +444,8 @@ Vehicle status Menu :
 1. Octan95
 2. Octan96
 3. Octan98
-4. Soler");
+4. Soler
+Press a number:");
             string fuelSelection = Console.ReadLine();
             eFuelType manuFuelSelection;
             manuFuelSelection =
