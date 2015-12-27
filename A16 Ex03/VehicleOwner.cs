@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    enum eVehicleStatus
+    public enum eVehicleStatus
     {
         InRepair,
         Fixed,
@@ -13,18 +13,34 @@ namespace Ex03.GarageLogic
 
     public class VehicleOwner
     {
-        eVehicleStatus m_VehicleStatus;
-
-
+        private eVehicleStatus m_VehicleStatus;
+        private string m_PhoneNumber;
+        private string m_Name;
         public VehicleOwner()
         {
 
         }
 
-        internal eVehicleStatus VehicleStatus
+        public string Name
+        {
+            get { return m_Name; }
+            set { m_Name = value; }
+        }
+        public string PhoneNumber
+        {
+            get { return m_PhoneNumber; }
+            set { m_PhoneNumber = value; }
+        }
+        public eVehicleStatus VehicleStatus
         {
             get { return m_VehicleStatus; }
             set { m_VehicleStatus = value; }
+        }
+
+        public override string ToString()
+        {
+            return (string.Format(",\n Owners Name : {0} , Owners Phone : {1} , Owners Car Status : {2}", 
+                                    m_Name, m_PhoneNumber, m_VehicleStatus.ToString()));
         }
 
     }

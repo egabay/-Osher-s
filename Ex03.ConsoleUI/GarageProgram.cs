@@ -42,11 +42,13 @@ namespace Ex03.ConsoleUI
             string licenseNumber;
             float currentEnergy;
             float currentEnergyPrecent;
-            string manufacturerName;
-            float currentAirPressure;
+            string wheelManufacturName;
+            float wheelCurrentAirPressure;
+            string ownerName;
+            string ownerPhone;
             eLicenseType innerLicenseType;
             VehicleBuilder innerVehicleBuilder;
-            VehicleOwner owner = new VehicleOwner();
+            VehicleOwner innerOwner = new VehicleOwner();
             while (manuItemSelection != eMenuItem.Exit)
             {
                 Console.Clear();
@@ -82,14 +84,17 @@ namespace Ex03.ConsoleUI
                         manuVehicleSelection =
                             (eVehicleManu)Enum.Parse(typeof(eVehicleManu), ValidSelection(vehicleSelection, 5));
                         VehicleDefaultDetails(out modelName, out licenseNumber, out currentEnergyPrecent,
-                                              out currentEnergy, out manufacturerName, out currentAirPressure);
+                                              out currentEnergy, out wheelManufacturName, out wheelCurrentAirPressure,
+                                              out ownerName,out ownerPhone);
+                        innerOwner.Name = ownerName;
+                        innerOwner.PhoneNumber = ownerPhone;
                         switch (manuVehicleSelection)
                         {
                             case eVehicleManu.FuelMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new FueledMotorCycleBuilder();
-                                Vehicle innerFuelMotorCycle = CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber,
-                                                currentEnergyPrecent, currentEnergy, manufacturerName, currentAirPressure,
+                                Vehicle innerFuelMotorCycle = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber,
+                                                currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                                 innerLicenseType, engineCm);
 
                                 //ToDo: Add method to select a fuel type and enter here : 
@@ -98,21 +103,21 @@ namespace Ex03.ConsoleUI
                             case eVehicleManu.ElectricMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new ElectricMotorCycleBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber,
-                                                 currentEnergyPrecent, currentEnergy, manufacturerName, currentAirPressure,
+                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber,
+                                                 currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                                  innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
-                                Vehicle innerFuelCar = CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, currentEnergyPrecent,
-                                                 currentEnergy, manufacturerName, currentAirPressure, ColorSelection(), DoorsSelection());
+                                Vehicle innerFuelCar = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber, currentEnergyPrecent,
+                                                 currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(), DoorsSelection());
                                 //ToDo: Add method to select a fuel type and enter here : 
                                 //((FuelEngine)(innerFuelCar.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, currentEnergyPrecent,
-                                                 currentEnergy, manufacturerName, currentAirPressure, ColorSelection(), DoorsSelection());
+                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber, currentEnergyPrecent,
+                                                 currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(), DoorsSelection());
 
                                 break;
                             case eVehicleManu.Truck:
@@ -179,7 +184,7 @@ namespace Ex03.ConsoleUI
             return innerVehicle;
         }
         private void VehicleDefaultDetails(out string o_ModelName, out string o_LicenseNumber, out float o_EnergyLeftPercentage,
-                                out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure)
+                                out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure ,out string o_OwnerName,out string o_OwnerPhone)
         {
             Console.WriteLine("Enter model name:");
             o_ModelName = Console.ReadLine();
@@ -192,13 +197,13 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Enter your current energy:");
             o_CurrentEnergyStorageStatus = Convert.ToSingle(Console.ReadLine());
             Console.WriteLine("Enter phone number:");
-            string phoneNumber = Console.ReadLine();
+            o_OwnerPhone = Console.ReadLine();
             Console.WriteLine("Enter wheel Manufacturer name:");
             o_WheelManufacturerName = Console.ReadLine();
             Console.WriteLine("Enter current air pressure:");
             o_WheelCurrentAirPressure = Convert.ToSingle(Console.ReadLine());
             Console.WriteLine("Enter owner name:");
-            string ownerName = Console.ReadLine();
+            o_OwnerName = Console.ReadLine();
         }
         private eColor ColorSelection()
         {
