@@ -24,7 +24,7 @@ namespace Ex03.GarageLogic
         }
         public override string ToString()
         {
-            return (String.Format("Current Energy status : {1} , Maximum Electric Capacity : {2}", m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity));
+            return (String.Format("Current Energy status : {0} , Maximum Electric Capacity : {1}", m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity));
         }
     }
 }

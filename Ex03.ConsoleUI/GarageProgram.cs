@@ -100,6 +100,7 @@ namespace Ex03.ConsoleUI
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, 
                                                 currentEnergyPrecent, currentEnergy, manufacturerName, currentAirPressure,
                                                 innerLicenseType, engineCm);
+                                
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
@@ -175,6 +176,7 @@ namespace Ex03.ConsoleUI
         private void CreateNewVehicle(Constructor i_Constructor,VehicleBuilder i_Builder,VehicleOwner i_Owner, string i_ModelName, string i_LicenseNumber, float i_EnergyLeftPercentage,
             float i_CurrentEnergyStorageStatus, string i_WheelManufacturerName, float i_WheelCurrentAirPressure,object i_FirstProperty,object i_SecondProperty)
         {
+            
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber, i_EnergyLeftPercentage,
                                                         i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                                                         i_FirstProperty, i_SecondProperty);

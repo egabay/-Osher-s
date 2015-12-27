@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic.Builders
     {
         public FueledCarBuilder()
         {
-
+            m_Vehicle = new Car();
         }
         public FueledCarBuilder(eColor i_CarColor, eNumberOfDoors i_NumberOfDoors)
         {

@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic.Builders
     {
         public FueledMotorCycleBuilder()
         {
-
+            m_Vehicle = new MotorCycle();
         }
         public FueledMotorCycleBuilder(eLicenseType i_LicenseType, int i_EngineSize)
         {
