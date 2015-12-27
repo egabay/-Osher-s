@@ -46,7 +46,6 @@ namespace Ex03.ConsoleUI
             string modelName;
             string licenseNumber;
             float currentEnergy;
-            float currentEnergyPrecent;
             string wheelManufacturName;
             float wheelCurrentAirPressure;
             string ownerName;
