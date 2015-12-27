@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
             bool retVal = v_isNotContained;
             if (m_LicenseToVehicle.ContainsKey(i_VehicleToAdd.VehicleLicenseNumber))
             {
-                i_VehicleOwnerToAdd.VehicleStatus=eVehicleStatus.InRepair;
+                i_VehicleOwnerToAdd.VehicleStatus = eVehicleStatus.InRepair;
                 retVal = !v_isNotContained;
             }
             else
@@ -26,14 +26,15 @@ namespace Ex03.GarageLogic
             }
             return retVal;
         }
-        public string GetAllLicenseNumbers(object i_Status=null)
+
+        public string GetAllLicenseNumbers(object i_Status = null)
         {
             StringBuilder retVal = new StringBuilder();
-            foreach (KeyValuePair<string,VehicleOwner> item in m_LicenseToOwner)
+            foreach (KeyValuePair<string, VehicleOwner> item in m_LicenseToOwner)
             {
-                if(i_Status!=null)
+                if (i_Status != null)
                 {
-                    if(item.Value.VehicleStatus==(eVehicleStatus)i_Status)
+                    if (item.Value.VehicleStatus == (eVehicleStatus) i_Status)
                     {
                         retVal.Append(item.Key).AppendLine();
                     }
@@ -45,15 +46,16 @@ namespace Ex03.GarageLogic
             }
             return retVal.ToString();
         }
+
         public string GetDetails(string i_LicenseNumber)
         {
             Vehicle innerVehicle;
             VehicleOwner innerOwner;
-            StringBuilder retVal=new StringBuilder();
+            StringBuilder retVal = new StringBuilder();
             if (m_LicenseToVehicle.TryGetValue(i_LicenseNumber, out innerVehicle))
             {
                 retVal.Append(innerVehicle.ToString());
-                if(m_LicenseToOwner.TryGetValue(i_LicenseNumber,out innerOwner))
+                if (m_LicenseToOwner.TryGetValue(i_LicenseNumber, out innerOwner))
                 {
                     retVal.Append(innerOwner.ToString());
                 }
@@ -63,31 +65,33 @@ namespace Ex03.GarageLogic
                 retVal.Append("The vehicle license number entered is not exists");
             }
             return retVal.ToString();
-
         }
-        public bool FillEnergyResource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeIfFuelEngine=null)
+
+        public bool FillEnergyResource(string i_LicenseNumber, float i_AmountToFill,
+            object i_FuelTypeIfFuelEngine = null)
         {
             const bool v_isNotContained = true;
             bool retVal = v_isNotContained;
             Vehicle innerVehicle;
-            if(m_LicenseToVehicle.TryGetValue(i_LicenseNumber,out innerVehicle))
+            if (m_LicenseToVehicle.TryGetValue(i_LicenseNumber, out innerVehicle))
             {
                 try
                 {
                     if (innerVehicle.Engine is ElectricEngine)
                     {
-                        ((ElectricEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
+                        ((ElectricEngine) innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
                     }
                     else
                     {
-                        ((FuelEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill, (eFuelType)i_FuelTypeIfFuelEngine);
+                        ((FuelEngine) innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill,
+                            (eFuelType) i_FuelTypeIfFuelEngine);
                     }
                 }
-                catch(ValueOutOfRangeException e)
+                catch (ValueOutOfRangeException e)
                 {
                     throw e;
                 }
-                catch(ArgumentException e)
+                catch (ArgumentException e)
                 {
                     throw e;
                 }
@@ -97,14 +101,14 @@ namespace Ex03.GarageLogic
                 retVal = !v_isNotContained;
             }
             return retVal;
-
         }
-        public bool ChangeStatus(string i_LicenseNumber,eVehicleStatus i_Status)
+
+        public bool ChangeStatus(string i_LicenseNumber, eVehicleStatus i_Status)
         {
-            const bool v_IsInTheGarage=true;
+            const bool v_IsInTheGarage = true;
             bool retVal = v_IsInTheGarage;
             VehicleOwner innerOwner;
-            if(m_LicenseToOwner.TryGetValue(i_LicenseNumber,out innerOwner))
+            if (m_LicenseToOwner.TryGetValue(i_LicenseNumber, out innerOwner))
             {
                 innerOwner.VehicleStatus = i_Status;
             }
@@ -114,6 +118,7 @@ namespace Ex03.GarageLogic
             }
             return retVal;
         }
+
         public bool MaximizeWheelPressure(string i_LicenseNumber)
         {
             const bool v_IsInTheGarage = true;
@@ -121,7 +126,8 @@ namespace Ex03.GarageLogic
             Vehicle innerVehicle;
             if (m_LicenseToVehicle.TryGetValue(i_LicenseNumber, out innerVehicle))
             {
-                innerVehicle.VehicleWheelCollection.WheelCurrentAirPressure = innerVehicle.VehicleWheelCollection.WheelMaximumAirPressure;
+                innerVehicle.VehicleWheelCollection.WheelCurrentAirPressure =
+                    innerVehicle.VehicleWheelCollection.WheelMaximumAirPressure;
             }
             else
             {

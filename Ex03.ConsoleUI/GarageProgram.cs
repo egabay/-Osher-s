@@ -83,7 +83,7 @@ namespace Ex03.ConsoleUI
                         eVehicleManu manuVehicleSelection;
                         manuVehicleSelection =
                             (eVehicleManu)Enum.Parse(typeof(eVehicleManu), ValidSelection(vehicleSelection, 5));
-                        VehicleDefaultDetails(out modelName, out licenseNumber, out currentEnergyPrecent,
+                        VehicleDefaultDetails(manuVehicleSelection, out modelName, out licenseNumber, out currentEnergyPrecent,
                                               out currentEnergy, out wheelManufacturName, out wheelCurrentAirPressure,
                                               out ownerName, out ownerPhone);
                         innerOwner.Name = ownerName;
@@ -93,9 +93,9 @@ namespace Ex03.ConsoleUI
                             case eVehicleManu.FuelMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new FueledMotorCycleBuilder();
-                                Vehicle innerFuelMotorCycle = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber,
-                                                currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
-                                                innerLicenseType, engineCm);
+                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber,
+                                    currentEnergyPrecent, currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
+                                    innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
@@ -106,7 +106,7 @@ namespace Ex03.ConsoleUI
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
-                                Vehicle innerFuelCar = CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber, currentEnergyPrecent,
+                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName, licenseNumber, currentEnergyPrecent,
                                                  currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(), DoorsSelection());
                                 break;
                             case eVehicleManu.ElectricCar:
@@ -181,7 +181,7 @@ namespace Ex03.ConsoleUI
             m_Data.AddNewVehicle(innerVehicle, i_Owner);
             return innerVehicle;
         }
-        private void VehicleDefaultDetails(out string o_ModelName, out string o_LicenseNumber, out float o_EnergyLeftPercentage,
+        private void VehicleDefaultDetails(eVehicleManu i_ManuVehicleSelection, out string o_ModelName, out string o_LicenseNumber, out float o_EnergyLeftPercentage,
                                 out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure, out string o_OwnerName, out string o_OwnerPhone)
         {
             Console.WriteLine("Enter model name:");
@@ -189,20 +189,52 @@ namespace Ex03.ConsoleUI
             o_ModelName = ValidString(o_ModelName);
             Console.WriteLine("Enter license number:");
             o_LicenseNumber = Console.ReadLine();
-            o_LicenseNumber = ValidLicense(o_LicenseNumber);
+            o_LicenseNumber = ValidNumber(o_LicenseNumber);
             Console.WriteLine("Enter your current Energy Left Percentage:");
             o_EnergyLeftPercentage = Convert.ToSingle(Console.ReadLine());
-            Console.WriteLine("Enter your current energy:");
-            o_CurrentEnergyStorageStatus = Convert.ToSingle(Console.ReadLine());
+            Console.WriteLine("Enter your current fuel capacity:");
+            string fuelCapacity = Console.ReadLine();
+            fuelCapacity = ValidNumber(fuelCapacity);
+            o_CurrentEnergyStorageStatus = Convert.ToSingle(fuelCapacity);
+            if (i_ManuVehicleSelection == eVehicleManu.FuelMotorcycle)
+            {
+                o_CurrentEnergyStorageStatus = ValidAirPressure(o_CurrentEnergyStorageStatus, 6f);
+            }
+            else if (i_ManuVehicleSelection == eVehicleManu.FuelCar)
+            {
+                o_CurrentEnergyStorageStatus = ValidAirPressure(o_CurrentEnergyStorageStatus, 42f);
+            }
+            else if (i_ManuVehicleSelection == eVehicleManu.Truck)
+            {
+                o_CurrentEnergyStorageStatus = ValidAirPressure(o_CurrentEnergyStorageStatus, 160f);
+            }
             Console.WriteLine("Enter phone number:");
             o_OwnerPhone = Console.ReadLine();
+            o_OwnerPhone = ValidNumber(o_OwnerPhone);
             Console.WriteLine("Enter wheel Manufacturer name:");
             o_WheelManufacturerName = Console.ReadLine();
+            o_WheelManufacturerName = ValidString(o_WheelManufacturerName);
             Console.WriteLine("Enter current air pressure:");
-            o_WheelCurrentAirPressure = Convert.ToSingle(Console.ReadLine());
+            string airPressure = Console.ReadLine();
+            airPressure = ValidNumber(airPressure);
+            o_WheelCurrentAirPressure = Convert.ToSingle(airPressure);
+            if (i_ManuVehicleSelection == eVehicleManu.ElectricMotorcycle || i_ManuVehicleSelection == eVehicleManu.FuelMotorcycle)
+            {
+                o_WheelCurrentAirPressure = ValidAirPressure(o_WheelCurrentAirPressure, 32f);
+            }
+            else if (i_ManuVehicleSelection == eVehicleManu.ElectricCar || i_ManuVehicleSelection == eVehicleManu.FuelCar)
+            {
+                o_WheelCurrentAirPressure = ValidAirPressure(o_WheelCurrentAirPressure, 29f);
+            }
+            else
+            {
+                o_WheelCurrentAirPressure = ValidAirPressure(o_WheelCurrentAirPressure, 34f);
+            }
             Console.WriteLine("Enter owner name:");
             o_OwnerName = Console.ReadLine();
+            o_OwnerName = ValidString(o_OwnerName);
         }
+
         private eColor ColorSelection()
         {
             Console.WriteLine(@"Color Menu :  
@@ -265,7 +297,7 @@ namespace Ex03.ConsoleUI
             string innerLicenseNumber;
             Console.WriteLine("Enter license number to change the status to ");
             innerLicenseNumber = Console.ReadLine();
-            innerLicenseNumber = ValidLicense(innerLicenseNumber);
+            innerLicenseNumber = ValidNumber(innerLicenseNumber);
             return innerLicenseNumber;
         }
         private string ValidSelection(string i_StrMenSelection, int i_NumberOfManu)
@@ -295,25 +327,42 @@ namespace Ex03.ConsoleUI
             while (string.IsNullOrEmpty(i_ValidStringInput))
             {
                 Console.Clear();
-                Console.WriteLine("Wrong, please enter a vaild name:");
+                Console.WriteLine("Wrong, please enter again:");
                 i_ValidStringInput = Console.ReadLine();
             }
             return i_ValidStringInput;
         }
 
-        private string ValidLicense(string i_ValidLicenseInput)
+        private string ValidNumber(string i_ValidNumberInput)
         {
             int answer;
-            bool isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
+            bool isNumeric = int.TryParse(i_ValidNumberInput, out answer);
             while (!isNumeric)
             {
                 Console.Clear();
-                Console.WriteLine("Wrong, please enter a vaild licence number:");
-                i_ValidLicenseInput = Console.ReadLine();
-                isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
+                Console.WriteLine("Wrong, please enter again:");
+                i_ValidNumberInput = Console.ReadLine();
+                isNumeric = int.TryParse(i_ValidNumberInput, out answer);
             }
-            return i_ValidLicenseInput;
+            return i_ValidNumberInput;
         }
+
+        private float ValidAirPressure(float i_ValidAirPressureInput, float i_MaximumPressure)
+        {
+            if (i_ValidAirPressureInput != null)
+            {
+                while (i_ValidAirPressureInput > i_MaximumPressure || i_ValidAirPressureInput < 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Wrong, please enter a vaild number between 0-{0}:", i_MaximumPressure);
+                    i_ValidAirPressureInput = Convert.ToSingle(Console.ReadLine());
+                }
+                
+            }
+            return i_ValidAirPressureInput;
+        }
+
+       
     }
 }
 
