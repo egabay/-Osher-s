@@ -11,13 +11,6 @@ namespace Ex03.ConsoleUI
 
         GarageData m_Data = new GarageData();
 
-        enum eVehicleType
-        {
-            None = 0,
-            FueledMotorCycle,
-            ElectricMotorCycle,
-        }
-
         public enum eMenuItem
         {
             None = 0,
@@ -57,8 +50,7 @@ namespace Ex03.ConsoleUI
             while (manuItemSelection != eMenuItem.Exit)
             {
                 Console.Clear();
-                Console.WriteLine(string.Format(
-                    @"Garage Menu :   
+                Console.WriteLine(@"Garage Menu :   
 
 1. Add new vehicle to the Garage
 2. Display the list of vehicles by ID number < Licence number>
@@ -67,7 +59,7 @@ namespace Ex03.ConsoleUI
 5. Refill Fuel Vehicle 
 6. Charge battery Vehicle 
 7. Display full details on vehicle
-8. Exit the Garage Program"));
+8. Exit the Garage Program");
 
                 strMenSelection = Console.ReadLine();
                 manuItemSelection = (eMenuItem)Enum.Parse(typeof(eMenuItem), ValidSelection(strMenSelection, 8));
@@ -76,14 +68,13 @@ namespace Ex03.ConsoleUI
                     case eMenuItem.AddNewVehicle:
                         Constructor innerConstructor = new Constructor();
                         Console.Clear();
-                        Console.WriteLine(string.Format(
-                            @"Vehicle Menu :   
+                        Console.WriteLine(@"Vehicle Menu :   
 
 1. Fuel motorcycle
 2. Electric motorcycle
 3. Fuel car
 4. Electric car
-5. Truck"));
+5. Truck");
                         string vehicleSelection = Console.ReadLine();
                         int engineCm;
                         eLicenseType manuLicenseSelection = eLicenseType.None;
@@ -192,8 +183,10 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine("Enter model name:");
             o_ModelName = Console.ReadLine();
+            o_ModelName = ValidString(o_ModelName); 
             Console.WriteLine("Enter license number:");
             o_LicenseNumber = Console.ReadLine();
+            o_LicenseNumber = ValidLicense(o_LicenseNumber);
             Console.WriteLine("Enter your current Energy Left Percentage:");
             o_EnergyLeftPercentage = Convert.ToSingle(Console.ReadLine());
             Console.WriteLine("Enter your current energy:");
@@ -240,12 +233,11 @@ namespace Ex03.ConsoleUI
 
         private void ManuMotorCycle(out int o_EngineCm, out eLicenseType o_LicenseType)
         {
-            Console.WriteLine(string.Format(
-                @"Garage Menu :  
+            Console.WriteLine(@"License Menu :  
 1. A
 2. A1
 3. A4
-4. C"));
+4. C");
             string licenseSelection = Console.ReadLine();
             eLicenseType manuLicenseSelection = eLicenseType.None;
             o_LicenseType =
@@ -275,6 +267,31 @@ namespace Ex03.ConsoleUI
                 }
             }
             return correctSelection;
+        }
+
+        private static string ValidString(string i_ValidStringInput)
+        {
+            while (string.IsNullOrEmpty(i_ValidStringInput))
+            {
+                Console.Clear();
+                Console.WriteLine("Wrong, please enter a vaild name:");
+                i_ValidStringInput = Console.ReadLine();
+            }
+            return i_ValidStringInput;
+        }
+
+        private static string ValidLicense(string i_ValidLicenseInput)
+        {
+            int answer;
+            bool isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
+            while (!isNumeric)
+            {
+                Console.Clear();
+                Console.WriteLine("Wrong, please enter a vaild licence number:");
+                i_ValidLicenseInput = Console.ReadLine();
+                isNumeric = int.TryParse(i_ValidLicenseInput, out answer);
+            }
+            return i_ValidLicenseInput; 
         }
     }
 }

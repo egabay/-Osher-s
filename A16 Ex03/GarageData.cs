@@ -44,6 +44,7 @@ namespace Ex03.GarageLogic
             return retVal;
 
         }
+
         public bool FillEnergyResource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeIfFuelEngine=null)
         {
             const bool v_isNotContained = true;
@@ -77,6 +78,11 @@ namespace Ex03.GarageLogic
             }
             return retVal;
 
+        }
+
+        public void ChangeVehicleStatus(string i_LicenseNumber, string i_NewVehicleStatus)
+        {
+            //add new carStstus
         }
     }
 }
