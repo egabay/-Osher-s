@@ -53,9 +53,10 @@ namespace Ex03.ConsoleUI
             string ownerPhone;
             eLicenseType innerLicenseType;
             VehicleBuilder innerVehicleBuilder;
-            VehicleOwner innerOwner = new VehicleOwner();
+
             while (manuItemSelection != eMenuItem.Exit)
             {
+
                 Console.Clear();
                 Console.WriteLine(@"Garage Menu:   
 1. Add new vehicle to the Garage
@@ -72,6 +73,7 @@ Press a number:");
                 {
                     case eMenuItem.AddNewVehicle:
                         Constructor innerConstructor = new Constructor();
+                        VehicleOwner innerOwner = new VehicleOwner();
                         Console.Clear();
                         Console.WriteLine(@"Vehicle Menu:
 1. Fuel motorcycle
