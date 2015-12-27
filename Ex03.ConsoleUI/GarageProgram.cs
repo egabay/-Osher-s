@@ -53,9 +53,10 @@ namespace Ex03.ConsoleUI
             string ownerPhone;
             eLicenseType innerLicenseType;
             VehicleBuilder innerVehicleBuilder;
-            VehicleOwner innerOwner = new VehicleOwner();
+
             while (manuItemSelection != eMenuItem.Exit)
             {
+
                 Console.Clear();
                 Console.WriteLine(@"Garage Menu:   
 1. Add new vehicle to the garage
@@ -72,6 +73,7 @@ Press a number:");
                 {
                     case eMenuItem.AddNewVehicle:
                         Constructor innerConstructor = new Constructor();
+                        VehicleOwner innerOwner = new VehicleOwner();
                         Console.Clear();
                         Console.WriteLine(@"Vehicle Menu:
 1. Fuel motorcycle
@@ -275,7 +277,10 @@ Press a number:");
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber,
                 i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                 i_FirstProperty, i_SecondProperty);
-            m_Data.AddNewVehicle(innerVehicle, i_Owner);
+            if(!m_Data.AddNewVehicle(innerVehicle, i_Owner))
+            {
+                Console.WriteLine("The car is already in garage, status changed to InRepair");
+            }
             return innerVehicle;
         }
 
