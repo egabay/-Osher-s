@@ -136,13 +136,12 @@ namespace Ex03.ConsoleUI
                                     MaxWeight());
                                 break;
                         }
-
-
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
                         //  ShowVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
+                        ChangeVehicleStatus(VehicleStatus());
                         //TODO - Readline status to change and check readline data
                         //========================================================
                         //eVehicleStatus innerStatus;
@@ -179,17 +178,22 @@ namespace Ex03.ConsoleUI
             return weight;
         }
 
-        private eMaterials MaterialsSelection()
+        private bool MaterialsSelection()
         {
+            bool materialsAnswer = false;
             Console.WriteLine(@"The truck have dangerous materials?
 Menu :   
 1. No
 2. Yes");
             string materialsSelection = Console.ReadLine();
-            eMaterials manumaterialsSelection = eMaterials.None; 
+            eMaterials manumaterialsSelection = eMaterials.None;
             manumaterialsSelection =
-                (eMaterials)Enum.Parse(typeof(eMaterials), ValidSelection(materialsSelection, 2));
-            return manumaterialsSelection;
+                (eMaterials) Enum.Parse(typeof (eMaterials), ValidSelection(materialsSelection, 2));
+            if (manumaterialsSelection == eMaterials.Yes)
+            {
+                materialsAnswer = true;
+            }
+            return materialsAnswer;
         }
 
         private void ShowVehicleByLicenseNumber(string i_LicenseNumber)
@@ -323,7 +327,18 @@ Menu :
         public void ChangeVehicleStatus(eVehicleStatus i_Status)
         {
             string innerLicenseNumber = GetLicenseNumberFromUser();
-            m_Data.ChangeStatus(innerLicenseNumber, i_Status);
+            if (!m_Data.ChangeStatus(innerLicenseNumber, i_Status))
+            {
+                Console.WriteLine(@"This license number is not in the garage!
+Press enter and back to manu");
+                Console.ReadLine(); 
+            }
+            else
+            {
+                Console.WriteLine(@"The car status changed to: {0}
+Press enter and back to manu", i_Status);
+                Console.ReadLine(); 
+            }
         }
 
         public void FillAirToMax()
@@ -401,7 +416,7 @@ Menu :
             return i_ValidAirPressureInput;
         }
 
-        public eVehicleStatus VehicleStatus(eVehicleStatus i_EVehicleStatus)
+        private eVehicleStatus VehicleStatus()
         {
             Console.WriteLine(@"Please enter your vehicle status:
 Vehicle status Menu :  
@@ -414,6 +429,22 @@ Vehicle status Menu :
                 (eVehicleStatus)
                     Enum.Parse(typeof (eVehicleStatus), ValidSelection(statusSelection, 3));
             return manuStatusSelection;
+        }
+
+        private eFuelType VehicleFuelType()
+        {
+            Console.WriteLine(@"Please enter your fuel type:
+Vehicle status Menu :  
+1. Octan95
+2. Octan96
+3. Octan98
+4. Soler");
+            string fuelSelection = Console.ReadLine();
+            eFuelType manuFuelSelection;
+            manuFuelSelection =
+                (eFuelType)
+                    Enum.Parse(typeof(eFuelType), ValidSelection(fuelSelection, 3));
+            return manuFuelSelection;
         }
     }
 }
