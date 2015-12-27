@@ -139,13 +139,15 @@ Press a number:");
                         //  ShowVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                        ChangeVehicleStatus(VehicleStatus());
+                        string innerLicenseNumberStatus = GetLicenseNumberFromUser();
+                        ChangeVehicleStatus(VehicleStatus(), innerLicenseNumberStatus);
                         break;
                     case eMenuItem.FillAirPressure:
-                        FillAirToMax();
+                        string innerLicenseNumberPressure = GetLicenseNumberFromUser();
+                        FillAirToMax(innerLicenseNumberPressure);
                         break;
                     case eMenuItem.ReFillFuelVehicle:
-                        //     ReFillFuelVehicle();
+                        //RefillEnergySource
                         break;
                     case eMenuItem.ChargeVehicleBattery:
                         //     chargeVehicleBattery();
@@ -317,10 +319,10 @@ Press a number:");
         }
 
 
-        public void ChangeVehicleStatus(eVehicleStatus i_Status)
+        public void ChangeVehicleStatus(eVehicleStatus i_Status, string i_InnerLicenseNumber)
         {
-            string innerLicenseNumber = GetLicenseNumberFromUser();
-            if (!m_Data.ChangeStatus(innerLicenseNumber, i_Status))
+            i_InnerLicenseNumber = GetLicenseNumberFromUser();
+            if (!m_Data.ChangeStatus(i_InnerLicenseNumber, i_Status))
             {
                 Console.WriteLine(@"This license number is not in the garage!
 Press enter and back to manu");
@@ -334,10 +336,10 @@ Press enter and back to manu", i_Status);
             }
         }
 
-        public void FillAirToMax()
+        public void FillAirToMax(string i_InnerLicenseNumber)
         {
-            string innerLicenseNumber = GetLicenseNumberFromUser();
-            if (!m_Data.MaximizeWheelPressure(innerLicenseNumber))
+            i_InnerLicenseNumber = GetLicenseNumberFromUser();
+            if (!m_Data.MaximizeWheelPressure(i_InnerLicenseNumber))
             {
                 Console.WriteLine(@"This license number is not in the garage!
 Press enter and back to manu");
