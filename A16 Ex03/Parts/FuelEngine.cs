@@ -22,6 +22,12 @@ namespace Ex03.GarageLogic
             m_FuelType = i_FuelType;
         }
 
+        public eFuelType FuelType
+        {
+            get { return m_FuelType; }
+            set { m_FuelType = value; }
+        }
+
         public void RefillEnergyStorage(float i_AmountEnergyToFill,eFuelType i_FuelType)
         {
             if((eFuelType)i_FuelType==m_FuelType)

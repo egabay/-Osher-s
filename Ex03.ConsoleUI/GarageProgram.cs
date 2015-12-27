@@ -70,7 +70,7 @@ namespace Ex03.ConsoleUI
 8. Exit the Garage Program"));
 
                 strMenSelection = Console.ReadLine();
-                manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), ValidSelection(strMenSelection, 8));
+                manuItemSelection = (eMenuItem)Enum.Parse(typeof(eMenuItem), ValidSelection(strMenSelection, 8));
                 switch (manuItemSelection)
                 {
                     case eMenuItem.AddNewVehicle:
@@ -88,31 +88,35 @@ namespace Ex03.ConsoleUI
                         int engineCm;
                         eLicenseType manuLicenseSelection = eLicenseType.None;
                         eVehicleManu manuVehicleSelection;
-                        manuVehicleSelection = 
-                            (eVehicleManu) Enum.Parse(typeof (eVehicleManu), ValidSelection(vehicleSelection, 5));
-                        VehicleDefaultDetails(out modelName, out licenseNumber, out currentEnergyPrecent, 
+                        manuVehicleSelection =
+                            (eVehicleManu)Enum.Parse(typeof(eVehicleManu), ValidSelection(vehicleSelection, 5));
+                        VehicleDefaultDetails(out modelName, out licenseNumber, out currentEnergyPrecent,
                                               out currentEnergy, out manufacturerName, out currentAirPressure);
                         switch (manuVehicleSelection)
                         {
                             case eVehicleManu.FuelMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new FueledMotorCycleBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, 
+                                Vehicle innerFuelMotorCycle = CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber,
                                                 currentEnergyPrecent, currentEnergy, manufacturerName, currentAirPressure,
                                                 innerLicenseType, engineCm);
-                                
+
+                                //ToDo: Add method to select a fuel type and enter here : 
+                                //((FuelEngine)(innerFuelMotorCycle.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
                                 ManuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new ElectricMotorCycleBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber,
                                                  currentEnergyPrecent, currentEnergy, manufacturerName, currentAirPressure,
-                                                 innerLicenseType, engineCm);    
+                                                 innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
                                 CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, currentEnergyPrecent,
                                                  currentEnergy, manufacturerName, currentAirPressure, ColorSelection(), DoorsSelection());
+                                //ToDo: Add method to select a fuel type and enter here : 
+                                //((FuelEngine)(innerFuelMotorCycle.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
@@ -125,11 +129,11 @@ namespace Ex03.ConsoleUI
                                 Console.WriteLine("The truck have dangerous materials?");
                                 //Add bool 
                                 //max wheight
-                              /*  VehicleBuilder truck = new TruckBuilder();
-                                newTruck = createConstructor.Construct(truck, modelName, licenseNumber, currentEnergy,
-                                    6f,
-                                    manufacturerName, currentAirPressure, CarSelection(), DoorsSelection());
-                                m_Data.AddNewVehicle(newTruck, owner);*/
+                                /*  VehicleBuilder truck = new TruckBuilder();
+                                  newTruck = createConstructor.Construct(truck, modelName, licenseNumber, currentEnergy,
+                                      6f,
+                                      manufacturerName, currentAirPressure, CarSelection(), DoorsSelection());
+                                  m_Data.AddNewVehicle(newTruck, owner);*/
                                 break;
                         }
 
@@ -168,21 +172,22 @@ namespace Ex03.ConsoleUI
             Console.WriteLine(m_Data.GetDetails(i_LicenseNumber));
         }
 
-        private void RefillEnergySource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeOptional=null)
+        private void RefillEnergySource(string i_LicenseNumber, float i_AmountToFill, object i_FuelTypeOptional = null)
         {
             m_Data.FillEnergyResource(i_LicenseNumber, i_AmountToFill, i_FuelTypeOptional);
         }
 
-        private void CreateNewVehicle(Constructor i_Constructor,VehicleBuilder i_Builder,VehicleOwner i_Owner, string i_ModelName, string i_LicenseNumber, float i_EnergyLeftPercentage,
-            float i_CurrentEnergyStorageStatus, string i_WheelManufacturerName, float i_WheelCurrentAirPressure,object i_FirstProperty,object i_SecondProperty)
+        private Vehicle CreateNewVehicle(Constructor i_Constructor, VehicleBuilder i_Builder, VehicleOwner i_Owner, string i_ModelName, string i_LicenseNumber, float i_EnergyLeftPercentage,
+            float i_CurrentEnergyStorageStatus, string i_WheelManufacturerName, float i_WheelCurrentAirPressure, object i_FirstProperty, object i_SecondProperty)
         {
-            
+
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber, i_EnergyLeftPercentage,
                                                         i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                                                         i_FirstProperty, i_SecondProperty);
             m_Data.AddNewVehicle(innerVehicle, i_Owner);
+            return innerVehicle;
         }
-        private void VehicleDefaultDetails(out string o_ModelName, out string o_LicenseNumber,out float o_EnergyLeftPercentage,
+        private void VehicleDefaultDetails(out string o_ModelName, out string o_LicenseNumber, out float o_EnergyLeftPercentage,
                                 out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName, out float o_WheelCurrentAirPressure)
         {
             Console.WriteLine("Enter model name:");
@@ -233,7 +238,7 @@ namespace Ex03.ConsoleUI
         }
 
 
-        private void ManuMotorCycle(out int o_EngineCm,out eLicenseType o_LicenseType)
+        private void ManuMotorCycle(out int o_EngineCm, out eLicenseType o_LicenseType)
         {
             Console.WriteLine(string.Format(
                 @"Garage Menu :  
@@ -245,7 +250,7 @@ namespace Ex03.ConsoleUI
             eLicenseType manuLicenseSelection = eLicenseType.None;
             o_LicenseType =
                 (eLicenseType)
-                    Enum.Parse(typeof (eLicenseType), ValidSelection(licenseSelection, 4));
+                    Enum.Parse(typeof(eLicenseType), ValidSelection(licenseSelection, 4));
             Console.WriteLine("Enter engine by cm:");
             o_EngineCm = Convert.ToInt32(Console.ReadLine());
         }
