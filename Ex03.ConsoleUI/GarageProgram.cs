@@ -124,7 +124,6 @@ Press a number:");
                                     licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(),
                                     DoorsSelection());
-
                                 break;
                             case eVehicleManu.Truck:
                                 innerVehicleBuilder = new TruckBuilder();
@@ -159,7 +158,6 @@ Press a number:");
                         Console.ReadLine();
                         break;
                     case eMenuItem.Exit:
-                        //       exitGarageProgram();
                         break;
                 }
             }
