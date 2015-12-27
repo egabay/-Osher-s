@@ -4,16 +4,17 @@ using System.Text;
 
 namespace Ex03.GarageLogic.Builders
 {
-    public class TruckBuilder:VehicleBuilder
+    public class TruckBuilder : VehicleBuilder
     {
         public TruckBuilder()
         {
             m_Vehicle = new Truck();
         }
+
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             m_Vehicle.Engine = new FuelEngine(i_CurrentEnergyStorageStatus, 160f, eFuelType.Soler);
-            m_Vehicle.VehicleEnergyPercent = (i_CurrentEnergyStorageStatus/m_Vehicle.Engine.MaximumEnergyStorageCapacity) * 100;
+            m_Vehicle.VehicleEnergyPercent = (i_CurrentEnergyStorageStatus / m_Vehicle.Engine.MaximumEnergyStorageCapacity) * 100;
         }
 
         public override void BuildWheels(string i_WheelManufacturerName, float i_WheelCurrentAirPressure)

@@ -24,6 +24,7 @@ namespace Ex03.GarageLogic
                 m_LicenseToVehicle.Add(i_VehicleToAdd.VehicleLicenseNumber, i_VehicleToAdd);
                 i_VehicleOwnerToAdd.VehicleStatus = eVehicleStatus.InRepair;
             }
+
             return retVal;
         }
 
@@ -34,7 +35,7 @@ namespace Ex03.GarageLogic
             {
                 if (i_Status != null)
                 {
-                    if (item.Value.VehicleStatus == (eVehicleStatus) i_Status)
+                    if (item.Value.VehicleStatus == (eVehicleStatus)i_Status)
                     {
                         retVal.Append(item.Key).AppendLine();
                     }
@@ -44,7 +45,8 @@ namespace Ex03.GarageLogic
                     retVal.Append(item.Key).AppendLine();
                 }
             }
-            if(retVal.ToString()==string.Empty)
+
+            if (retVal.ToString() == string.Empty)
             {
                 if (i_Status != null)
                 {
@@ -54,8 +56,8 @@ namespace Ex03.GarageLogic
                 {
                     retVal.Append("There is no vehicles in the garage in this status").AppendLine();
                 }
-
             }
+
             return retVal.ToString();
         }
 
@@ -76,11 +78,11 @@ namespace Ex03.GarageLogic
             {
                 retVal.Append("The vehicle license number entered is not exists");
             }
+
             return retVal.ToString();
         }
 
-        public bool FillEnergyResource(string i_LicenseNumber, float i_AmountToFill,
-            object i_FuelTypeIfFuelEngine = null)
+        public bool FillEnergyResource(string i_LicenseNumber, float i_AmountToFill, object i_FuelTypeIfFuelEngine = null)
         {
             const bool v_isNotContained = true;
             bool retVal = v_isNotContained;
@@ -91,13 +93,13 @@ namespace Ex03.GarageLogic
                 {
                     if (innerVehicle.Engine is ElectricEngine)
                     {
-                        ((ElectricEngine) innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
+                        ((ElectricEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
                     }
                     else
                     {
-                        ((FuelEngine) innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill,
-                            (eFuelType) i_FuelTypeIfFuelEngine);
+                        ((FuelEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill, (eFuelType)i_FuelTypeIfFuelEngine);
                     }
+
                     innerVehicle.VehicleEnergyPercent = (innerVehicle.Engine.CurrentEnergyStorageStatus / innerVehicle.Engine.MaximumEnergyStorageCapacity) * 100;
                 }
                 catch (ValueOutOfRangeException e)
@@ -113,6 +115,7 @@ namespace Ex03.GarageLogic
             {
                 retVal = !v_isNotContained;
             }
+
             return retVal;
         }
 
@@ -121,13 +124,14 @@ namespace Ex03.GarageLogic
             const bool v_IsFuelVehicle = true;
             bool retVal = v_IsFuelVehicle;
             Vehicle innerVehicle;
-            if(m_LicenseToVehicle.TryGetValue(i_LicenseNumber,out innerVehicle))
+            if (m_LicenseToVehicle.TryGetValue(i_LicenseNumber, out innerVehicle))
             {
-                if(innerVehicle.Engine is ElectricEngine)
+                if (innerVehicle.Engine is ElectricEngine)
                 {
                     retVal = !v_IsFuelVehicle;
                 }
             }
+
             return retVal;
         }
 
@@ -144,6 +148,7 @@ namespace Ex03.GarageLogic
             {
                 retVal = !v_IsInTheGarage;
             }
+
             return retVal;
         }
 
@@ -161,6 +166,7 @@ namespace Ex03.GarageLogic
             {
                 retVal = !v_IsInTheGarage;
             }
+
             return retVal;
         }
     }

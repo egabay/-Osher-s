@@ -10,6 +10,7 @@ namespace Ex03.GarageLogic.Builders
         {
             m_Vehicle = new MotorCycle();
         }
+
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             MotorCycle motorCycle = (MotorCycle) m_Vehicle;

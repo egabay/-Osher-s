@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
 
     internal class MotorCycle : Vehicle
     {
-        private int m_EngineSize=0;
+        private int m_EngineSize = 0;
         private eLicenseType m_LicenseType;
         protected const int k_MotorCycleNumberOfWheels = 2;
         internal static float s_MaximumAirPressure = 32;
@@ -23,8 +23,8 @@ namespace Ex03.GarageLogic
 
         public MotorCycle()
         {
-
         }
+
         protected override string GetAttributes()
         {
             string retVal;
@@ -41,20 +41,21 @@ namespace Ex03.GarageLogic
         }
 
         public int EngineSize
-        {      
+        {
             get { return m_EngineSize; }
             set { m_EngineSize = value; }
         }
+
         public sealed override object FirstDifferentProperty
         {
-            get{ return m_LicenseType; }
-            set{ m_LicenseType = (eLicenseType)value; }
+            get { return m_LicenseType; }
+            set { m_LicenseType = (eLicenseType)value; }
         }
+
         public sealed override object SecondDifferentProperty
         {
             get { return m_EngineSize; }
             set { m_EngineSize = (int)value; }
         }
     }
-
 }

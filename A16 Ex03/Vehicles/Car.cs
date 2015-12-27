@@ -22,7 +22,6 @@ namespace Ex03.GarageLogic
         Five
     }
 
-
     public class Car : Vehicle
     {
         protected const int k_NumberOfWheels = 4;
@@ -31,11 +30,8 @@ namespace Ex03.GarageLogic
         private eColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
 
-
-
         public Car()
         {
-
         }
 
         protected override string GetAttributes()
@@ -58,11 +54,13 @@ namespace Ex03.GarageLogic
             get { return m_NumberOfDoors; }
             set { m_NumberOfDoors = value; }
         }
+
         public sealed override object FirstDifferentProperty
         {
             get { return m_Color; }
             set { m_Color = (eColor)value; }
         }
+
         public sealed override object SecondDifferentProperty
         {
             get { return m_NumberOfDoors; }

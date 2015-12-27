@@ -16,6 +16,7 @@ namespace Ex03.GarageLogic
     public class FuelEngine : Engine
     {
         eFuelType m_FuelType;
+
         public FuelEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity, eFuelType i_FuelType)
             : base(i_CurrentEnergyStorageStatus, i_MaximumEnergyStorageCapacity)
         {
@@ -28,11 +29,11 @@ namespace Ex03.GarageLogic
             set { m_FuelType = value; }
         }
 
-        public void RefillEnergyStorage(float i_AmountEnergyToFill,eFuelType i_FuelType)
+        public void RefillEnergyStorage(float i_AmountEnergyToFill, eFuelType i_FuelType)
         {
-            if((eFuelType)i_FuelType==m_FuelType)
+            if ((eFuelType)i_FuelType == m_FuelType)
             {
-                if((i_AmountEnergyToFill<=m_MaximumEnergyStorageCapacity-m_CurrentEnergyStorageStatus)&&(i_AmountEnergyToFill>=0))
+                if ((i_AmountEnergyToFill <= m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus) && (i_AmountEnergyToFill >= 0))
                 {
                     m_CurrentEnergyStorageStatus += i_AmountEnergyToFill;
                 }
@@ -46,10 +47,10 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException(string.Format("Error trying to Fill {0} Into {1} Tank", (eFuelType)i_FuelType, m_FuelType));
             }
         }
+
         public override string ToString()
         {
-            return (String.Format("Current Fuel status : {0} , Maximum Fuel Capacity : {1},Fuel type :{2}",
-                m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity,m_FuelType));
+            return string.Format("Current Fuel status : {0} , Maximum Fuel Capacity : {1},Fuel type :{2}", m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity, m_FuelType);
         }
     }
 }

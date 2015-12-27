@@ -11,6 +11,7 @@ namespace Ex03.GarageLogic
         Four,
         Twelve
     }
+
     public abstract class Vehicle
     {
         protected string m_ModelName;
@@ -27,55 +28,62 @@ namespace Ex03.GarageLogic
             get;
             set;
         }
+
         public abstract object SecondDifferentProperty
         {
             get;
             set;
         }
 
-
         public Vehicle()
         {
         }
+
         public string VehicleModelName
         {
             get { return m_ModelName; }
             set { m_ModelName = value; }
         }
+
         public string VehicleLicenseNumber
         {
             get { return m_LicenseNumber; }
             set { m_LicenseNumber = value; }
         }
+
         public float VehicleEnergyPercent
         {
             get { return m_RemainingEnergyPercent; }
             set { m_RemainingEnergyPercent = value; }
         }
+
         public eNumberOfWheels VehicleNumberOfWheels
         {
             get { return m_NumberOfWheels; }
             set { m_NumberOfWheels = value; }
         }
+
         public Wheel VehicleWheelCollection
         {
             get { return m_WheelCollection; }
             set { m_WheelCollection = value; }
         }
+
         public override sealed string ToString()
         {
             StringBuilder builder = new StringBuilder();
             string retVal;
-            builder.AppendFormat("License Number : {0} ,\n Model Name : {1} ,\n {2} ,\n {3}\n {4}\n Remaining Energy In Percentage : {5}", 
-                m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes(),m_Engine.ToString(),m_RemainingEnergyPercent.ToString());
+            builder.AppendFormat("License Number : {0} ,\n Model Name : {1} ,\n {2} ,\n {3}\n {4}\n Remaining Energy In Percentage : {5}", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes(), m_Engine.ToString(), m_RemainingEnergyPercent.ToString());
             retVal = builder.ToString();
             return retVal;
         }
+
         public Engine Engine
         {
             get { return m_Engine; }
             set { m_Engine = value; }
         }
+
         protected abstract string GetAttributes();
     }
 }

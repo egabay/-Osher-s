@@ -14,7 +14,6 @@ namespace Ex03.GarageLogic
 
         public Truck()
         {
-
         }
 
         protected override string GetAttributes()
@@ -37,11 +36,13 @@ namespace Ex03.GarageLogic
             get { return v_IsCarryDangerousMaterials; }
             set { v_IsCarryDangerousMaterials = value; }
         }
+
         public sealed override object FirstDifferentProperty
         {
             get { return v_IsCarryDangerousMaterials; }
             set { v_IsCarryDangerousMaterials = (bool)value; }
         }
+
         public sealed override object SecondDifferentProperty
         {
             get { return m_MaximumCarryingWeight; }

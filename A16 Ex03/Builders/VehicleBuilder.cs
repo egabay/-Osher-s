@@ -9,6 +9,7 @@ namespace Ex03.GarageLogic
         public VehicleBuilder()
         {
         }
+
         protected Vehicle m_Vehicle;
 
         public Vehicle Vehicle
@@ -27,6 +28,7 @@ namespace Ex03.GarageLogic
         }
 
         public abstract void BuildEngine(float i_CurrentEnergyStorageStatus);
+
         public abstract void BuildWheels(string i_WheelManufacturerName, float i_WheelCurrentAirPressure);
 
         public void BuildFirstDifferentProperty(object i_Property)

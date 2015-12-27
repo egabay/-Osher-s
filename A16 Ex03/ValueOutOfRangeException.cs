@@ -8,8 +8,9 @@ namespace Ex03.GarageLogic
     {
         private float m_ChargeAmount;
         private float m_MaxToCharge;
+
         public ValueOutOfRangeException(float i_AmountToCharge, float i_MaxToCharge)
-            : base(String.Format("Error occured while trying to fill {0} into max of {1} to fill ", i_AmountToCharge, i_MaxToCharge))
+            : base(string.Format("Error occured while trying to fill {0} into max of {1} to fill ", i_AmountToCharge, i_MaxToCharge))
         {
             m_ChargeAmount = i_AmountToCharge;
             m_MaxToCharge = i_MaxToCharge;
@@ -19,6 +20,7 @@ namespace Ex03.GarageLogic
         {
             get { return m_MaxToCharge; }
         }
+
         public float ChargeAmount
         {
             get { return m_ChargeAmount; }
