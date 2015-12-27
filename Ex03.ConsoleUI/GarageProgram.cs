@@ -167,11 +167,11 @@ Press a number:");
              {
                  eVehicleStatus innerStatus;
                  innerStatus = vehicleStatus();
-                 m_Data.GetAllLicenseNumbers(innerStatus);
+                Console.WriteLine( m_Data.GetAllLicenseNumbers(innerStatus));
              }
              else
              {
-                 m_Data.GetAllLicenseNumbers();
+                 Console.WriteLine(m_Data.GetAllLicenseNumbers());
              }
          }
         private void refillEnergySource()
