@@ -113,10 +113,10 @@ namespace Ex03.ConsoleUI
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, currentEnergyPrecent,
+                                Vehicle innerFuelCar = CreateNewVehicle(innerConstructor, innerVehicleBuilder, owner, modelName, licenseNumber, currentEnergyPrecent,
                                                  currentEnergy, manufacturerName, currentAirPressure, ColorSelection(), DoorsSelection());
                                 //ToDo: Add method to select a fuel type and enter here : 
-                                //((FuelEngine)(innerFuelMotorCycle.Engine)).FuelType=(ToAdd)
+                                //((FuelEngine)(innerFuelCar.Engine)).FuelType=(ToAdd)
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
