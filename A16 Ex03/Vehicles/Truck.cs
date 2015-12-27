@@ -16,6 +16,7 @@ namespace Ex03.GarageLogic
         {
 
         }
+
         protected override string GetAttributes()
         {
             string retVal;
@@ -24,6 +25,7 @@ namespace Ex03.GarageLogic
             retVal = builder.ToString();
             return retVal;
         }
+
         public float TruckMaximumCarryingWeight
         {
             get { return m_MaximumCarryingWeight; }

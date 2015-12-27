@@ -6,6 +6,10 @@ namespace Ex03.GarageLogic.Builders
 {
     public class ElectricMotorCycleBuilder : VehicleBuilder
     {
+        public ElectricMotorCycleBuilder()
+        {
+
+        }
         public ElectricMotorCycleBuilder(eLicenseType i_LicenseType, int i_EngineSize)
         {
             m_Vehicle = new MotorCycle();

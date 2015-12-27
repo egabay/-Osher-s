@@ -40,5 +40,10 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException(string.Format("Error trying to Fill {0} Into {1} Tank", (eFuelType)i_FuelType, m_FuelType));
             }
         }
+        public override string ToString()
+        {
+            return (String.Format("Current Fuel status : {1} , Maximum Fuel Capacity : {2},Fuel type :{3}",
+                m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity,m_FuelType));
+        }
     }
 }

@@ -22,5 +22,9 @@ namespace Ex03.GarageLogic
                 throw new ValueOutOfRangeException(i_AmountEnergyToFill, m_MaximumEnergyStorageCapacity - m_CurrentEnergyStorageStatus);
             }
         }
+        public override string ToString()
+        {
+            return (String.Format("Current Energy status : {1} , Maximum Electric Capacity : {2}", m_CurrentEnergyStorageStatus, m_MaximumEnergyStorageCapacity));
+        }
     }
 }

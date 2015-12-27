@@ -66,7 +66,7 @@ namespace Ex03.GarageLogic
         {
             StringBuilder builder = new StringBuilder();
             string retVal;
-            builder.AppendFormat("License Number : {0} ,\n Model Name : {1} ,\n {2} ,\n {3}\n", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes());
+            builder.AppendFormat("License Number : {0} ,\n Model Name : {1} ,\n {2} ,\n {3}\n {4}", m_LicenseNumber, m_ModelName, m_WheelCollection.ToString(), this.GetAttributes(),m_Engine.ToString());
             retVal = builder.ToString();
             return retVal;
         }

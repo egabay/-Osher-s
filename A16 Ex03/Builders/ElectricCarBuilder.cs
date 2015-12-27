@@ -6,6 +6,10 @@ namespace Ex03.GarageLogic.Builders
 {
     public class ElectricCarBuilder : VehicleBuilder
     {
+        public ElectricCarBuilder()
+        {
+
+        }
         public ElectricCarBuilder(eColor i_CarColor, eNumberOfDoors i_NumberOfDoors)
         {
             m_Vehicle = new Car();
@@ -24,5 +28,6 @@ namespace Ex03.GarageLogic.Builders
             m_Vehicle.VehicleNumberOfWheels = eNumberOfWheels.Four;
             m_Vehicle.VehicleWheelCollection.WheelMaximumAirPressure = 29;
         }
+        
     }
 }
