@@ -104,6 +104,21 @@ namespace Ex03.GarageLogic
             return retVal;
         }
 
+        public bool IsFuelVehicle(string i_LicenseNumber)
+        {
+            const bool v_IsFuelVehicle = true;
+            bool retVal = v_IsFuelVehicle;
+            Vehicle innerVehicle;
+            if(m_LicenseToVehicle.TryGetValue(i_LicenseNumber,out innerVehicle))
+            {
+                if(innerVehicle.Engine is ElectricEngine)
+                {
+                    retVal = !v_IsFuelVehicle;
+                }
+            }
+            return retVal;
+        }
+
         public bool ChangeStatus(string i_LicenseNumber, eVehicleStatus i_Status)
         {
             const bool v_IsInTheGarage = true;

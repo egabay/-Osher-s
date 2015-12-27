@@ -63,13 +63,12 @@ namespace Ex03.ConsoleUI
 2. Display the list of vehicles by ID number < Licence number>
 3. Change vehicle status in the Garage
 4. Change the air pressure to maximum
-5. Refill Fuel Vehicle 
-6. Charge battery Vehicle 
+5. Refill The Vehicle Energy Storage 
 7. Display full details on vehicle
 8. Exit the Garage Program
 Press a number:");
                 strMenSelection = Console.ReadLine();
-                manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), ValidSelection(strMenSelection, 8));
+                manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), validSelection(strMenSelection, 8));
                 switch (manuItemSelection)
                 {
                     case eMenuItem.AddNewVehicle:
@@ -87,8 +86,8 @@ Press a number:");
                         eLicenseType manuLicenseSelection = eLicenseType.None;
                         eVehicleManu manuVehicleSelection;
                         manuVehicleSelection =
-                            (eVehicleManu) Enum.Parse(typeof (eVehicleManu), ValidSelection(vehicleSelection, 5));
-                        VehicleDefaultDetails(manuVehicleSelection, out modelName, out licenseNumber,
+                            (eVehicleManu) Enum.Parse(typeof (eVehicleManu), validSelection(vehicleSelection, 5));
+                        vehicleDefaultDetails(manuVehicleSelection, out modelName, out licenseNumber,
                             out currentEnergy, out wheelManufacturName, out wheelCurrentAirPressure,
                             out ownerName, out ownerPhone);
                         innerOwner.Name = ownerName;
@@ -96,66 +95,63 @@ Press a number:");
                         switch (manuVehicleSelection)
                         {
                             case eVehicleManu.FuelMotorcycle:
-                                ManuMotorCycle(out engineCm, out innerLicenseType);
+                                manuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new FueledMotorCycleBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                createNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                     innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.ElectricMotorcycle:
-                                ManuMotorCycle(out engineCm, out innerLicenseType);
+                                manuMotorCycle(out engineCm, out innerLicenseType);
                                 innerVehicleBuilder = new ElectricMotorCycleBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                createNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
                                     currentEnergy, wheelManufacturName, wheelCurrentAirPressure,
                                     innerLicenseType, engineCm);
                                 break;
                             case eVehicleManu.FuelCar:
                                 innerVehicleBuilder = new FueledCarBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                createNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
-                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(),
-                                    DoorsSelection());
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, colorSelection(),
+                                    doorsSelection());
                                 break;
                             case eVehicleManu.ElectricCar:
                                 innerVehicleBuilder = new ElectricCarBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                createNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
-                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, ColorSelection(),
-                                    DoorsSelection());
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, colorSelection(),
+                                    doorsSelection());
 
                                 break;
                             case eVehicleManu.Truck:
                                 innerVehicleBuilder = new TruckBuilder();
-                                CreateNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
+                                createNewVehicle(innerConstructor, innerVehicleBuilder, innerOwner, modelName,
                                     licenseNumber,
-                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, MaterialsSelection(),
-                                    MaxWeight());
+                                    currentEnergy, wheelManufacturName, wheelCurrentAirPressure, materialsSelection(),
+                                    maxWeight());
                                 break;
                         }
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
-                        //  ShowVehiclesByLicenseNumber();
+                         showVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                        string innerLicenseNumberStatus = GetLicenseNumberFromUser();
-                        ChangeVehicleStatus(VehicleStatus(), innerLicenseNumberStatus);
+                        string innerLicenseNumberStatus = getLicenseNumberFromUser();
+                        changeVehicleStatus(vehicleStatus(), innerLicenseNumberStatus);
                         break;
                     case eMenuItem.FillAirPressure:
-                        string innerLicenseNumberPressure = GetLicenseNumberFromUser();
-                        FillAirToMax(innerLicenseNumberPressure);
+                        string innerLicenseNumberPressure = getLicenseNumberFromUser();
+                        fillAirToMax(innerLicenseNumberPressure);
                         break;
                     case eMenuItem.ReFillFuelVehicle:
-                        //RefillEnergySource
-                        break;
-                    case eMenuItem.ChargeVehicleBattery:
-                        //     chargeVehicleBattery();
+                        refillEnergySource();
                         break;
                     case eMenuItem.DisplayVehicleFullDetailsByLicenseNumber:
                         Console.WriteLine("Enter LicenseNumber");
                         licenseNumber = Console.ReadLine();
-                        ShowVehicleByLicenseNumber(licenseNumber);
+                        showVehicleByLicenseNumber(licenseNumber);
                         Console.ReadLine();
                         break;
                     case eMenuItem.Exit:
@@ -165,7 +161,56 @@ Press a number:");
             }
         }
 
-        private float MaxWeight()
+
+
+         private void showVehiclesByLicenseNumber()
+         {
+             if (selectIfToFilterByCarStatus())
+             {
+                 eVehicleStatus innerStatus;
+                 innerStatus = vehicleStatus();
+                 m_Data.GetAllLicenseNumbers(innerStatus);
+             }
+             else
+             {
+                 m_Data.GetAllLicenseNumbers();
+             }
+         }
+        private void refillEnergySource()
+        {
+            float finalAmountToFill;
+            string innerLicenseNumber = getLicenseNumberFromUser();
+            Console.WriteLine("Enter Amount to fill up");
+            string inputAmountToFill = Console.ReadLine();
+            inputAmountToFill = ValidNumber(inputAmountToFill);
+            finalAmountToFill = Convert.ToSingle(inputAmountToFill);
+            if (m_Data.IsFuelVehicle(innerLicenseNumber))
+            {
+                eFuelType innerFuelType;
+                innerFuelType = vehicleFuelType();
+                try
+                {
+                    m_Data.FillEnergyResource(innerLicenseNumber, finalAmountToFill, innerFuelType);
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    m_Data.FillEnergyResource(innerLicenseNumber, finalAmountToFill);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
+        private float maxWeight()
         {
             Console.WriteLine("What is the maximum carrying weight?");
             string weightString = Console.ReadLine();
@@ -173,8 +218,27 @@ Press a number:");
             float weight = Convert.ToSingle(weightString);
             return weight;
         }
-
-        private bool MaterialsSelection()
+        
+        private bool selectIfToFilterByCarStatus()
+        {
+            const bool  v_IsFiltering = true;
+            bool retVal = !v_IsFiltering;
+            Console.WriteLine(@"Do you want to filter by Car Status ?
+Menu :   
+1. No
+2. Yes
+Press a number:");
+            string materialsSelection = Console.ReadLine();
+            eMaterials manumaterialsSelection = eMaterials.None;
+            manumaterialsSelection =
+                (eMaterials)Enum.Parse(typeof(eMaterials), validSelection(materialsSelection, 2));
+            if (manumaterialsSelection == eMaterials.Yes)
+            {
+                retVal = v_IsFiltering;
+            }
+            return retVal;
+        }
+        private bool materialsSelection()
         {
             bool materialsAnswer = false;
             Console.WriteLine(@"The truck have dangerous materials?
@@ -185,7 +249,7 @@ Press a number:");
             string materialsSelection = Console.ReadLine();
             eMaterials manumaterialsSelection = eMaterials.None;
             manumaterialsSelection =
-                (eMaterials) Enum.Parse(typeof (eMaterials), ValidSelection(materialsSelection, 2));
+                (eMaterials) Enum.Parse(typeof (eMaterials), validSelection(materialsSelection, 2));
             if (manumaterialsSelection == eMaterials.Yes)
             {
                 materialsAnswer = true;
@@ -193,17 +257,17 @@ Press a number:");
             return materialsAnswer;
         }
 
-        private void ShowVehicleByLicenseNumber(string i_LicenseNumber)
+        private void showVehicleByLicenseNumber(string i_LicenseNumber)
         {
             Console.WriteLine(m_Data.GetDetails(i_LicenseNumber));
         }
 
-        private void RefillEnergySource(string i_LicenseNumber, float i_AmountToFill, object i_FuelTypeOptional = null)
+        private void refillEnergySource(string i_LicenseNumber, float i_AmountToFill, object i_FuelTypeOptional = null)
         {
             m_Data.FillEnergyResource(i_LicenseNumber, i_AmountToFill, i_FuelTypeOptional);
         }
 
-        private Vehicle CreateNewVehicle(Constructor i_Constructor, VehicleBuilder i_Builder, VehicleOwner i_Owner,
+        private Vehicle createNewVehicle(Constructor i_Constructor, VehicleBuilder i_Builder, VehicleOwner i_Owner,
             string i_ModelName, string i_LicenseNumber,
             float i_CurrentEnergyStorageStatus, string i_WheelManufacturerName, float i_WheelCurrentAirPressure,
             object i_FirstProperty, object i_SecondProperty)
@@ -215,7 +279,7 @@ Press a number:");
             return innerVehicle;
         }
 
-        private void VehicleDefaultDetails(eVehicleManu i_ManuVehicleSelection, out string o_ModelName,
+        private void vehicleDefaultDetails(eVehicleManu i_ManuVehicleSelection, out string o_ModelName,
             out string o_LicenseNumber,out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName,
             out float o_WheelCurrentAirPressure, out string o_OwnerName, out string o_OwnerPhone)
         {
@@ -269,7 +333,7 @@ Press a number:");
             o_OwnerName = ValidString(o_OwnerName);
         }
 
-        private eColor ColorSelection()
+        private eColor colorSelection()
         {
             Console.WriteLine(@"Color Menu :  
 1. Blue
@@ -281,11 +345,11 @@ Press a number:");
             eColor manuColorSelection = eColor.None;
             manuColorSelection =
                 (eColor)
-                    Enum.Parse(typeof (eColor), ValidSelection(colorSelection, 4));
+                    Enum.Parse(typeof (eColor), validSelection(colorSelection, 4));
             return manuColorSelection;
         }
 
-        private eNumberOfDoors DoorsSelection()
+        private eNumberOfDoors doorsSelection()
         {
             Console.WriteLine(@"Color Menu :  
 1. Two
@@ -297,12 +361,12 @@ Press a number:");
             eNumberOfDoors manuDoorsSelection = eNumberOfDoors.None;
             manuDoorsSelection =
                 (eNumberOfDoors)
-                    Enum.Parse(typeof (eNumberOfDoors), ValidSelection(doorsSelection, 4));
+                    Enum.Parse(typeof (eNumberOfDoors), validSelection(doorsSelection, 4));
             return manuDoorsSelection;
         }
 
 
-        private void ManuMotorCycle(out int o_EngineCm, out eLicenseType o_LicenseType)
+        private void manuMotorCycle(out int o_EngineCm, out eLicenseType o_LicenseType)
         {
             Console.WriteLine(@"License Menu :  
 1. A
@@ -313,15 +377,15 @@ Press a number:");
             eLicenseType manuLicenseSelection = eLicenseType.None;
             o_LicenseType =
                 (eLicenseType)
-                    Enum.Parse(typeof (eLicenseType), ValidSelection(licenseSelection, 4));
+                    Enum.Parse(typeof (eLicenseType), validSelection(licenseSelection, 4));
             Console.WriteLine("Enter engine by cm:");
             o_EngineCm = Convert.ToInt32(Console.ReadLine());
         }
 
 
-        public void ChangeVehicleStatus(eVehicleStatus i_Status, string i_InnerLicenseNumber)
+        private void changeVehicleStatus(eVehicleStatus i_Status, string i_InnerLicenseNumber)
         {
-            i_InnerLicenseNumber = GetLicenseNumberFromUser();
+            i_InnerLicenseNumber = getLicenseNumberFromUser();
             if (!m_Data.ChangeStatus(i_InnerLicenseNumber, i_Status))
             {
                 Console.WriteLine(@"This license number is not in the garage!
@@ -336,9 +400,9 @@ Press enter and back to manu", i_Status);
             }
         }
 
-        public void FillAirToMax(string i_InnerLicenseNumber)
+        private void fillAirToMax(string i_InnerLicenseNumber)
         {
-            i_InnerLicenseNumber = GetLicenseNumberFromUser();
+            i_InnerLicenseNumber = getLicenseNumberFromUser();
             if (!m_Data.MaximizeWheelPressure(i_InnerLicenseNumber))
             {
                 Console.WriteLine(@"This license number is not in the garage!
@@ -353,7 +417,7 @@ Press enter and back to manu");
             }
         }
 
-        public string GetLicenseNumberFromUser()
+        private string getLicenseNumberFromUser()
         {
             string innerLicenseNumber;
             Console.WriteLine("Enter license number to change the status to ");
@@ -362,7 +426,39 @@ Press enter and back to manu");
             return innerLicenseNumber;
         }
 
-        private string ValidSelection(string i_StrMenSelection, int i_NumberOfManu)
+        private eVehicleStatus vehicleStatus()
+        {
+            Console.WriteLine(@"Please enter your vehicle status:
+Vehicle status Menu :  
+1. InRepair,
+2. Paid
+3. Fixed
+Press a number:");
+            string statusSelection = Console.ReadLine();
+            eVehicleStatus manuStatusSelection;
+            manuStatusSelection =
+                (eVehicleStatus)
+                    Enum.Parse(typeof (eVehicleStatus), validSelection(statusSelection, 3));
+            return manuStatusSelection;
+        }
+
+        private eFuelType vehicleFuelType()
+        {
+            Console.WriteLine(@"Please enter your fuel type:
+Vehicle status Menu :  
+1. Octan95
+2. Octan96
+3. Octan98
+4. Soler
+Press a number:");
+            string fuelSelection = Console.ReadLine();
+            eFuelType manuFuelSelection;
+            manuFuelSelection =
+                (eFuelType)
+                    Enum.Parse(typeof(eFuelType), validSelection(fuelSelection, 3));
+            return manuFuelSelection;
+        }
+        private string validSelection(string i_StrMenSelection, int i_NumberOfManu)
         {
             string correctSelection = null;
             while (correctSelection == null)
@@ -421,39 +517,6 @@ Press enter and back to manu");
                 }
             }
             return i_ValidAirPressureInput;
-        }
-
-        private eVehicleStatus VehicleStatus()
-        {
-            Console.WriteLine(@"Please enter your vehicle status:
-Vehicle status Menu :  
-1. InRepair,
-2. Paid
-3. Fixed
-Press a number:");
-            string statusSelection = Console.ReadLine();
-            eVehicleStatus manuStatusSelection;
-            manuStatusSelection =
-                (eVehicleStatus)
-                    Enum.Parse(typeof (eVehicleStatus), ValidSelection(statusSelection, 3));
-            return manuStatusSelection;
-        }
-
-        private eFuelType VehicleFuelType()
-        {
-            Console.WriteLine(@"Please enter your fuel type:
-Vehicle status Menu :  
-1. Octan95
-2. Octan96
-3. Octan98
-4. Soler
-Press a number:");
-            string fuelSelection = Console.ReadLine();
-            eFuelType manuFuelSelection;
-            manuFuelSelection =
-                (eFuelType)
-                    Enum.Parse(typeof(eFuelType), ValidSelection(fuelSelection, 3));
-            return manuFuelSelection;
         }
     }
 }
