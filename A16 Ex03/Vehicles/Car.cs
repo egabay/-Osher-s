@@ -32,17 +32,16 @@ namespace Ex03.GarageLogic
         private eNumberOfDoors m_NumberOfDoors;
 
 
-
         public Car()
         {
-
         }
 
         protected override string GetAttributes()
         {
             string retVal;
             StringBuilder builder = new StringBuilder();
-            builder.AppendFormat("Number Of Doors : {0}, Car Color : {1}", m_NumberOfDoors.ToString(), m_Color.ToString());
+            builder.AppendFormat("Number Of Doors : {0}, Car Color : {1}", m_NumberOfDoors.ToString(),
+                m_Color.ToString());
             retVal = builder.ToString();
             return retVal;
         }
@@ -58,15 +57,17 @@ namespace Ex03.GarageLogic
             get { return m_NumberOfDoors; }
             set { m_NumberOfDoors = value; }
         }
+
         public sealed override object FirstDifferentProperty
         {
             get { return m_Color; }
-            set { m_Color = (eColor)value; }
+            set { m_Color = (eColor) value; }
         }
+
         public sealed override object SecondDifferentProperty
         {
             get { return m_NumberOfDoors; }
-            set { m_NumberOfDoors = (eNumberOfDoors)value; }
+            set { m_NumberOfDoors = (eNumberOfDoors) value; }
         }
     }
 }

@@ -9,8 +9,11 @@ namespace Ex03.GarageLogic.Builders
         public Constructor()
         {
         }
-        public Vehicle Construct(VehicleBuilder i_VehicleBuilder, string i_ModelName, string i_LicenseNumber,float i_CurrentEnergyStorageStatus,
-                                string i_WheelManufacturerName, float i_WheelCurrentAirPressure, object i_FirstProperty, object i_SecondProperty)
+
+        public Vehicle Construct(VehicleBuilder i_VehicleBuilder, string i_ModelName, string i_LicenseNumber,
+            float i_CurrentEnergyStorageStatus,
+            string i_WheelManufacturerName, float i_WheelCurrentAirPressure, object i_FirstProperty,
+            object i_SecondProperty)
         {
             i_VehicleBuilder.BuildModelName(i_ModelName);
             i_VehicleBuilder.BuildLicenseNumber(i_LicenseNumber);

@@ -9,6 +9,7 @@ namespace Ex03.GarageLogic
         public VehicleBuilder()
         {
         }
+
         protected Vehicle m_Vehicle;
 
         public Vehicle Vehicle

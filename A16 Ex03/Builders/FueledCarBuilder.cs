@@ -10,6 +10,7 @@ namespace Ex03.GarageLogic.Builders
         {
             m_Vehicle = new Car();
         }
+
         public override void BuildEngine(float i_CurrentEnergyStorageStatus)
         {
             m_Vehicle.Engine = new FuelEngine(i_CurrentEnergyStorageStatus, 42f, eFuelType.Octan98);
