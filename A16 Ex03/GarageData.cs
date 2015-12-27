@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic
 {
     public class GarageData
     {
-        Dictionary<string, Vehicle> m_LicenseToVehicle = new Dictionary<string, Vehicle>();
-        Dictionary<string, VehicleOwner> m_LicenseToOwner = new Dictionary<string, VehicleOwner>();
+        private Dictionary<string, Vehicle> m_LicenseToVehicle = new Dictionary<string, Vehicle>();
+        private Dictionary<string, VehicleOwner> m_LicenseToOwner = new Dictionary<string, VehicleOwner>();
 
         public bool AddNewVehicle(Vehicle i_VehicleToAdd, VehicleOwner i_VehicleOwnerToAdd)
         {

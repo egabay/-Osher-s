@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
 
     public class FuelEngine : Engine
     {
-        eFuelType m_FuelType;
+        private eFuelType m_FuelType;
 
         public FuelEngine(float i_CurrentEnergyStorageStatus, float i_MaximumEnergyStorageCapacity, eFuelType i_FuelType)
             : base(i_CurrentEnergyStorageStatus, i_MaximumEnergyStorageCapacity)
