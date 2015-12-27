@@ -142,10 +142,6 @@ namespace Ex03.ConsoleUI
                         break;
                     case eMenuItem.ChangeVehicleStatus:
                         ChangeVehicleStatus(VehicleStatus());
-                        //TODO - Readline status to change and check readline data
-                        //========================================================
-                        //eVehicleStatus innerStatus;
-                        //ChangeVehicleStatus(innerStatus);
                         break;
                     case eMenuItem.FillAirPressure:
                         //     fillAirToMaximum();
