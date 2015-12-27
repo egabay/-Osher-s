@@ -35,7 +35,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadFuelTypeException.cs" />
     <Compile Include="Builders\Constructor.cs" />
     <Compile Include="Builders\ElectricCarBuilder.cs" />
     <Compile Include="Builders\ElectricMotorCycleBuilder.cs" />
