@@ -18,7 +18,6 @@ namespace Ex03.ConsoleUI
             ChangeVehicleStatus,
             FillAirPressure,
             ReFillFuelVehicle,
-            ChargeVehicleBattery,
             DisplayVehicleFullDetailsByLicenseNumber,
             Exit
         }
@@ -64,11 +63,11 @@ namespace Ex03.ConsoleUI
 3. Change vehicle status in the Garage
 4. Change the air pressure to maximum
 5. Refill The Vehicle Energy Storage 
-7. Display full details on vehicle
-8. Exit the Garage Program
+6. Display full details on vehicle
+7. Exit the Garage Program
 Press a number:");
                 strMenSelection = Console.ReadLine();
-                manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), validSelection(strMenSelection, 8));
+                manuItemSelection = (eMenuItem) Enum.Parse(typeof (eMenuItem), validSelection(strMenSelection, 7));
                 switch (manuItemSelection)
                 {
                     case eMenuItem.AddNewVehicle:
@@ -155,7 +154,6 @@ Press a number:");
                         Console.ReadLine();
                         break;
                     case eMenuItem.Exit:
-                        //       exitGarageProgram();
                         break;
                 }
             }
@@ -164,7 +162,7 @@ Press a number:");
 
 
          private void showVehiclesByLicenseNumber()
-         {
+        {
              if (selectIfToFilterByCarStatus())
              {
                  eVehicleStatus innerStatus;
@@ -218,7 +216,7 @@ Press a number:");
             float weight = Convert.ToSingle(weightString);
             return weight;
         }
-        
+
         private bool selectIfToFilterByCarStatus()
         {
             const bool  v_IsFiltering = true;
