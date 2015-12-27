@@ -56,7 +56,6 @@ namespace Ex03.ConsoleUI
 
             while (manuItemSelection != eMenuItem.Exit)
             {
-
                 Console.Clear();
                 Console.WriteLine(@"Garage Menu:   
 1. Add new vehicle to the garage
@@ -136,12 +135,11 @@ Press a number:");
                         }
                         break;
                     case eMenuItem.ShowVehiclesByLicenseNumber:
-                         showVehiclesByLicenseNumber();
-                         Console.ReadLine();
+                        showVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                        string innerLicenseNumberStatus = getLicenseNumberFromUser(); 
-                        eVehicleStatus innerEVehicleStatus = eVehicleStatus.InRepair;
+                        string innerLicenseNumberStatus = getLicenseNumberFromUser();
+                        eVehicleStatus innerEVehicleStatus = vehicleStatus();
                         changeVehicleStatus(innerEVehicleStatus, innerLicenseNumberStatus);
                         break;
                     case eMenuItem.FillAirPressure:
@@ -164,20 +162,26 @@ Press a number:");
         }
 
 
-
-         private void showVehiclesByLicenseNumber()
+        private void showVehiclesByLicenseNumber()
         {
-             if (selectIfToFilterByCarStatus())
-             {
-                 eVehicleStatus innerStatus;
-                 innerStatus = vehicleStatus();
-                Console.WriteLine( m_Data.GetAllLicenseNumbers(innerStatus));
-             }
-             else
-             {
-                 Console.WriteLine(m_Data.GetAllLicenseNumbers());
-             }
-         }
+            if (selectIfToFilterByCarStatus())
+            {
+                eVehicleStatus innerStatus;
+                innerStatus = vehicleStatus();
+                Console.WriteLine("The license numbers that are in the status: {0} are:", innerStatus);
+                Console.WriteLine(m_Data.GetAllLicenseNumbers(innerStatus));
+                Console.WriteLine("Press enter and go back to manu");
+                Console.ReadLine();
+            }
+            else
+            {
+                Console.WriteLine("The list of the cars in garage are:");
+                Console.WriteLine(m_Data.GetAllLicenseNumbers());
+                Console.WriteLine("Press enter and go back to manu");
+                Console.ReadLine();
+            }
+        }
+
         private void refillEnergySource()
         {
             float finalAmountToFill;
@@ -194,7 +198,7 @@ Press a number:");
                 {
                     m_Data.FillEnergyResource(innerLicenseNumber, finalAmountToFill, innerFuelType);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -223,7 +227,7 @@ Press a number:");
 
         private bool selectIfToFilterByCarStatus()
         {
-            const bool  v_IsFiltering = true;
+            const bool v_IsFiltering = true;
             bool retVal = !v_IsFiltering;
             Console.WriteLine(@"Do you want to filter by Car Status ?
 Menu :   
@@ -233,13 +237,14 @@ Press a number:");
             string materialsSelection = Console.ReadLine();
             eMaterials manumaterialsSelection = eMaterials.None;
             manumaterialsSelection =
-                (eMaterials)Enum.Parse(typeof(eMaterials), validSelection(materialsSelection, 2));
+                (eMaterials) Enum.Parse(typeof (eMaterials), validSelection(materialsSelection, 2));
             if (manumaterialsSelection == eMaterials.Yes)
             {
                 retVal = v_IsFiltering;
             }
             return retVal;
         }
+
         private bool materialsSelection()
         {
             bool materialsAnswer = false;
@@ -277,7 +282,7 @@ Press a number:");
             Vehicle innerVehicle = i_Constructor.Construct(i_Builder, i_ModelName, i_LicenseNumber,
                 i_CurrentEnergyStorageStatus, i_WheelManufacturerName, i_WheelCurrentAirPressure,
                 i_FirstProperty, i_SecondProperty);
-            if(!(m_Data.AddNewVehicle(innerVehicle, i_Owner)))
+            if (!(m_Data.AddNewVehicle(innerVehicle, i_Owner)))
             {
                 Console.WriteLine("The car is already in garage, status changed to InRepair\n Enter Key To Continue");
                 Console.ReadLine();
@@ -286,7 +291,7 @@ Press a number:");
         }
 
         private void vehicleDefaultDetails(eVehicleManu i_ManuVehicleSelection, out string o_ModelName,
-            out string o_LicenseNumber,out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName,
+            out string o_LicenseNumber, out float o_CurrentEnergyStorageStatus, out string o_WheelManufacturerName,
             out float o_WheelCurrentAirPressure, out string o_OwnerName, out string o_OwnerPhone)
         {
             Console.WriteLine("Enter model name:");
@@ -394,14 +399,13 @@ Press a number:");
             {
                 Console.WriteLine(@"This license number is not in the garage!
 Press enter and back to manu");
-                Console.ReadLine(); 
+                Console.ReadLine();
             }
             else
             {
-                eVehicleStatus manuVehicleStatus = vehicleStatus();
                 Console.WriteLine(@"The car status changed to: {0}
-Press enter and back to manu", manuVehicleStatus);
-                Console.ReadLine(); 
+Press enter and back to manu", i_Status);
+                Console.ReadLine();
             }
         }
 
@@ -411,13 +415,13 @@ Press enter and back to manu", manuVehicleStatus);
             {
                 Console.WriteLine(@"This license number is not in the garage!
 Press enter and back to manu");
-                Console.ReadLine(); 
+                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine(@"The car air pressure filled to maximum!
 Press enter and back to manu");
-                Console.ReadLine();  
+                Console.ReadLine();
             }
         }
 
@@ -459,9 +463,10 @@ Press a number:");
             eFuelType manuFuelSelection;
             manuFuelSelection =
                 (eFuelType)
-                    Enum.Parse(typeof(eFuelType), validSelection(fuelSelection, 3));
+                    Enum.Parse(typeof (eFuelType), validSelection(fuelSelection, 3));
             return manuFuelSelection;
         }
+
         private string validSelection(string i_StrMenSelection, int i_NumberOfManu)
         {
             string correctSelection = null;

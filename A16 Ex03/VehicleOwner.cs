@@ -8,8 +8,8 @@ namespace Ex03.GarageLogic
     {
         None = 0,
         InRepair,
-        Fixed,
-        Paid
+        Paid,
+        Fixed
     }
 
     public class VehicleOwner
