@@ -44,5 +44,21 @@ namespace Ex03.GarageLogic
             return retVal;
 
         }
+        public void FillEnergyResource(string i_LicenseNumber,float i_AmountToFill,object i_FuelTypeIfFuelEngine=null)
+        {
+            Vehicle innerVehicle;
+            if(m_LicenseToVehicle.TryGetValue(i_LicenseNumber,out innerVehicle))
+            {
+               if(innerVehicle.Engine is ElectricEngine)
+               {
+                   ((ElectricEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill);
+               }
+               else
+               {
+                   ((FuelEngine)innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill, (eFuelType)i_FuelTypeIfFuelEngine);
+               }
+            }
+
+        }
     }
 }

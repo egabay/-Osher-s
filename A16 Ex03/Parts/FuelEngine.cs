@@ -24,7 +24,7 @@ namespace Ex03.GarageLogic
 
         public void RefillEnergyStorage(float i_AmountEnergyToFill,eFuelType i_FuelType)
         {
-            if(i_FuelType==m_FuelType)
+            if((eFuelType)i_FuelType==m_FuelType)
             {
                 if((i_AmountEnergyToFill<=m_MaximumEnergyStorageCapacity-m_CurrentEnergyStorageStatus)&&(i_AmountEnergyToFill>=0))
                 {
@@ -37,7 +37,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ArgumentException(string.Format("Error trying to Fill {0} Into {1} Tank", i_FuelType, m_FuelType));
+                throw new ArgumentException(string.Format("Error trying to Fill {0} Into {1} Tank", (eFuelType)i_FuelType, m_FuelType));
             }
         }
     }
