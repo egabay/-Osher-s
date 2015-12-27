@@ -137,8 +137,9 @@ Press a number:");
                          showVehiclesByLicenseNumber();
                         break;
                     case eMenuItem.ChangeVehicleStatus:
-                        string innerLicenseNumberStatus = getLicenseNumberFromUser();
-                        changeVehicleStatus(vehicleStatus(), innerLicenseNumberStatus);
+                        string innerLicenseNumberStatus = getLicenseNumberFromUser(); 
+                        eVehicleStatus innerEVehicleStatus = eVehicleStatus.InRepair;
+                        changeVehicleStatus(innerEVehicleStatus, innerLicenseNumberStatus);
                         break;
                     case eMenuItem.FillAirPressure:
                         string innerLicenseNumberPressure = getLicenseNumberFromUser();
@@ -383,7 +384,6 @@ Press a number:");
 
         private void changeVehicleStatus(eVehicleStatus i_Status, string i_InnerLicenseNumber)
         {
-            i_InnerLicenseNumber = getLicenseNumberFromUser();
             if (!m_Data.ChangeStatus(i_InnerLicenseNumber, i_Status))
             {
                 Console.WriteLine(@"This license number is not in the garage!
@@ -392,6 +392,7 @@ Press enter and back to manu");
             }
             else
             {
+                vehicleStatus();
                 Console.WriteLine(@"The car status changed to: {0}
 Press enter and back to manu", i_Status);
                 Console.ReadLine(); 
@@ -400,7 +401,6 @@ Press enter and back to manu", i_Status);
 
         private void fillAirToMax(string i_InnerLicenseNumber)
         {
-            i_InnerLicenseNumber = getLicenseNumberFromUser();
             if (!m_Data.MaximizeWheelPressure(i_InnerLicenseNumber))
             {
                 Console.WriteLine(@"This license number is not in the garage!
