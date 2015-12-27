@@ -388,7 +388,6 @@ Press a number:");
             o_EngineCm = Convert.ToInt32(Console.ReadLine());
         }
 
-
         private void changeVehicleStatus(eVehicleStatus i_Status, string i_InnerLicenseNumber)
         {
             if (!m_Data.ChangeStatus(i_InnerLicenseNumber, i_Status))
