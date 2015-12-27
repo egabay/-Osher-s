@@ -86,6 +86,7 @@ namespace Ex03.GarageLogic
                         ((FuelEngine) innerVehicle.Engine).RefillEnergyStorage(i_AmountToFill,
                             (eFuelType) i_FuelTypeIfFuelEngine);
                     }
+                    innerVehicle.VehicleEnergyPercent = (innerVehicle.Engine.CurrentEnergyStorageStatus / innerVehicle.Engine.MaximumEnergyStorageCapacity) * 100;
                 }
                 catch (ValueOutOfRangeException e)
                 {
