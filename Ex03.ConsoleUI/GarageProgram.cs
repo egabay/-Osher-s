@@ -387,7 +387,7 @@ Press a number:");
             eLicenseType manuLicenseSelection = eLicenseType.None;
             o_LicenseType =
                 (eLicenseType)
-                    Enum.Parse(typeof (eLicenseType), validSelection(licenseSelection, 4));
+                    Enum.Parse(typeof(eLicenseType), validSelection(licenseSelection, 4));
             Console.WriteLine("Enter engine by cm:");
             o_EngineCm = Convert.ToInt32(Console.ReadLine());
         }
@@ -445,7 +445,7 @@ Press a number:");
             eVehicleStatus manuStatusSelection;
             manuStatusSelection =
                 (eVehicleStatus)
-                    Enum.Parse(typeof (eVehicleStatus), validSelection(statusSelection, 3));
+                    Enum.Parse(typeof(eVehicleStatus), validSelection(statusSelection, 3));
             return manuStatusSelection;
         }
 

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using Ex03.GarageLogic;
-using Ex03.GarageLogic.Builders;
-
+﻿
 namespace Ex03.ConsoleUI
 {
     class Program
