@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex04.Menus.Delegates
 {
-    class Program
+    class Menu
     {
         static void Main(string[] args)
         {
