@@ -8,7 +8,6 @@ namespace Ex04.Menus.Interfaces
     {
         public MainMenu(string i_MenuTitle) : base(i_MenuTitle, null)
         {
-            //sdsd
         }
 
         public override void Show()
