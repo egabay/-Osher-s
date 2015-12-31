@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 
-namespace Ex04.Menus.Interfaces
+namespace Ex04.Menus.Delegates
 {
     public class SubMenu : Menu
     {
@@ -11,12 +10,12 @@ namespace Ex04.Menus.Interfaces
 
         public SubMenu(string i_MenuTitle, MainMenu i_Parent) : base(i_MenuTitle, i_Parent)
         {
-            this.r_MenuList = new List<Menu>();
+            r_MenuList = new List<Menu>();
         }
 
-        public void AddItem(Menu i_AddItem)
+        public void AddItem(Menu i_AddedItem)
         {
-            r_MenuList.Add(i_AddItem);
+            r_MenuList.Add(i_AddedItem);
         }
 
         protected string getMenuOptions()
@@ -24,14 +23,14 @@ namespace Ex04.Menus.Interfaces
             StringBuilder message = new StringBuilder();
             foreach (Menu item in r_MenuList)
             {
-                message.AppendLine(r_MenuList.IndexOf(item) + 1 + "-->" + item.Title);
+                message.AppendLine(r_MenuList.IndexOf(item) + 1 + " --> " + item.Title);
             }
-            message.Append("Choose your selection :");
 
+            message.Append("Put your selection: ");
             return message.ToString();
         }
 
-        protected void userInput(string i_PrintedMessage)
+        protected void userInputNumber(string i_PrintedMessage)
         {
             string userInputStr;
             int userInputInt;
@@ -73,7 +72,7 @@ namespace Ex04.Menus.Interfaces
             message.AppendLine(base.Title);
             message.AppendLine("0 --> Back");
             message.Append(getMenuOptions());
-            userInput(message.ToString());
+            userInputNumber(message.ToString());
         }
     }
 }
