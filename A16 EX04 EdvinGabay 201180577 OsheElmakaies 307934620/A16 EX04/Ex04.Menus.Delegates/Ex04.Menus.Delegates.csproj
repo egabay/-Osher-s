@@ -7,7 +7,7 @@
     <ProjectGuid>{8510E245-A87C-4F4A-983E-41B21041F540}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ex04.Menus.Delegates</RootNamespace>
+    <RootNamespace>Ex04.Menus.Delegates_mainMenu</RootNamespace>
     <AssemblyName>Ex04.Menus.Delegates</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

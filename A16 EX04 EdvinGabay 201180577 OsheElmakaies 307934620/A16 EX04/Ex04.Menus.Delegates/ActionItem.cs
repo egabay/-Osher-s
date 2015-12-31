@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ex04.Menus.Delegates_actionDelegate;
+using Ex04.Menus.Delegates_Menu;
+using Ex04.Menus.Delegates_subMenu;
 
-namespace Ex04.Menus.Delegates
+namespace Ex04.Menus.Delegates_actionItem
 {
     public class ActionItem : Menu
     {

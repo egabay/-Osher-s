@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Ex04.Menus.Delegates_subMenu;
 
-namespace Ex04.Menus.Delegates
+namespace Ex04.Menus.Delegates_mainMenu
 {
     public class MainMenu : SubMenu
     {
@@ -16,7 +17,7 @@ namespace Ex04.Menus.Delegates
             StringBuilder message = new StringBuilder();
 
             Console.Clear();
-            message.AppendLine(this.Title);
+            message.AppendLine(Title);
             message.AppendLine("0 --> Exit");
             message.Append(getMenuOptions());
             userInputNumber(message.ToString());
