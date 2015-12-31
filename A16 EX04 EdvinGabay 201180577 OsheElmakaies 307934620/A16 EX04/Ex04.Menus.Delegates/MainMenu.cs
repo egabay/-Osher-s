@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex04.Menus.Delegates_subMenu;
 
-namespace Ex04.Menus.Delegates_mainMenu
+namespace Ex04.Menus.Delegates
 {
     public class MainMenu : SubMenu
     {
