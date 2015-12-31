@@ -25,7 +25,6 @@ namespace Ex04.Menus.Delegates
             {
                 message.AppendLine(r_MenuList.IndexOf(item) + 1 + " --> " + item.Title);
             }
-
             message.Append("Put your selection: ");
             return message.ToString();
         }
@@ -34,7 +33,7 @@ namespace Ex04.Menus.Delegates
         {
             string userInputStr;
             int userInputInt;
-            bool IsExit = true;
+            bool IsExit = false;
             bool retVal = !IsExit;
             Console.Write(i_PrintedMessage);
             do

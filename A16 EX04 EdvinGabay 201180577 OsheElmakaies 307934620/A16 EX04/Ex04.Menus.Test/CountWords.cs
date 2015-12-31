@@ -9,12 +9,48 @@ namespace Ex04.Menus.Test
     {
         public void Operate()
         {
+
             string sentence = null;
-            int countWords = 0;
+            int count = 0;
+            int i = 0;
             Console.WriteLine("Enter Sentence:");
             sentence = Console.ReadLine();
-            countWords = sentence.Split().Length;
-            Console.Write("The number of words is: {0}", countWords);
+            if (sentence != null)
+            {
+                if (sentence[0] != ' ')
+                {
+                    count++; 
+                }
+                for (i = 0; i < sentence.Length-1; i++)
+                {
+                    if (sentence[i] == ' ' && sentence[i+1] != ' ')
+                    {
+                        count++; 
+                    }
+                }  
+            }
+            
+
+            //while (sentence[i] == ' ' && i < sentence.Length)
+            //{
+            //    i++;
+            //}
+
+            //while (i < sentence.Length)
+            //{
+            //    if (sentence[i] == ' ')
+            //    {
+            //        count++;
+            //    }
+            //    while (sentence[i] == ' ' && i < sentence.Length)
+            //    {
+            //        i++;
+            //    }
+
+            //    i++;
+            //}
+
+            Console.WriteLine("The number of words is:{0}", count);
         }
     }
 }

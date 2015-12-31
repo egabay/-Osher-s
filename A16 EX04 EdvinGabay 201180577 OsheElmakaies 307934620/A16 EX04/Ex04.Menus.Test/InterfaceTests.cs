@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex04.Menus.Delegates;
+using Ex04.Menus.Interfaces;
 
 namespace Ex04.Menus.Test
 {
-    public class DelegateTests
+    public class InterfaceTests
     {
         public void CreateMenuAndShow()
         {
-            MainMenu mainMenuApp = new MainMenu("Delegate Menu test");
+            MainMenu mainMenuApp = new MainMenu("Interface Menu test");
             SubMenu firstSubMenuApp = new SubMenu("Show Data/Time", mainMenuApp);
             SubMenu secondSubMenuApp = new SubMenu("Version and Actions", mainMenuApp);
             SubMenu actionsSubMenu = new SubMenu("Actions", mainMenuApp);
@@ -20,17 +20,11 @@ namespace Ex04.Menus.Test
             ActionItem CountWords = new ActionItem("Count number of words in the sentence", actionsSubMenu);
             ActionItem versionAction = new ActionItem("Show Version", mainMenuApp);
 
-            ShowDate date = new ShowDate();
-            ShowTime time = new ShowTime();
-            CountSpaces spaces = new CountSpaces();
-            CountWords words = new CountWords();
-            ShowVersion version = new ShowVersion();
-
-            dateAction.Selection += date.Operate;
-            timeAction.Selection += time.Operate;
-            CountSpaces.Selection += spaces.Operate;
-            CountWords.Selection += words.Operate;
-            versionAction.Selection += version.Operate;
+            dateAction.AddActionListeners(new ShowDate());
+            timeAction.AddActionListeners(new ShowTime());
+            CountSpaces.AddActionListeners(new CountSpaces());
+            CountWords.AddActionListeners(new CountWords());
+            versionAction.AddActionListeners(new ShowVersion());
 
             firstSubMenuApp.AddItem(dateAction);
             firstSubMenuApp.AddItem(timeAction);
@@ -38,7 +32,7 @@ namespace Ex04.Menus.Test
             secondSubMenuApp.AddItem(versionAction);
             actionsSubMenu.AddItem(CountSpaces);
             actionsSubMenu.AddItem(CountWords);
-           
+
             mainMenuApp.AddItem(firstSubMenuApp);
             mainMenuApp.AddItem(secondSubMenuApp);
 
