@@ -9,19 +9,16 @@ namespace Ex04.Menus.Test
     {
         public void Operate()
         {
-
-            string sentence = null;
             int count = 0;
-            int i = 0;
             Console.WriteLine("Enter Sentence:");
-            sentence = Console.ReadLine();
+            string sentence = Console.ReadLine();
             if (sentence != null)
             {
                 if (sentence[0] != ' ')
                 {
                     count++; 
                 }
-                for (i = 0; i < sentence.Length-1; i++)
+                for (int i = 0; i < sentence.Length-1; i++)
                 {
                     if (sentence[i] == ' ' && sentence[i+1] != ' ')
                     {
@@ -29,27 +26,6 @@ namespace Ex04.Menus.Test
                     }
                 }  
             }
-            
-
-            //while (sentence[i] == ' ' && i < sentence.Length)
-            //{
-            //    i++;
-            //}
-
-            //while (i < sentence.Length)
-            //{
-            //    if (sentence[i] == ' ')
-            //    {
-            //        count++;
-            //    }
-            //    while (sentence[i] == ' ' && i < sentence.Length)
-            //    {
-            //        i++;
-            //    }
-
-            //    i++;
-            //}
-
             Console.WriteLine("The number of words is:{0}", count);
         }
     }
