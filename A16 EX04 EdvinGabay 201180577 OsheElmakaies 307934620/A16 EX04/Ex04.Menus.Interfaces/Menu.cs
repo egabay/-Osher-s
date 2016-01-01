@@ -9,7 +9,7 @@ namespace Ex04.Menus.Interfaces
         protected readonly SubMenu r_Parent;
         protected readonly string r_Title;
 
-        protected Menu(string i_Title, SubMenu i_Parent)
+        public Menu(string i_Title, SubMenu i_Parent)
         {
             r_Title = i_Title;
             r_Parent = i_Parent;
