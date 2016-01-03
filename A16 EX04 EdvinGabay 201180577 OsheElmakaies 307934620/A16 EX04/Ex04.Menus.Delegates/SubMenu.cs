@@ -25,6 +25,7 @@ namespace Ex04.Menus.Delegates
             {
                 message.AppendLine(r_MenuList.IndexOf(item) + 1 + " --> " + item.Title);
             }
+
             message.Append("Put your selection: ");
             return message.ToString();
         }
@@ -60,7 +61,8 @@ namespace Ex04.Menus.Delegates
                 {
                     Console.WriteLine("Error! Wrong input, insert a number: ");
                 }
-            } while (retVal);
+            } 
+            while (retVal);
         }
 
         public override void Show()
@@ -68,7 +70,7 @@ namespace Ex04.Menus.Delegates
             StringBuilder message = new StringBuilder();
 
             Console.Clear();
-            message.AppendLine(base.Title);
+            message.AppendLine(this.Title);
             message.AppendLine("0 --> Back");
             message.Append(getMenuOptions());
             userInputNumber(message.ToString());

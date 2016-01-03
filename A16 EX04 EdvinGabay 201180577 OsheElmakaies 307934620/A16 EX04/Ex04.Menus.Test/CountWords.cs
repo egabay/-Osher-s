@@ -16,16 +16,18 @@ namespace Ex04.Menus.Test
             {
                 if (sentence[0] != ' ')
                 {
-                    count++; 
+                    count++;
                 }
-                for (int i = 0; i < sentence.Length-1; i++)
+
+                for (int i = 0; i < sentence.Length - 1; i++)
                 {
-                    if (sentence[i] == ' ' && sentence[i+1] != ' ')
+                    if (sentence[i] == ' ' && sentence[i + 1] != ' ')
                     {
-                        count++; 
+                        count++;
                     }
-                }  
+                }
             }
+
             Console.WriteLine("The number of words is:{0}", count);
         }
     }
