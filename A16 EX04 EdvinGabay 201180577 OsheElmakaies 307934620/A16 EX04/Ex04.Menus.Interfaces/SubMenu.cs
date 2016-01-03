@@ -70,7 +70,7 @@ namespace Ex04.Menus.Interfaces
         public override void Show()
         {
             StringBuilder message = new StringBuilder();
-
+            
             Console.Clear();
             message.AppendLine(this.Title);
             message.AppendLine("0 --> Back");
