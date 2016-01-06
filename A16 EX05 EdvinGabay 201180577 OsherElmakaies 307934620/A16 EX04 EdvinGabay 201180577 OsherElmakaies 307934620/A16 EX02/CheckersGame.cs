@@ -13,7 +13,8 @@ namespace Ex02_New
         private Board m_Game;
         private PlayerInfo m_Player1;
         private PlayerInfo m_Player2; 
-        private string m_BoardSize; 
+        private string m_BoardSize;
+        private GameLogic m_Logic = new GameLogic();
         
         private void CreatingTable(string tableSize)
         {

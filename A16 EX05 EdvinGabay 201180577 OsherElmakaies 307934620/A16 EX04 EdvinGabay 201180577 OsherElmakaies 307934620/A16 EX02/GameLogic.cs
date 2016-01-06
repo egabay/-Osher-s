@@ -7,6 +7,7 @@ namespace Ex02_New
 {
     public class GameLogic
     {
+
         
     }
 }
