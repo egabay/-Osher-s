@@ -1,0 +1,10 @@
+﻿==========================Exercise Checking Report==========================
+Exercise No...........: 2
+First Student Details.: 307934620 - Osher Elmakaies
+Second Student Details: 201180577- Edvin Gabay 
+Delivery Date.........: 20 - December- 2015
+Delivered In Delay....: Yes
+Delay Reason..........: Army 
+Visual Studio Version.: 2013
+Comments..............: -
+========================End Exercise Checking Report========================
