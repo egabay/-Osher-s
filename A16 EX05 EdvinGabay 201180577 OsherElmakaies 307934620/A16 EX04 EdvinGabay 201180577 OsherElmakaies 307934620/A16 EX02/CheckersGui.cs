@@ -25,19 +25,18 @@ namespace Ex02_New
         {
             InitializeComponent();
             m_Manager = new Manager(6);
-            m_Manager.NotifyChangeButtonStatus += m_Manager_NotifyChangeButtonStatus;        
+            m_Manager.NotifyChangeButtonStatus += m_Manager_NotifyChangeButtonStatus;  
         }
 
         void m_Manager_NotifyChangeButtonStatus(TableLayoutPanel i_CheckersBoard)
         {
-            
             this.m_CheckersBoardTableLayOut = i_CheckersBoard;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Button wasClicked = sender as Button;
-            m_Manager.ClickPerformed(wasClicked);
+            MessageBox.Show((m_CheckersBoardTableLayOut.GetCellPosition((Button)sender)).GetType().ToString());
         }
     }
 }

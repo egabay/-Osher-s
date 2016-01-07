@@ -49,6 +49,11 @@ namespace Ex02_New
             set { m_GameBoard[i_RowIndex, i_LineIndex].PlayerCoin = value; }
         }
 
+        public int BoardSize
+        {
+            get { return m_BoardSize; }
+        }
+
         public int NumberOfK
         {
             get { return m_NumberOfK; }
@@ -75,7 +80,7 @@ namespace Ex02_New
             get { return m_NumberOfO; }
         }
 
-        private BoardInitialize(int i_GameBoardSize)
+        private void BoardInitialize(int i_GameBoardSize)
         {
             for (int i = 0; i < i_GameBoardSize; i++)
 			{
@@ -85,6 +90,7 @@ namespace Ex02_New
 			    }
 			}
         }
+
 
     }
 }
