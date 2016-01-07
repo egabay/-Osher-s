@@ -69,6 +69,7 @@ namespace Ex02_New
         {
             m_BoardSize = i_BoardSize;
             m_GameBoard = new Coin[m_BoardSize, m_BoardSize];
+            BoardInitialize();
         }
 
         public int NumberOfX
@@ -81,11 +82,11 @@ namespace Ex02_New
             get { return m_NumberOfO; }
         }
 
-        private void BoardInitialize(int i_GameBoardSize)
+        private void BoardInitialize()
         {
-            for (int i = 0; i < i_GameBoardSize / 2 - 1; i++)
+            for (int i = 0; i < m_BoardSize / 2 - 1; i++)
             {
-                for (int j = 0; j < i_GameBoardSize; j++)
+                for (int j = 0; j < m_BoardSize; j++)
                 {
                     if (i % 2 == 1)
                     {
@@ -101,9 +102,9 @@ namespace Ex02_New
                 }
             }
 
-            for (int i = i_GameBoardSize - 1; i > i_GameBoardSize / 2; i--)
+            for (int i = m_BoardSize - 1; i > m_BoardSize / 2; i--)
             {
-                for (int j = 0; j < i_GameBoardSize; j++)
+                for (int j = 0; j < m_BoardSize; j++)
                 {
                     if (i % 2 == 1)
                     {
