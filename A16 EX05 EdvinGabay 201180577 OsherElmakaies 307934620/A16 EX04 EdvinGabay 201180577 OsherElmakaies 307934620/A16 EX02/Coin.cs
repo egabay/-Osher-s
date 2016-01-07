@@ -6,16 +6,16 @@ namespace Ex02_New
 {
     internal class Coin
     {
-        private ePlayer m_PlayerCoin;
+        private ePlayer m_CoinType;
 
-        public Coin()
+        public Coin(ePlayer i_Type)
         {
-
+            m_CoinType = i_Type;
         }
         public ePlayer PlayerCoin
         {
-            get { return m_PlayerCoin; }
-            set { m_PlayerCoin = value; }
+            get { return m_CoinType; }
+            set { m_CoinType = value; }
         }
 
     }

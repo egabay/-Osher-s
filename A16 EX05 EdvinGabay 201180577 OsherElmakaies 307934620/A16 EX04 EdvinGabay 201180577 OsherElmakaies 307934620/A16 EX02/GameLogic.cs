@@ -17,8 +17,7 @@ namespace Ex02_New
         {     
             i_To.Text = i_From.Text;
             i_From.Text = string.Empty;
-            
-
+           
         }   
 
         public void IsMoveable(Button i_From,Button i_To)

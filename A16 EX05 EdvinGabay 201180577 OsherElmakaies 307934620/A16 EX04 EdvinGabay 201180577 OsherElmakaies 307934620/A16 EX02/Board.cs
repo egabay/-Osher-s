@@ -67,7 +67,8 @@ namespace Ex02_New
 
         public Board(int i_BoardSize)
         {
-            m_GameBoard = new Coin[i_BoardSize, i_BoardSize];
+            m_BoardSize = i_BoardSize;
+            m_GameBoard = new Coin[m_BoardSize, m_BoardSize];
         }
 
         public int NumberOfX
@@ -82,16 +83,44 @@ namespace Ex02_New
 
         private void BoardInitialize(int i_GameBoardSize)
         {
-            for (int i = 0; i < i_GameBoardSize; i++)
-			{
-			     for (int j = 0; j < i_GameBoardSize; j++)
-			    {
-			      
-			    }
-			}
+            for (int i = 0; i < i_GameBoardSize / 2 - 1; i++)
+            {
+                for (int j = 0; j < i_GameBoardSize; j++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        m_GameBoard[i, j] = new Coin(ePlayer.O);
+                        j++;
+                    }
+                    else
+                    {
+                        j++;
+                        m_GameBoard[i, j] = new Coin(ePlayer.O);
+                    }
+                    m_NumberOfO++;
+                }
+            }
+
+            for (int i = i_GameBoardSize - 1; i > i_GameBoardSize / 2; i--)
+            {
+                for (int j = 0; j < i_GameBoardSize; j++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        m_GameBoard[i, j] = new Coin(ePlayer.X);
+                        j++;
+                    }
+                    else
+                    {
+                        j++;
+                        m_GameBoard[i, j] = new Coin(ePlayer.X);
+                    }
+                    m_NumberOfX++;
+                }
+            }
         }
-
-
     }
 }
+
+
 
