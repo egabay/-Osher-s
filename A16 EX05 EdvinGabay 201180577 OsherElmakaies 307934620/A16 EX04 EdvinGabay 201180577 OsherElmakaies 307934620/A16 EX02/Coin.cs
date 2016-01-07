@@ -12,11 +12,11 @@ namespace Ex02_New
         {
             m_CoinType = i_Type;
         }
+
         public ePlayer PlayerCoin
         {
             get { return m_CoinType; }
             set { m_CoinType = value; }
         }
-
     }
 }

@@ -20,13 +20,31 @@ namespace Ex02_New
             m_Board[i_FromLine, i_FromRow] = ePlayer.Empty; 
             m_Board[i_ToLine, i_ToRow] = i_Sign;
         }
-
-        public void IsMoveable(Button i_From, Button i_To)
+        //Done
+        public bool IsEmptyPlace(int i_ToLine, int i_ToRow)
         {
-            if (i_To.Text == string.Empty)
+            bool isEmpty = m_Board[i_ToLine, i_ToRow] == ePlayer.Empty;
+            return isEmpty; 
+        }
+        //Done
+        public bool IsValidMove(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        {
+            bool isValid = false;
+            if (i_Sign == ePlayer.O)
             {
-                Move(i_From, i_To);
+                if (i_FromRow == i_ToRow - 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                {
+                    isValid = true;
+                }
             }
+            else if (i_Sign == ePlayer.X)
+            {
+                if (i_FromRow == i_ToRow + 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                {
+                    isValid = true;
+                }
+            }
+            return isValid; 
         }
     }
 }
