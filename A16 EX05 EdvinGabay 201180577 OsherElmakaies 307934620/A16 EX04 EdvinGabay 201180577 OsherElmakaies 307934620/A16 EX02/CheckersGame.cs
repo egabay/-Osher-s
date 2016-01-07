@@ -1,10 +1,8 @@
-﻿﻿
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿﻿using System;
+﻿using System.CodeDom;
+﻿using System.Collections.Generic;
 using System.Text;
 using Ex02.ConsoleUtils;
-using Ex02_Baord;
 
 namespace Ex02_New
 {
@@ -13,35 +11,36 @@ namespace Ex02_New
     {
         private Board m_Game;
         private PlayerInfo m_Player1;
-        private PlayerInfo m_Player2;
+        private PlayerInfo m_Player2; 
         private string m_BoardSize;
-
+        private GameLogic m_Logic = new GameLogic();
+        
         private void CreatingTable(string tableSize)
         {
             switch (tableSize)
             {
                 // $G$ CSS-999 (-3) You should have used constants here.
                 case "6x6":
-                {
-                    Screen.Clear();
-                    m_Game = new Board(6);
-                    m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
-                    break;
-                }
+                    {
+                        Screen.Clear();
+                        m_Game = new Board(6);
+                        m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
+                        break;
+                    }
                 case "8x8":
-                {
-                    Screen.Clear();
-                    m_Game = new Board(8);
-                    m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
-                    break;
-                }
+                    {
+                        Screen.Clear();
+                        m_Game = new Board(8);
+                        m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
+                        break;
+                    }
                 case "10x10":
-                {
-                    Screen.Clear();
-                    m_Game = new Board(10);
-                    m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
-                    break;
-                }
+                    {
+                        Screen.Clear();
+                        m_Game = new Board(10);
+                        m_Player1.UpdatePawnsNumber(m_Game.NumberOfX);
+                        break;
+                    }
             }
         }
 
@@ -57,7 +56,7 @@ namespace Ex02_New
 
             printOut.AppendLine();
 
-            for (int j = 0; j < m_Game.sizeOfTable*2 + 3; j++)
+            for (int j = 0; j < m_Game.sizeOfTable * 2 + 3; j++)
             {
                 lineSpacer.Append('=');
             }
@@ -66,7 +65,7 @@ namespace Ex02_New
 
             for (int i = 0; i < m_Game.sizeOfTable; i++)
             {
-                char line = (char) (i + 'a');
+                char line = (char)(i + 'a');
                 printOut.Append(line);
                 for (int j = 0; j < m_Game.sizeOfTable; j++)
                 {
@@ -92,19 +91,19 @@ namespace Ex02_New
             switch (whichPlayer)
             {
                 case "1":
-                {
-                    Console.WriteLine("Please enter player2 name:");
-                    string player2Name = Console.ReadLine();
-                    player2Name = CheckValidPlayerName(player2Name);
-                    m_Player2 = new PlayerInfo(player2Name, ePlayer.O, ePlayer.U);
-                    break;
-                }
+                    {
+                        Console.WriteLine("Please enter player2 name:");
+                        string player2Name = Console.ReadLine();
+                        player2Name = CheckValidPlayerName(player2Name);
+                        m_Player2 = new PlayerInfo(player2Name, ePlayer.O, ePlayer.U);
+                        break;
+                    }
                 case "2":
-                {
-                    string player2Name = "Computer";
-                    m_Player2 = new PlayerInfo(player2Name, ePlayer.O, ePlayer.U);
-                    break;
-                }
+                    {
+                        string player2Name = "Computer";
+                        m_Player2 = new PlayerInfo(player2Name, ePlayer.O, ePlayer.U);
+                        break;
+                    }
             }
         }
 
@@ -148,14 +147,20 @@ namespace Ex02_New
         // you need a methods like "getSettings" 
         public void Run()
         {
-            string movement;
-            PlayerInfo nextPlayer;
-            int indexTurn;
-            string[] arrayOfEatingPossitions;
-            bool canEatAgainStatus;
             if (m_Player1 == null)
             {
-                PlayersSettings();
+                Console.WriteLine("Please enter player1 name:");
+                string player1Name;
+                player1Name = Console.ReadLine();
+                player1Name = CheckValidPlayerName(player1Name);
+                m_Player1 = new PlayerInfo(player1Name, ePlayer.X, ePlayer.K);
+                Console.WriteLine("Do you want to play 2 players or against the computer?");
+                Console.WriteLine("Press to choose:");
+                Console.WriteLine("1. Second Player");
+                Console.WriteLine("2. Computer");
+                string choosePlayer2 = Console.ReadLine();
+                choosePlayer2 = CheckManuForPlayer2(choosePlayer2);
+                ManuForPlayer2(choosePlayer2);
             }
             string tableSize;
             if (m_BoardSize != null)
@@ -164,18 +169,26 @@ namespace Ex02_New
             }
             else
             {
-                ChooseTableSize();
+                Console.WriteLine("Please select table size : 6x6 , 8x8 , 10x10");
+                tableSize = Console.ReadLine();
+                tableSize = CheckValidTableSize(tableSize);
+                m_BoardSize = tableSize;
+                CreatingTable(tableSize);
             }
-
-            var currentPlayer = StartingGameSettings(out nextPlayer, out indexTurn, out canEatAgainStatus);
+            m_Game.InitializeTable();
+            DrawTable();
+            string movement = null;
+            PlayerInfo currentPlayer = m_Player1;
+            PlayerInfo nextPlayer = m_Player2;
+            int indexTurn = 1;
+            string[] arrayOfEatingPossitions = new string[16];
+            bool canEatAgainStatus = false;
+            currentPlayer = WhoIsThePlayerNow(indexTurn, currentPlayer, ref nextPlayer);
             // $G$ DSN-999 (0) Wow!!!!!!!! really not readable... why not 'while(!SomeLogicClass.IsGameOver())' ?
-            while (!m_Game.IsThereAWinner() &&
-                   ((m_Game.AvailableMoves(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
-                     || m_Game.AvailableMoves(currentPlayer.EKinglSign, out arrayOfEatingPossitions)) ||
-                    (m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
-                     && m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions) ||
-                     m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
-                     && m_Game.CheckForEatingMovesFirst(currentPlayer.EKinglSign, out arrayOfEatingPossitions))))
+            while (!m_Game.IsThereAWinner() && ( (m_Game.AvailableMoves(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
+                || m_Game.AvailableMoves(currentPlayer.EKinglSign, out arrayOfEatingPossitions)) || (m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
+                   && m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions) || m_Game.CheckForEatingMovesFirst(currentPlayer.ENormalSign, out arrayOfEatingPossitions)
+                   && m_Game.CheckForEatingMovesFirst(currentPlayer.EKinglSign, out arrayOfEatingPossitions))) )
             {
                 currentPlayer = WhoIsThePlayerNow(indexTurn, currentPlayer, ref nextPlayer);
                 ePlayer currentSign = currentPlayer.ENormalSign;
@@ -235,13 +248,43 @@ namespace Ex02_New
                     Console.WriteLine("{0}'s turn ({1}):", currentPlayer.Name, currentPlayer.ENormalSign);
                     Console.WriteLine("Enter your move:");
                     movement = Console.ReadLine();
-                    moveFromLineIndex = NormalPlayerMovementValidation(currentPlayer, ref movement, out moveFromRowIndex, out moveToLineIndex, out moveToRowIndex, ref currentSign);
+                    while (!m_Game.IsGoodMoveData(movement))
+                    {
+                        Screen.Clear();
+                        DrawTable();
+                        Console.WriteLine("Bad data, please enter correct format");
+                        movement = Console.ReadLine();
+                    }
+                    m_Game.ConvertToIndexNumbers(movement, out moveFromLineIndex, out moveFromRowIndex,
+                    out moveToLineIndex, out moveToRowIndex);
+                    if (m_Game[moveFromRowIndex, moveFromLineIndex] == currentPlayer.EKinglSign)
+                    {
+                        currentSign = currentPlayer.EKinglSign;
+                    }
+                    if (m_Game[moveFromRowIndex, moveFromLineIndex] != currentSign)
+                    {
+                        Screen.Clear();
+                        DrawTable();
+                        Console.WriteLine("Bad move! please enter again");
+                    }
                     m_Game.CheckForEatingMovesFirst(currentSign, out arrayOfEatingPossitions);
                     if (arrayOfEatingPossitions[0] != null)
                     {
                         if (IsPlayerChoseEatingPlace(arrayOfEatingPossitions, movement))
                         {
-                            canEatAgainStatus = PerformFirstEatingMove(movement, currentSign, canEatAgainStatus, currentPlayer, moveToRowIndex, moveToLineIndex, ref indexTurn);
+                            m_Game.Eat(movement, currentSign, canEatAgainStatus);
+                            Screen.Clear();
+                            DrawTable();
+                            Console.WriteLine("{0}'s move was ({1}): {2}", currentPlayer.Name, currentSign, movement);
+                            if (!m_Game.IsAnotherEatingMoveAvailable(currentSign, moveToRowIndex, moveToLineIndex))
+                            {
+                                indexTurn++;
+                                canEatAgainStatus = false;
+                            }
+                            else
+                            {
+                                canEatAgainStatus = true;
+                            }
                         }
                         else
                         {
@@ -307,22 +350,22 @@ namespace Ex02_New
                             }
                         }
                     }
+
                 }
             }
             if (m_Game.IsThereAWinner())
             {
+                
                 if (m_Game.NumberOfO == 0 && m_Game.NumberOfU == 0)
                 {
                     m_Player1.Score += (m_Game.NumberOfX + (m_Game.NumberOfK)*4);
-                    Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player1.Name,
-                        m_Player1.Score, m_Player2.Name, m_Player2.Score);
+                    Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player1.Name, m_Player1.Score, m_Player2.Name, m_Player2.Score);
                     m_Player1.PlayerAmountOfWins++;
                 }
                 else if (m_Game.NumberOfX == 0 && m_Game.NumberOfK == 0)
                 {
                     m_Player2.Score = (m_Game.NumberOfO + (m_Game.NumberOfU)*4);
-                    Console.WriteLine("The winner is {0} his score:{1}, and {2}'s score is:{3} ", m_Player2.Name,
-                        m_Player2.Score, m_Player1.Name, m_Player1.Score);
+                    Console.WriteLine("The winner is {0} his score:{1}, and {2}'s score is:{3} ", m_Player2.Name, m_Player2.Score, m_Player1.Name, m_Player1.Score);
                     m_Player2.PlayerAmountOfWins++;
                 }
             }
@@ -339,107 +382,19 @@ namespace Ex02_New
                 {
                     if (nextPlayer.ENormalSign == ePlayer.X)
                     {
-                        m_Player1.Score += (m_Game.NumberOfX + (m_Game.NumberOfK)*4) -
-                                           (m_Game.NumberOfO + (m_Game.NumberOfU)*4);
-                        Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player1.Name,
-                            m_Player1.Score, m_Player2.Name, m_Player2.Score);
+                        m_Player1.Score += (m_Game.NumberOfX + (m_Game.NumberOfK) * 4) - (m_Game.NumberOfO + (m_Game.NumberOfU) * 4);
+                        Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player1.Name, m_Player1.Score, m_Player2.Name, m_Player2.Score);
                         m_Player1.PlayerAmountOfWins++;
                     }
                     else if (nextPlayer.ENormalSign == ePlayer.O)
                     {
-                        m_Player2.Score = (m_Game.NumberOfO + (m_Game.NumberOfU)*4) -
-                                          (m_Game.NumberOfX + (m_Game.NumberOfK)*4);
-                        Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player2.Name,
-                            m_Player2.Score, m_Player1.Name, m_Player1.Score);
+                        m_Player2.Score = (m_Game.NumberOfO + (m_Game.NumberOfU)*4) - (m_Game.NumberOfX + (m_Game.NumberOfK)*4);
+                        Console.WriteLine("The winner is {0}, his score:{1}, and {2}'s score is:{3} ", m_Player2.Name, m_Player2.Score, m_Player1.Name, m_Player1.Score);
                         m_Player2.PlayerAmountOfWins++;
+
                     }
                 }
             }
-        }
-
-        private bool PerformFirstEatingMove(string i_Movement, ePlayer i_CurrentSign, bool i_CanEatAgainStatus,
-            PlayerInfo i_CurrentPlayer, int i_MoveToRowIndex, int i_MoveToLineIndex, ref int r_IndexTurn)
-        {
-            m_Game.Eat(i_Movement, i_CurrentSign, i_CanEatAgainStatus);
-            Screen.Clear();
-            DrawTable();
-            Console.WriteLine("{0}'s move was ({1}): {2}", i_CurrentPlayer.Name, i_CurrentSign, i_Movement);
-            if (!m_Game.IsAnotherEatingMoveAvailable(i_CurrentSign, i_MoveToRowIndex, i_MoveToLineIndex))
-            {
-                r_IndexTurn++;
-                i_CanEatAgainStatus = false;
-            }
-            else
-            {
-                i_CanEatAgainStatus = true;
-            }
-            return i_CanEatAgainStatus;
-        }
-
-        private int NormalPlayerMovementValidation(PlayerInfo i_CurrentPlayer, ref string r_Movement, out int o_MoveFromRowIndex,
-            out int moveToLineIndex, out int moveToRowIndex, ref ePlayer currentSign)
-        {
-            int moveFromLineIndex;
-            while (!m_Game.IsGoodMoveData(r_Movement))
-            {
-                Screen.Clear();
-                DrawTable();
-                Console.WriteLine("Bad data, please enter correct format");
-                r_Movement = Console.ReadLine();
-            }
-            m_Game.ConvertToIndexNumbers(r_Movement, out moveFromLineIndex, out o_MoveFromRowIndex,
-                out moveToLineIndex, out moveToRowIndex);
-            if (m_Game[o_MoveFromRowIndex, moveFromLineIndex] == i_CurrentPlayer.EKinglSign)
-            {
-                currentSign = i_CurrentPlayer.EKinglSign;
-            }
-            if (m_Game[o_MoveFromRowIndex, moveFromLineIndex] != currentSign)
-            {
-                Screen.Clear();
-                DrawTable();
-                Console.WriteLine("Bad move! please enter again");
-            }
-            return moveFromLineIndex;
-        }
-
-        private PlayerInfo StartingGameSettings(out PlayerInfo nextPlayer, out int indexTurn, out bool canEatAgainStatus)
-        {
-            m_Game.InitializeTable();
-            DrawTable();
-            string movement = null;
-            PlayerInfo currentPlayer = m_Player1;
-            nextPlayer = m_Player2;
-            indexTurn = 1;
-            string[] arrayOfEatingPossitions = new string[16];
-            canEatAgainStatus = false;
-            currentPlayer = WhoIsThePlayerNow(indexTurn, currentPlayer, ref nextPlayer);
-            return currentPlayer;
-        }
-
-        private void ChooseTableSize()
-        {
-            string tableSize;
-            Console.WriteLine("Please select table size : 6x6 , 8x8 , 10x10");
-            tableSize = Console.ReadLine();
-            tableSize = CheckValidTableSize(tableSize);
-            m_BoardSize = tableSize;
-            CreatingTable(tableSize);
-        }
-
-        private void PlayersSettings()
-        {
-            Console.WriteLine("Please enter player1 name:");
-            string player1Name;
-            player1Name = Console.ReadLine();
-            player1Name = CheckValidPlayerName(player1Name);
-            m_Player1 = new PlayerInfo(player1Name, ePlayer.X, ePlayer.K);
-            Console.WriteLine("Do you want to play 2 players or against the computer?");
-            Console.WriteLine("Press to choose:");
-            Console.WriteLine("1. Second Player");
-            Console.WriteLine("2. Computer");
-            string choosePlayer2 = Console.ReadLine();
-            choosePlayer2 = CheckManuForPlayer2(choosePlayer2);
-            ManuForPlayer2(choosePlayer2);
         }
 
         private bool IsPlayerChoseEatingPlace(string[] i_arrayOfEatingPossitions, string i_movement)
@@ -459,19 +414,18 @@ namespace Ex02_New
 
         private bool ResignPlayer(string i_movement, PlayerInfo i_currentPlayer, PlayerInfo i_nextPlayer)
         {
-            int score = 0;
+            int score = 0; 
             if (i_currentPlayer.ENormalSign == ePlayer.O)
             {
-                score = (m_Game.NumberOfX + (m_Game.NumberOfK)*4);
+                score = (m_Game.NumberOfX + (m_Game.NumberOfK) * 4); 
             }
             else
             {
-                score = (m_Game.NumberOfO + (m_Game.NumberOfU)*4);
+                score = (m_Game.NumberOfO + (m_Game.NumberOfU)*4); 
             }
             if (ResignFromGame(i_movement))
             {
-                Console.WriteLine("{0} resigned, the winner is {1}. The score is:{2}!", i_currentPlayer.Name,
-                    i_nextPlayer.Name, score);
+                Console.WriteLine("{0} resigned, the winner is {1}. The score is:{2}!", i_currentPlayer.Name, i_nextPlayer.Name, score);
                 return true;
             }
             return false;
@@ -479,7 +433,7 @@ namespace Ex02_New
 
         private PlayerInfo WhoIsThePlayerNow(int i_indexTurn, PlayerInfo i_currentPlayer, ref PlayerInfo i_nextPlayer)
         {
-            if ((i_indexTurn%2) != 0)
+            if ((i_indexTurn % 2) != 0)
             {
                 i_currentPlayer = m_Player1;
                 i_nextPlayer = m_Player2;
