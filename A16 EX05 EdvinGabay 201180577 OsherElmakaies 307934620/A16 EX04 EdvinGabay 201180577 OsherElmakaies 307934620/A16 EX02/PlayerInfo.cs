@@ -60,60 +60,7 @@ namespace Ex02_New
         {
             PawnsNumber = i_Number;
         }
-
-        public bool CanEatAgain(int i_MoveFromLineIndex, int i_MoveFromRowIndex, Board m_Table, ePlayer i_ESign)
-        {
-            bool answerForEatingAgain = false;
-            string currentLocation = m_Table[i_MoveFromRowIndex, i_MoveFromLineIndex].ToString();
-            string bottomRight = m_Table[i_MoveFromRowIndex + 1, i_MoveFromLineIndex + 1].ToString();
-            string bottomLeft = m_Table[i_MoveFromRowIndex + 1, i_MoveFromLineIndex - 1].ToString();
-            string topLeft = m_Table[i_MoveFromRowIndex - 1, i_MoveFromLineIndex + 1].ToString();
-            string topRight = m_Table[i_MoveFromRowIndex - 1, i_MoveFromLineIndex - 1].ToString();
-            if (CheckForOpponentAroundYou(currentLocation, bottomRight))
-            {
-                if (CheckEmptyAroundYou(bottomRight))
-                {
-                    answerForEatingAgain = true;
-                }
-            }
-            if (CheckForOpponentAroundYou(currentLocation, bottomLeft))
-            {
-                if (CheckEmptyAroundYou(bottomLeft))
-                {
-                    answerForEatingAgain = true;
-                }
-            }
-            if (CheckForOpponentAroundYou(currentLocation, topLeft))
-            {
-                if (CheckEmptyAroundYou(topLeft))
-                {
-                    answerForEatingAgain = true;
-                }
-            }
-            if (CheckForOpponentAroundYou(currentLocation, topRight))
-            {
-                if (CheckEmptyAroundYou(topRight))
-                {
-                    answerForEatingAgain = true;
-                }
-            }
-            // $G$ CSS-006 (-3) missing blank line.
-            return answerForEatingAgain;
-
-        }
-
-        public bool CheckForOpponentAroundYou(string i_CurrentLocation, string i_OpponentLocation)
-        {
-            bool answerForOpponent = false;
-            ePlayer opponentSign;
-            opponentSign = (ENormalSign == ePlayer.X) ? ePlayer.O : ePlayer.X;
-            if (i_CurrentLocation != opponentSign.ToString())
-            {
-                answerForOpponent = true;
-            }
-            return answerForOpponent;
-        }
-
+            
         public bool CheckEmptyAroundYou(string i_CurrentLocation)
         {
 

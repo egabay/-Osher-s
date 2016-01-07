@@ -54,6 +54,7 @@
       <DependentUpon>CheckersGui.cs</DependentUpon>
     </Compile>
     <Compile Include="GameLogic.cs" />
+    <Compile Include="Manager.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
