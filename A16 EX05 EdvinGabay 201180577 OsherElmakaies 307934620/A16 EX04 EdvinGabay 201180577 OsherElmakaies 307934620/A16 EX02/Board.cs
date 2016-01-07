@@ -37,11 +37,17 @@ namespace Ex02_New
         private int m_NumberOfK = 0;
         private int m_NumberOfU = 0;
 
-        private ePlayer[,] m_TableMatrix;
+        private Coin[,] m_GameBoard;
         private int m_NumberOfX = 0;
         private int m_NumberOfO = 0;
         private int m_BoardSize;
-        public TableLayoutPanel m_Board;
+
+
+        public ePlayer this[int i_RowIndex, int i_LineIndex]
+        {
+            get { return m_GameBoard[i_RowIndex, i_LineIndex].PlayerCoin; }
+            set { m_GameBoard[i_RowIndex, i_LineIndex].PlayerCoin = value; }
+        }
 
         public int NumberOfK
         {
@@ -53,9 +59,10 @@ namespace Ex02_New
             get { return m_NumberOfU; }
         }
 
-        public Board(TableLayoutPanel i_Board)
+
+        public Board(int i_BoardSize)
         {
-            m_Board = i_Board;
+            m_GameBoard = new Coin[i_BoardSize, i_BoardSize];
         }
 
         public int NumberOfX
@@ -67,6 +74,18 @@ namespace Ex02_New
         {
             get { return m_NumberOfO; }
         }
+
+        private BoardInitialize(int i_GameBoardSize)
+        {
+            for (int i = 0; i < i_GameBoardSize; i++)
+			{
+			     for (int j = 0; j < i_GameBoardSize; j++)
+			    {
+			      
+			    }
+			}
+        }
+
     }
 }
 

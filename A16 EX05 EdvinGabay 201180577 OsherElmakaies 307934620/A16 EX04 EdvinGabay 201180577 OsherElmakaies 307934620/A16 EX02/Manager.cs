@@ -11,10 +11,12 @@ namespace Ex02_New
     {
         Board m_GameBoard;
         GameLogic m_GameLogic;
+        Button i_From;
+        Button i_To;
  
-        public Manager(TableLayoutPanel i_Board)
+        public Manager(int i_SizeBoard)
         {
-            m_GameBoard = new Board(i_Board);
+            m_GameBoard = new Board(i_SizeBoard);
             m_GameLogic = new GameLogic();
         }
         public void Move()
@@ -34,7 +36,7 @@ namespace Ex02_New
 
         private void Notify()
         {
-            
+
         }
         
 

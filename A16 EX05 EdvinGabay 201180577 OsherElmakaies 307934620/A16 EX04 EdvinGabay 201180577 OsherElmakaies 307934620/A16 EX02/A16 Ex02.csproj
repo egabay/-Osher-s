@@ -53,6 +53,7 @@
     <Compile Include="CheckersGui.Designer.cs">
       <DependentUpon>CheckersGui.cs</DependentUpon>
     </Compile>
+    <Compile Include="Coin.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="PlayerInfo.cs" />

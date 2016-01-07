@@ -24,7 +24,7 @@ namespace Ex02_New
         public CheckersGui()
         {
             InitializeComponent();
-            m_Manager = new Manager(m_CheckersBoardTableLayOut);
+            m_Manager = new Manager(6);
             m_Manager.NotifyChangeButtonStatus += m_Manager_NotifyChangeButtonStatus;        
         }
 
