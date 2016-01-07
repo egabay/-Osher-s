@@ -14,12 +14,11 @@ namespace Ex02_New
             m_Board = new Board(6);
         }
         public void Move(Button i_From, Button i_To)
-        {
+        {     
             i_To.Text = i_From.Text;
             i_From.Text = string.Empty;
-
-            m_Board[0, 0] = ePlayer.X;
             
+
         }   
 
         public void IsMoveable(Button i_From,Button i_To)
