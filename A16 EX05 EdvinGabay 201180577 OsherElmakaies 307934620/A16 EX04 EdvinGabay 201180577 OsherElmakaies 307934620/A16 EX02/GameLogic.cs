@@ -14,19 +14,19 @@ namespace Ex02_New
         {
             m_Board = new Board(6);
         }
-        //Done
+
         public void Move(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
         {
-            m_Board[i_FromLine, i_FromRow] = ePlayer.Empty; 
+            m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
             m_Board[i_ToLine, i_ToRow] = i_Sign;
         }
-        //Done
+
         public bool IsEmptyPlace(int i_ToLine, int i_ToRow)
         {
             bool isEmpty = m_Board[i_ToLine, i_ToRow] == ePlayer.Empty;
-            return isEmpty; 
+            return isEmpty;
         }
-        //Done
+
         public bool IsValidMove(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
         {
             bool isValid = false;
@@ -44,7 +44,50 @@ namespace Ex02_New
                     isValid = true;
                 }
             }
-            return isValid; 
+            else if (i_Sign == ePlayer.U || i_Sign == ePlayer.K)
+            {
+                if ((i_FromRow == i_ToRow + 1 || i_FromRow == i_ToRow - 1) &&
+                    (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                {
+                    isValid = true;
+                }
+            }
+            return isValid;
+        }
+
+        public void Eat(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        {
+            if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
+            {
+                //bottom right
+                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
+                m_Board[i_FromLine + 1, i_FromRow + 1] = ePlayer.Empty;
+                m_Board[i_FromLine + 2, i_FromRow + 2] = i_Sign;
+            }
+            else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
+            {
+                //bottom left
+                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
+                m_Board[i_FromLine - 1, i_FromRow + 1] = ePlayer.Empty;
+                m_Board[i_FromLine - 2, i_FromRow + 2] = i_Sign;
+            }
+
+            else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
+            {
+                //up right
+                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
+                m_Board[i_FromLine + 1, i_FromRow - 1] = ePlayer.Empty;
+                m_Board[i_FromLine + 2, i_FromRow - 2] = i_Sign;
+            }
+            else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
+            {
+                //up left
+                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
+                m_Board[i_FromLine - 1, i_FromRow - 1] = ePlayer.Empty;
+                m_Board[i_FromLine - 2, i_FromRow - 2] = i_Sign;
+            }
         }
     }
+}
+
 }
