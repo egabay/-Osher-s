@@ -28,12 +28,8 @@ namespace Ex02_New
         {
         }
 
-        public void ClickPerformed(Button i_ClickedOn)
-        {
-            Move();
-        }
 
-        public event ChangeButtonStatusDelegate NotifyChangeButtonStatus;
+        public event MovedOccuredDelegate NotifyMovement;
 
         private void Notify()
         {

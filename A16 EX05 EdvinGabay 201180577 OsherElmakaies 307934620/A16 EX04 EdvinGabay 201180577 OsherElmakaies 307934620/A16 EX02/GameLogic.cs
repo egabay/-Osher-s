@@ -15,10 +15,20 @@ namespace Ex02_New
             m_Board = new Board(6);
         }
 
-        public void Move(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        /// Updating the GUI With delegate that movement occured 
+        public event MovedOccuredDelegate NotifyMovement;
+
+        private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
-            m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-            m_Board[i_ToLine, i_ToRow] = i_Sign;
+            NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+        }
+        //------------------------------------------------------
+
+        public void Move(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
+        {
+            m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+            m_Board[i_ToRow, i_ToLine] = i_Sign;
+            NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
 
         public bool IsEmptyPlace(int i_ToLine, int i_ToRow)
@@ -90,4 +100,4 @@ namespace Ex02_New
     }
 }
 
-}
+

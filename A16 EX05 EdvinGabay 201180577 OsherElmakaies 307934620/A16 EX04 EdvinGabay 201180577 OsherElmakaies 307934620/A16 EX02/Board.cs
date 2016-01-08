@@ -69,6 +69,7 @@ namespace Ex02_New
         {
             m_BoardSize = i_BoardSize;
             m_GameBoard = new Coin[m_BoardSize, m_BoardSize];
+            InitiateBoardToEmpty();
             BoardInitialize();
         }
 
@@ -82,6 +83,17 @@ namespace Ex02_New
             get { return m_NumberOfO; }
         }
 
+
+        private void InitiateBoardToEmpty()
+        {
+            for (int i = 0; i < m_BoardSize; i++)
+            {
+                for (int j = 0; j < m_BoardSize; j++)
+                {
+                    m_GameBoard[i, j] = new Coin(ePlayer.Empty);
+                }
+            }
+        }
         private void BoardInitialize()
         {
             for (int i = 0; i < m_BoardSize / 2 - 1; i++)
