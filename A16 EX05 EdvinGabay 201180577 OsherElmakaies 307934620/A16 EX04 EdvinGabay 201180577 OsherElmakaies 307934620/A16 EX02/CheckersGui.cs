@@ -59,6 +59,7 @@ namespace Ex02_New
             }
             else
             {
+                //X= Row, Y= Line
                 m_ButtonTo = wasClicked;
                 m_ButtonFrom.BackColor = Color.White;
                 v_IsSecondPick = false;

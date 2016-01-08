@@ -28,12 +28,22 @@ namespace Ex02_New
         {
             m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
             m_Board[i_ToRow, i_ToLine] = i_Sign;
+
+            //Checking if table match gui(Delete it after)
+            for (int i = 0; i < m_Board.BoardSize; i++)
+            {
+                for (int j = 0; j < m_Board.BoardSize; j++)
+                {
+                    Console.Write(m_Board[i, j].ToString() + " |");
+                }
+                Console.WriteLine();
+            }
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
 
-        public bool IsEmptyPlace(int i_ToLine, int i_ToRow)
+        public bool IsEmptyPlace(int i_ToRow, int i_ToLine)
         {
-            bool isEmpty = m_Board[i_ToLine, i_ToRow] == ePlayer.Empty;
+            bool isEmpty = m_Board[i_ToRow, i_ToLine] == ePlayer.Empty;
             return isEmpty;
         }
 
