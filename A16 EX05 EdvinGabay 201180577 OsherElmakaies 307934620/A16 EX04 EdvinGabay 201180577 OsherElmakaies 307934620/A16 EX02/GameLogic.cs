@@ -57,7 +57,7 @@ namespace Ex02_New
             //----------------------------------------------------------
         }
 
-        public bool IsValidMove(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        public bool IsValidMove(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             bool isValid = false;
             if (i_Sign == ePlayer.O)
@@ -85,7 +85,7 @@ namespace Ex02_New
             return isValid;
         }
 
-        public void Eat(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        public void Eat(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
             {
@@ -118,7 +118,7 @@ namespace Ex02_New
             }
         }
 
-        public bool IsValidEat(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        public bool IsValidEat(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             bool isValid = false;
             if (i_Sign == ePlayer.O)
