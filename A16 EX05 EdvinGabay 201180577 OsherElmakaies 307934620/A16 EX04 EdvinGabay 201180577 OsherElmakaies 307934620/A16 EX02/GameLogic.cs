@@ -10,9 +10,15 @@ namespace Ex02_New
     {
         Board m_Board;
 
-        public GameLogic()
+        public GameLogic(int i_BoardSize)
         {
-            m_Board = new Board(6);
+            InitializeBoard(i_BoardSize);
+        }
+
+        private void InitializeBoard(int i_BoardSize)
+        {
+            m_Board = new Board(i_BoardSize);
+
         }
 
         /// Updating the GUI With delegate that movement occured 
@@ -38,7 +44,9 @@ namespace Ex02_New
                 }
                 Console.WriteLine();
             }
+            // Updtaing Gui
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+            //----------------------------------------------------------
         }
 
         public bool IsEmptyPlace(int i_ToRow, int i_ToLine)

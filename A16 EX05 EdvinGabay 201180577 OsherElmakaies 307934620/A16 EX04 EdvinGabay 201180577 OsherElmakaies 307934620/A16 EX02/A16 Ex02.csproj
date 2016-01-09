@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="CheckersGame.cs" />
     <Compile Include="CheckersGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +54,12 @@
     </Compile>
     <Compile Include="Coin.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="InitializeGameDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitializeGameDialog.Designer.cs">
+      <DependentUpon>InitializeGameDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manager.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Program.cs" />
@@ -66,6 +71,9 @@
   <ItemGroup>
     <EmbeddedResource Include="CheckersGui.resx">
       <DependentUpon>CheckersGui.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializeGameDialog.resx">
+      <DependentUpon>InitializeGameDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
