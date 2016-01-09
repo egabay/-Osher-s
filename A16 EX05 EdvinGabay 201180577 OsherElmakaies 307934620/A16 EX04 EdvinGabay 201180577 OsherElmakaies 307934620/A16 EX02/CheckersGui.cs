@@ -103,7 +103,94 @@ namespace Ex02_New
                     m_CheckersBoardTableLayOut.Controls.Add(buttonToAdd, j, i);
                 }
             }
+            EnterAPlayersIntoGuiMatrix();
         }
+
+        private void EnterAPlayersIntoGuiMatrix()
+        {
+            EnterGuiTablePlayerOneCoins();
+            EnterGuiTablePlayerTwoCoins();
+            EnterGuiTableSpacers();
+        }
+        private void EnterGuiTablePlayerOneCoins()
+        {
+                        for (int i = 0; i < m_BoardSize / 2 - 1; i++)
+            {
+                for (int j = 0; j < m_BoardSize; j++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Text = "O";
+                        j++;
+                         innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                    }
+                    else
+                    {
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                        j++;
+                         innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Text = "O";
+
+                    }
+                }
+            }
+        }
+        private void EnterGuiTablePlayerTwoCoins()
+        {
+                        for (int i = m_BoardSize - 1; i > m_BoardSize / 2; i--)
+            {
+                for (int j = 0; j < m_BoardSize; j++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Text = "X";
+                        j++;
+                        innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                    }
+                    else
+                    {
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                        j++;
+                        innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Text = "X";
+                    }
+                }
+            }
+        }
+        private void EnterGuiTableSpacers()
+        {
+            for (int i = m_BoardSize / 2 - 1; i <= m_BoardSize / 2; i++)
+            {
+                for (int j = 0; j < m_BoardSize; j++)
+                {
+                    if (i % 2 == 1)
+                    {
+                        j++;
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                    }
+                    else
+                    {
+                        Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton.Enabled = false;
+                        innerButton.UseVisualStyleBackColor = true;
+                        j++;
+                    }
+                }
+            }
+        }
+
         private Button InitializeButton()
         {
             Button inner = new Button();
