@@ -12,9 +12,15 @@ namespace Ex02_New
         public const int k_RegularMoveSteps = 1;
         public const int k_EatMoveSteps = 2;
 
-        public GameLogic()
+        public GameLogic(int i_BoardSize)
         {
-            m_Board = new Board(6);
+            InitializeBoard(i_BoardSize);
+        }
+
+        private void InitializeBoard(int i_BoardSize)
+        {
+            m_Board = new Board(i_BoardSize);
+
         }
 
         /// Updating the GUI With delegate that movement occured 
@@ -47,7 +53,9 @@ namespace Ex02_New
                 }
                 Console.WriteLine();
             }
+            // Updtaing Gui
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+            //----------------------------------------------------------
         }
 
         public bool IsValidMove(ePlayer i_Sign, int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
