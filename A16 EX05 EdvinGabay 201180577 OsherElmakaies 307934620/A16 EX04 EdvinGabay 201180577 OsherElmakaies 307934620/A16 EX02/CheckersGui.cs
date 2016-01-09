@@ -46,6 +46,8 @@ namespace Ex02_New
             m_BoardSize = i_BoardSize;
             m_FirstPlayerName = i_FirstPlayerName;
             m_SecondPlayerName = i_SecondPlayerName;
+            m_Player1ScoreLabel.Text = m_FirstPlayerName;
+            m_Player2ScoreLabel.Text = m_SecondPlayerName;
         }
 
         private void m_Manager_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
@@ -114,5 +116,6 @@ namespace Ex02_New
             inner.Click += new System.EventHandler(this.button1_Click);
             return inner;
         }
+
     }
 }
