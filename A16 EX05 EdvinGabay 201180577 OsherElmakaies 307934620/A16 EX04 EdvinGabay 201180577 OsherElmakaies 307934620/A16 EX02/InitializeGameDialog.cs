@@ -18,7 +18,7 @@ namespace Ex02_New
     public partial class InitializeGameDialog : Form
     {
         private eBoardSize m_BoardSizeResult;
-        public event UpdateInfoFromSettingDialog NotifyInfoFromSettingDialog;
+        public event UpdateInfoFromSettingDialogDelegate NotifyInfoFromSettingDialog;
         public int shumdavar;
 
         public eBoardSize BoardSizeResult

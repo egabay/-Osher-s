@@ -10,7 +10,8 @@ namespace Ex02_New
 {
 
     public delegate void MovedOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow);
-    public delegate void UpdateInfoFromSettingDialog(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
+    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow,int i_EatenLine,int i_EatenRow);
+    public delegate void UpdateInfoFromSettingDialogDelegate(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
 
     public partial class CheckersGui : Form
     {
@@ -26,6 +27,8 @@ namespace Ex02_New
         private Point m_FromPoint;
         private Point m_ToPoint;
         private Manager m_Manager;
+        int turns = 0;
+        ePlayer playerTurnForCheck = ePlayer.O;
 
 
 
@@ -37,8 +40,17 @@ namespace Ex02_New
             GameSettings.ShowDialog();
             GameSettings.NotifyInfoFromSettingDialog -= GameSettings_NotifyInfoFromSettingDialog;
             m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.NotifyMovement += m_Manager_NotifyMovement;
+            m_Logic.NotifyEat += m_Logic_NotifyEat;
+            m_Logic.NotifyMovement += m_NotifyMovement;
             InitializeTableLayOut();
+        }
+
+        void m_Logic_NotifyEat(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
+        {
+            m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+            Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
+            eaten.Text = string.Empty;
+
         }
 
         private void GameSettings_NotifyInfoFromSettingDialog(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName)
@@ -50,7 +62,7 @@ namespace Ex02_New
             m_Player2ScoreLabel.Text = m_SecondPlayerName;
         }
 
-        private void m_Manager_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        private void m_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
         {
             Button fromButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_FromRow, i_FromLine) as Button;
             Button toButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_ToRow, i_ToLine) as Button;
@@ -85,7 +97,17 @@ namespace Ex02_New
                 v_IsSecondPick = false;
                 m_ToPoint.X = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Row;
                 m_ToPoint.Y = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Column;
-                m_Logic.Move(ePlayer.O, m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y);
+                if (turns % 2 == 0)
+                {
+                    m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y, ePlayer.O, false);
+                    turns++;
+                }
+                else
+                {
+                    m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y, ePlayer.X, false);
+                    turns++;
+                }
+
             }
         }
 
@@ -105,7 +127,6 @@ namespace Ex02_New
             }
             EnterAPlayersIntoGuiMatrix();
         }
-
         private void EnterAPlayersIntoGuiMatrix()
         {
             EnterGuiTablePlayerOneCoins();

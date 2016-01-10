@@ -24,12 +24,15 @@ namespace Ex02_New
 
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate NotifyMovement;
-
+        public event NotifyEatingOccuredDelegate NotifyEat;
         private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
-
+        private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow,int i_EatenLine,int i_EatenRow)
+        {
+            NotifyEat( i_FromLine,  i_FromRow,  i_ToLine,  i_ToRow, i_EatenLine, i_EatenRow);
+        }
         //------------------------------------------------------
 
         public bool IsEmptyPlace(int i_ToRow, int i_ToLine)
@@ -43,15 +46,16 @@ namespace Ex02_New
             m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
             m_Board[i_ToRow, i_ToLine] = i_Sign;
 
-            //Checking if table match gui(Delete it after)
+            //Checking if table match gui(Delete it after) 3 = X / 1 = O
             for (int i = 0; i < m_Board.BoardSize; i++)
             {
                 for (int j = 0; j < m_Board.BoardSize; j++)
                 {
-                    Console.Write(m_Board[i, j].ToString() + " |");
+                    Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine("======================================================");
             // Updtaing Gui
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
             //----------------------------------------------------------
@@ -93,6 +97,8 @@ namespace Ex02_New
                 m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
                 m_Board[i_FromLine + 1, i_FromRow + 1] = ePlayer.Empty;
                 m_Board[i_FromLine + 2, i_FromRow + 2] = i_Sign;
+                //Updating UI
+                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow + 1);
             }
             else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
             {
@@ -100,6 +106,7 @@ namespace Ex02_New
                 m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
                 m_Board[i_FromLine - 1, i_FromRow + 1] = ePlayer.Empty;
                 m_Board[i_FromLine - 2, i_FromRow + 2] = i_Sign;
+                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow + 1);
             }
 
             else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
@@ -108,6 +115,7 @@ namespace Ex02_New
                 m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
                 m_Board[i_FromLine + 1, i_FromRow - 1] = ePlayer.Empty;
                 m_Board[i_FromLine + 2, i_FromRow - 2] = i_Sign;
+                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow - 1);
             }
             else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
             {
@@ -115,6 +123,7 @@ namespace Ex02_New
                 m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
                 m_Board[i_FromLine - 1, i_FromRow - 1] = ePlayer.Empty;
                 m_Board[i_FromLine - 2, i_FromRow - 2] = i_Sign;
+                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow - 1);
             }
         }
 
