@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex02.ConsoleUtils;
-using System.Windows.Forms;
 
 
-namespace Ex02_New
+namespace Ex05
 {
     public enum ePlayer
     {

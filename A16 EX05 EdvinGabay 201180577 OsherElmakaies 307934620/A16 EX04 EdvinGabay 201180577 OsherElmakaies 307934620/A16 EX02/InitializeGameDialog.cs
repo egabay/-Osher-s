@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Ex02_New
+namespace Ex05
 {
     public enum eBoardSize
     {

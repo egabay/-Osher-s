@@ -1,4 +1,4 @@
-﻿namespace Ex02_New
+﻿namespace Ex05
 {
     partial class CheckersGui
     {
