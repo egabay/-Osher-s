@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Ex02_New
+namespace Ex05
 {
 
     class Program

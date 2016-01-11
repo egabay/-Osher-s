@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A16 Ex02", "A16 EX02\A16 Ex02.csproj", "{10EA05B8-3CC3-40C7-A330-B4551D391BD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A16 Ex05", "A16 EX02\A16 Ex05.csproj", "{10EA05B8-3CC3-40C7-A330-B4551D391BD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A16 Ex05 Logic", "A16 Ex05 Logic\A16 Ex05 Logic.csproj", "{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{10EA05B8-3CC3-40C7-A330-B4551D391BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10EA05B8-3CC3-40C7-A330-B4551D391BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10EA05B8-3CC3-40C7-A330-B4551D391BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

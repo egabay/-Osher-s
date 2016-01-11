@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Ex02_New
+namespace Ex05
 {
     public enum eBoardSize
     {
@@ -18,7 +18,7 @@ namespace Ex02_New
     public partial class InitializeGameDialog : Form
     {
         private eBoardSize m_BoardSizeResult;
-        public event UpdateInfoFromSettingDialog NotifyInfoFromSettingDialog;
+        public event UpdateInfoFromSettingDialogDelegate NotifyInfoFromSettingDialog;
         public int shumdavar;
 
         public eBoardSize BoardSizeResult

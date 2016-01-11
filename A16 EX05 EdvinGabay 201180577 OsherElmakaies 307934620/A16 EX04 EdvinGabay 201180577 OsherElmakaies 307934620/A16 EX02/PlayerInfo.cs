@@ -5,7 +5,7 @@ using System.Text;
 
 
 
-namespace Ex02_New
+namespace Ex05
 {
     class PlayerInfo
     {
