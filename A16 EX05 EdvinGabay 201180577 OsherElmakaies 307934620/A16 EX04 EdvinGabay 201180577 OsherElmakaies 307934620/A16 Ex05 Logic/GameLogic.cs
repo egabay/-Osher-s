@@ -108,36 +108,36 @@ namespace Ex05
             if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
             {
                 //bottom right
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine + 1, i_FromRow + 1] = ePlayer.Empty;
-                m_Board[i_FromLine + 2, i_FromRow + 2] = i_Sign;
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_FromRow + 1, i_FromLine + 1] = ePlayer.Empty;
+                m_Board[i_FromRow + 2, i_FromLine + 2] = i_Sign;
                 //Updating UI
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow + 1);
+                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine + 1);
             }
             else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
             {
                 //bottom left
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine - 1, i_FromRow + 1] = ePlayer.Empty;
-                m_Board[i_FromLine - 2, i_FromRow + 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow + 1);
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
+                m_Board[i_FromRow - 2, i_FromLine + 2] = i_Sign;
+                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
             }
 
             else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
             {
-                //up right
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine + 1, i_FromRow - 1] = ePlayer.Empty;
-                m_Board[i_FromLine + 2, i_FromRow - 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow - 1);
+                //up left
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_FromRow - 1, i_FromLine - 1] = ePlayer.Empty;
+                m_Board[i_FromRow - 2, i_FromLine - 2] = i_Sign;
+                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine - 1);
             }
             else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
             {
-                //up left
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine - 1, i_FromRow - 1] = ePlayer.Empty;
-                m_Board[i_FromLine - 2, i_FromRow - 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow - 1);
+                //up right
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
+                m_Board[i_FromRow - 2, i_FromLine + 2] = i_Sign;
+                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
             }
         }
 
