@@ -11,6 +11,7 @@ namespace Ex05
         [STAThread]
         static void Main()
         {
+            //stam
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new CheckersGui());
