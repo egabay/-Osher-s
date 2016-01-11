@@ -25,13 +25,18 @@ namespace Ex02_New
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate NotifyMovement;
         public event NotifyEatingOccuredDelegate NotifyEat;
+        public event NotifyInvalidMove NotifyInvalidMove;
         private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
-        private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow,int i_EatenLine,int i_EatenRow)
+        private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
         {
-            NotifyEat( i_FromLine,  i_FromRow,  i_ToLine,  i_ToRow, i_EatenLine, i_EatenRow);
+            NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_EatenLine, i_EatenRow);
+        }
+        private void NotifyOnInvalidMove(string i_MsgToNotify)
+        {
+            NotifyInvalidMove(i_MsgToNotify);
         }
         //------------------------------------------------------
 
@@ -43,9 +48,15 @@ namespace Ex02_New
 
         public void Move(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
-            m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
-            m_Board[i_ToRow, i_ToLine] = i_Sign;
-
+            if (IsValidMove(i_Sign,i_FromRow,i_FromLine,i_ToRow,i_ToLine))
+            {
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_ToRow, i_ToLine] = i_Sign;
+            }
+            else
+            {
+                NotifyOnInvalidMove("Bad Move Please Try Again");
+            }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
             for (int i = 0; i < m_Board.BoardSize; i++)
             {
@@ -238,8 +249,7 @@ namespace Ex02_New
             return isValid;
         }
 
-        public void CheckWhichMoveIsIt(int i_FromRow, int i_ToRow, int i_FromLine,
-            int i_ToLine, ePlayer i_Sign, bool i_CanEatAgainStatus)
+        public void CheckWhichMoveIsIt(int i_FromRow, int i_ToRow, int i_FromLine, int i_ToLine, ePlayer i_Sign, bool i_CanEatAgainStatus)
         {
             //eMoveType retVal = eMoveType.None;
             if (i_CanEatAgainStatus)
@@ -252,84 +262,73 @@ namespace Ex02_New
                 switch (i_Sign)
                 {
                     case ePlayer.X:
-                    {
-                        if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                            i_ToLine,
-                            k_RegularMoveSteps))
                         {
-                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            //retVal = eMoveType.Move;
-                        }
-                        else
-                        {
-                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                                i_ToLine, k_EatMoveSteps))
+                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                             {
-                                Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
-                                //retVal = eMoveType.Eat;
-                            }
-                        }
-                        break;
-                    }
-                    case ePlayer.O:
-                    {
-                        if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                            i_ToLine,
-                            k_RegularMoveSteps))
-                        {
-                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            //retVal = eMoveType.Move;
-                        }
-                        else
-                        {
-                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                                i_ToLine, k_EatMoveSteps))
-                            {
-                                Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
-                                //retVal = eMoveType.Eat;
-                            }
-                        }
-                        break;
-                    }
-                    case ePlayer.K:
-                    case ePlayer.U:
-                    {
-                        if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                            i_ToLine,
-                            k_RegularMoveSteps))
-                        {
-                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            //retVal = eMoveType.Move;
-                        }
-                        else
-                        {
-                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                                i_ToLine, k_EatMoveSteps))
-                            {
-                                Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
-                                //retVal = eMoveType.Eat;
+                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Move;
                             }
                             else
                             {
-                                if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                                    i_ToLine, k_RegularMoveSteps))
+                                if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                                 {
-                                    Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Move;
+                                    Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+                                    //retVal = eMoveType.Eat;
+                                }
+                            }
+                            break;
+                        }
+                    case ePlayer.O:
+                        {
+                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
+                            {
+                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Move;
+                            }
+                            else
+                            {
+                                if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                                {
+                                    Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+                                    //retVal = eMoveType.Eat;
+                                }
+                            }
+                            break;
+                        }
+                    case ePlayer.K:
+                    case ePlayer.U:
+                        {
+                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
+                            {
+                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Move;
+                            }
+                            else
+                            {
+                                if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                                {
+                                    Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+                                    //retVal = eMoveType.Eat;
                                 }
                                 else
                                 {
-                                    if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine,
-                                        i_ToLine, k_EatMoveSteps))
+                                    if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                                     {
-                                        Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
-                                        //retVal = eMoveType.Eat;
+                                        Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                        //retVal = eMoveType.Move;
+                                    }
+                                    else
+                                    {
+                                        if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                                        {
+                                            Eat(i_Sign, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+                                            //retVal = eMoveType.Eat;
+                                        }
                                     }
                                 }
                             }
+                            break;
                         }
-                        break;
-                    }
                 }
             }
         }
