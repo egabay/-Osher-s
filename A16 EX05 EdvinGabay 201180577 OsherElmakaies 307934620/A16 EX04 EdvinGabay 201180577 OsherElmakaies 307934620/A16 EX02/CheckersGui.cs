@@ -10,32 +10,34 @@ namespace Ex02_New
 {
 
     public delegate void MovedOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow);
-    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow,int i_EatenLine,int i_EatenRow);
+    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
     public delegate void UpdateInfoFromSettingDialogDelegate(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
     public delegate void NotifyInvalidMove(string i_InvalidMoveMsg);
 
     public partial class CheckersGui : Form
     {
         private int m_BoardSize;
-        private string m_FirstPlayerName;
-        private string m_SecondPlayerName;
-
         private GameLogic m_Logic;
-
         private Button m_ButtonFrom = null;
         private Button m_ButtonTo = null;
         private bool v_IsSecondPick = false;
         private Point m_FromPoint;
         private Point m_ToPoint;
-        private Manager m_Manager;
-        int turns = 0;
-        ePlayer playerTurnForCheck = ePlayer.O;
+        private int turns = 0;
+        private ePlayer m_CurrentPlayerTurn=ePlayer.Empty;
+        private PlayerInfo m_FirstPlayer;
+        private PlayerInfo m_SecondPlayer;
 
 
 
         public CheckersGui()
         {
             InitializeComponent();
+            InitGameProperties();
+        }
+
+        private void InitGameProperties()
+        {
             InitializeGameDialog GameSettings = new InitializeGameDialog();
             GameSettings.NotifyInfoFromSettingDialog += GameSettings_NotifyInfoFromSettingDialog;
             GameSettings.ShowDialog();
@@ -45,6 +47,23 @@ namespace Ex02_New
             m_Logic.NotifyMovement += m_NotifyMovement;
             m_Logic.NotifyInvalidMove += m_Logic_NotifyInvalidMove;
             InitializeTableLayOut();
+            PassTurn();
+        }
+        private void InitializeTableLayOut()
+        {
+            m_CheckersBoardTableLayOut.Controls.Clear();
+            m_CheckersBoardTableLayOut.RowCount = m_BoardSize;
+            m_CheckersBoardTableLayOut.ColumnCount = m_BoardSize;
+
+            for (int i = 0; i < m_BoardSize; i++)
+            {
+                for (int j = 0; j < m_BoardSize; j++)
+                {
+                    Button buttonToAdd = InitializeButton();
+                    m_CheckersBoardTableLayOut.Controls.Add(buttonToAdd, j, i);
+                }
+            }
+            EnterAPlayersIntoGuiMatrix();
         }
 
         private void m_Logic_NotifyInvalidMove(string i_InvalidMoveMsg)
@@ -57,16 +76,17 @@ namespace Ex02_New
             m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
             Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
             eaten.Text = string.Empty;
+            PassTurn();
 
         }
 
         private void GameSettings_NotifyInfoFromSettingDialog(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName)
         {
             m_BoardSize = i_BoardSize;
-            m_FirstPlayerName = i_FirstPlayerName;
-            m_SecondPlayerName = i_SecondPlayerName;
-            m_Player1ScoreLabel.Text = m_FirstPlayerName;
-            m_Player2ScoreLabel.Text = m_SecondPlayerName;
+            m_FirstPlayer = new PlayerInfo(i_FirstPlayerName, ePlayer.O, ePlayer.U);
+            m_SecondPlayer = new PlayerInfo(i_SecondPlayerName, ePlayer.X, ePlayer.K);
+            m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + m_FirstPlayer.Name;
+            m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + m_SecondPlayer.Name;
         }
 
         private void m_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
@@ -75,7 +95,26 @@ namespace Ex02_New
             Button toButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_ToRow, i_ToLine) as Button;
             toButton.Text = fromButton.Text;
             fromButton.Text = string.Empty;
+            PassTurn();
 
+        }
+        
+        private void PassTurn()
+        {
+            switch (m_CurrentPlayerTurn)
+            {
+                case ePlayer.O:
+                    m_CurrentPlayerTurn = ePlayer.X;
+                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
+                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
+                    break;
+                case ePlayer.Empty:
+                case ePlayer.X:
+                    m_CurrentPlayerTurn = ePlayer.O;
+                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
+                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
+                    break;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -105,35 +144,9 @@ namespace Ex02_New
                 v_IsSecondPick = false;
                 m_ToPoint.X = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Row;
                 m_ToPoint.Y = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Column;
-                if (turns % 2 == 0)
-                {
-                    m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y, ePlayer.O, false);
-                    turns++;
-                }
-                else
-                {
-                    m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y, ePlayer.X, false);
-                    turns++;
-                }
+                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn, false);
 
             }
-        }
-
-        private void InitializeTableLayOut()
-        {
-            m_CheckersBoardTableLayOut.Controls.Clear();
-            m_CheckersBoardTableLayOut.RowCount = m_BoardSize;
-            m_CheckersBoardTableLayOut.ColumnCount = m_BoardSize;
-
-            for (int i = 0; i < m_BoardSize; i++)
-            {
-                for (int j = 0; j < m_BoardSize; j++)
-                {
-                    Button buttonToAdd = InitializeButton();
-                    m_CheckersBoardTableLayOut.Controls.Add(buttonToAdd, j, i);
-                }
-            }
-            EnterAPlayersIntoGuiMatrix();
         }
         private void EnterAPlayersIntoGuiMatrix()
         {
@@ -143,7 +156,7 @@ namespace Ex02_New
         }
         private void EnterGuiTablePlayerOneCoins()
         {
-                        for (int i = 0; i < m_BoardSize / 2 - 1; i++)
+            for (int i = 0; i < m_BoardSize / 2 - 1; i++)
             {
                 for (int j = 0; j < m_BoardSize; j++)
                 {
@@ -152,7 +165,7 @@ namespace Ex02_New
                         Button innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
                         innerButton.Text = "O";
                         j++;
-                         innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
                         innerButton.Enabled = false;
                         innerButton.UseVisualStyleBackColor = true;
                     }
@@ -162,7 +175,7 @@ namespace Ex02_New
                         innerButton.Enabled = false;
                         innerButton.UseVisualStyleBackColor = true;
                         j++;
-                         innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
+                        innerButton = m_CheckersBoardTableLayOut.GetControlFromPosition(j, i) as Button;
                         innerButton.Text = "O";
 
                     }
@@ -171,7 +184,7 @@ namespace Ex02_New
         }
         private void EnterGuiTablePlayerTwoCoins()
         {
-                        for (int i = m_BoardSize - 1; i > m_BoardSize / 2; i--)
+            for (int i = m_BoardSize - 1; i > m_BoardSize / 2; i--)
             {
                 for (int j = 0; j < m_BoardSize; j++)
                 {
