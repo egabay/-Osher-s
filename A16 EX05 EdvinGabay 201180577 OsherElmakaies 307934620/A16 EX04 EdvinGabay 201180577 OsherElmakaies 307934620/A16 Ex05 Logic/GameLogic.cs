@@ -118,8 +118,8 @@ namespace Ex05
             {
                 //bottom left
                 m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
-                m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
-                m_Board[i_FromRow - 2, i_FromLine + 2] = i_Sign;
+                m_Board[i_FromRow + 1, i_FromLine - 1] = ePlayer.Empty;
+                m_Board[i_FromRow + 2, i_FromLine - 2] = i_Sign;
                 NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
             }
 
@@ -137,7 +137,7 @@ namespace Ex05
                 m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                 m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
                 m_Board[i_FromRow - 2, i_FromLine + 2] = i_Sign;
-                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
+                NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
             }
         }
 
