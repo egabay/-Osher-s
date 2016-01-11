@@ -252,7 +252,7 @@ namespace Ex05
             return isValid;
         }
 
-        public void CheckWhichMoveIsIt(int i_FromRow, int i_ToRow, int i_FromLine, int i_ToLine, ePlayer i_Sign, bool i_CanEatAgainStatus)
+        public void CheckWhichMoveIsIt(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, ePlayer i_Sign, bool i_CanEatAgainStatus)
         {
             //eMoveType retVal = eMoveType.None;
             if (i_CanEatAgainStatus)
