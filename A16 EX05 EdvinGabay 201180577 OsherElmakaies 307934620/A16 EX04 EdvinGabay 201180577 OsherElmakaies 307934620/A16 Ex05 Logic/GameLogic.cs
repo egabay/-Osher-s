@@ -61,14 +61,14 @@ namespace Ex05
                 NotifyOnInvalidMove("Bad Move Please Try Again");
             }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
-            for (int i = 0; i < m_Board.BoardSize; i++)
-            {
-                for (int j = 0; j < m_Board.BoardSize; j++)
-                {
-                    Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
-                }
-                Console.WriteLine();
-            }
+            //for (int i = 0; i < m_Board.BoardSize; i++)
+            //{
+            //    for (int j = 0; j < m_Board.BoardSize; j++)
+            //    {
+            //        Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
+            //    }
+            //    Console.WriteLine();
+            //}
             Console.WriteLine("======================================================");
             // Updtaing Gui
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
