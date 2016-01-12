@@ -98,14 +98,18 @@ namespace Ex05
             {
                 m_CurrentPlayerTurn = m_SecondPlayer;
                 m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
+                m_Player2ScoreLabel.ForeColor = Color.Red;
                 m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
+                m_Player1ScoreLabel.ForeColor = Color.Black;
+                
             }
             else
             {
                 m_CurrentPlayerTurn = m_FirstPlayer;
                 m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
+                m_Player2ScoreLabel.ForeColor = Color.Black;
                 m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
-
+                m_Player1ScoreLabel.ForeColor = Color.Red;
             }
             
         }
