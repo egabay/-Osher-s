@@ -22,7 +22,6 @@ namespace Ex05
         private PlayerInfo m_CurrentPlayerTurn;
         private PlayerInfo m_FirstPlayer;
         private PlayerInfo m_SecondPlayer;
-        private int[] o_ArrayOfEatingPossitions;
 
 
         public CheckersGui()
@@ -38,10 +37,9 @@ namespace Ex05
             GameSettings.ShowDialog();
             GameSettings.NotifyInfoFromSettingDialog -= GameSettings_NotifyInfoFromSettingDialog;
             m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.m_NotifyEat += m_Logic_NotifyEat;
-            m_Logic.m_NotifyMovement += m_NotifyMovement;
             m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+            m_Logic.m_NotifyEat+=m_Logic_NotifyEat;    
+            m_Logic.m_NotifyMovement += m_NotifyMovement;
             InitializeTableLayOut();
             PassTurn();
         }
@@ -158,7 +156,7 @@ namespace Ex05
                 v_IsSecondPick = false;
                 m_ToPoint.X = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Row;
                 m_ToPoint.Y = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Column;
-                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn, o_ArrayOfEatingPossitions , false);
+                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn , false);
 
             }
         }
