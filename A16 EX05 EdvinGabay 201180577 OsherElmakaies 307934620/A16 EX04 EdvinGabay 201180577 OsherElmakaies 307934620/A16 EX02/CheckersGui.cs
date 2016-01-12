@@ -38,11 +38,28 @@ namespace Ex05
             GameSettings.ShowDialog();
             GameSettings.NotifyInfoFromSettingDialog -= GameSettings_NotifyInfoFromSettingDialog;
             m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.NotifyEat += m_Logic_NotifyEat;
-            m_Logic.NotifyMovement += m_NotifyMovement;
-            m_Logic.NotifyInvalidMove += m_Logic_NotifyInvalidMove;
+            m_Logic.m_NotifyEat += m_Logic_NotifyEat;
+            m_Logic.m_NotifyMovement += m_NotifyMovement;
+            m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
+            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
             InitializeTableLayOut();
             PassTurn();
+        }
+
+        void m_Logic_m_NotifyToUpdateKing(int i_Row, int i_Line,ePlayer i_SignToChangeTo)
+        {
+            Button toKing = m_CheckersBoardTableLayOut.GetControlFromPosition(i_Line, i_Row) as Button;
+
+            switch (i_SignToChangeTo)
+            {
+                case ePlayer.U:
+                    toKing.Text = "U";
+                    break;
+                case ePlayer.K:
+                    toKing.Text = "K";
+                    break;
+            }
+          
         }
         private void InitializeTableLayOut()
         {
