@@ -26,6 +26,8 @@ namespace Ex05
         {
          //   RegularMoveCordinates moveToAdd = new RegularMoveCordinates(i_FromXCordinate, i_FromYCordinate, i_ToXCordinate, i_ToYCordinate);
          //   m_ListOfPossibleMoves.Add(moveToAdd);
+
+
           //  RegularMoveCordinates moveToAdd2 = new RegularMoveCordinates();
           //  moveToAdd2.FromLocationXCordinate = i_FromXCordinate;
           //  moveToAdd2.FromLocationYCordinate = i_FromYCordinate;
