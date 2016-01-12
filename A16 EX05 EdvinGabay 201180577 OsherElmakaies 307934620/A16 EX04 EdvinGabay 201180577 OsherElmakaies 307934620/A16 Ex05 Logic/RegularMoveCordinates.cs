@@ -24,8 +24,6 @@ namespace Ex02_New
             m_ToLocationCordinates.Y= i_ToYCordinate;
         }
 
-
-
         public int FromLocationXCordinate
         {
             get { return m_FromLocationCordinates.X; }
