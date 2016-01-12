@@ -66,24 +66,23 @@ namespace Ex05
             {
                 m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                 m_Board[i_ToRow, i_ToLine] = i_Sign;
+                NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
             }
             else
             {
                 NotifyOnInvalidMove("Bad Move Please Try Again");
             }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
-            //for (int i = 0; i < m_Board.BoardSize; i++)
-            //{
-            //    for (int j = 0; j < m_Board.BoardSize; j++)
-            //    {
-            //        Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
-            //    }
-            //    Console.WriteLine();
-            //}
+            for (int i = 0; i < m_Board.BoardSize; i++)
+            {
+                for (int j = 0; j < m_Board.BoardSize; j++)
+                {
+                    Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
+                }
+                Console.WriteLine();
+            }
             Console.WriteLine("======================================================");
-            // Updtaing Gui
-            NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-            //----------------------------------------------------------
+
         }
 
         public bool IsValidMove(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
