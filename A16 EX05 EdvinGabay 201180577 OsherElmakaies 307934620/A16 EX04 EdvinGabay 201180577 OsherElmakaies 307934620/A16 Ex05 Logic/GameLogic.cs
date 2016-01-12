@@ -25,11 +25,14 @@ namespace Ex05
         private void Dugma()
         {
          //   RegularMoveCordinates moveToAdd = new RegularMoveCordinates(i_FromXCordinate, i_FromYCordinate, i_ToXCordinate, i_ToYCordinate);
+         //   m_ListOfPossibleMoves.Add(moveToAdd);
           //  RegularMoveCordinates moveToAdd2 = new RegularMoveCordinates();
           //  moveToAdd2.FromLocationXCordinate = i_FromXCordinate;
           //  moveToAdd2.FromLocationYCordinate = i_FromYCordinate;
           //  moveToAdd2.ToLocationYCordinate = i_ToYCordinate;
-          // moveToAdd2.ToLocationXCordinate = i_ToXCordinate;
+          //  moveToAdd2.ToLocationXCordinate = i_ToXCordinate;
+          //  m_ListOfPossibleMoves.Add(moveToAdd2);
+
         }
 
         public GameLogic(int i_BoardSize)
