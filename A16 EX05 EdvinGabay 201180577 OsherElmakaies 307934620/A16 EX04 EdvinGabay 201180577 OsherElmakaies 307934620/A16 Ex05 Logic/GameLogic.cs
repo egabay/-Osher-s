@@ -191,22 +191,18 @@ namespace Ex05
             {
                 if (i_FromRow == i_ToRow + 2 && (i_FromLine + 2 == i_ToLine || i_FromLine - 2 == i_ToLine))
                 {
-                    //if up right is empty and you eat your opponent
-                    if (i_ToLine - 2 == i_FromRow)
+                    //if up left is empty and you eat your opponent
+                    if (i_ToLine + 2 == i_FromLine)
                     {
-                        if (IsEmptyPlace(i_ToRow, i_ToLine) &&
-                            (m_Board[i_ToRow + 1, i_ToLine - 1] == ePlayer.O ||
-                             m_Board[i_ToRow + 1, i_ToLine - 1] == ePlayer.U))
+                        if (IsEmptyPlace(i_ToRow, i_ToLine) && (m_Board[i_ToRow + 1, i_ToLine + 1] == ePlayer.O || m_Board[i_ToRow + 1, i_ToLine + 1] == ePlayer.U))
                         {
                             isValid = true;
                         }
                     }
-                    //if up left is empty and you eat your opponent
+                    //if up right is empty and you eat your opponent
                     else
                     {
-                        if (IsEmptyPlace(i_ToRow, i_ToLine) &&
-                            (m_Board[i_ToRow + 1, i_ToLine + 1] == ePlayer.O ||
-                             m_Board[i_ToRow + 1, i_ToLine + 1] == ePlayer.U))
+                        if (IsEmptyPlace(i_ToRow, i_ToLine) && (m_Board[i_ToRow + 1, i_ToLine - 1] == ePlayer.O || m_Board[i_ToRow + 1, i_ToLine - 1] == ePlayer.U))
                         {
                             isValid = true;
                         }
