@@ -152,6 +152,10 @@ namespace Ex05
                     NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
                 }
             }
+            else
+            {
+                NotifyInvalidMove("Invalid eating move, please enter a correct move");
+            }
         }
 
         public bool IsValidEat(PlayerInfo i_Player, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
@@ -268,11 +272,13 @@ namespace Ex05
         public void CheckWhichMoveIsIt(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, PlayerInfo i_Player,
             bool i_CanEatAgainStatus)
         {
-            //eMoveType retVal = eMoveType.None;
+            const bool v_IsAEatOrMove = true;
+            bool isAMove = !v_IsAEatOrMove;
+
             if (i_CanEatAgainStatus)
             {
                 Eat(i_Player, i_FromLine, i_FromRow, i_ToLine, i_ToRow);
-                //retVal = eMoveType.Eat;
+                isAMove = v_IsAEatOrMove;
             }
             else if (m_Board[i_FromRow, i_FromLine] == i_Player.ENormalSign)
             {
@@ -283,14 +289,14 @@ namespace Ex05
                             if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                             {
                                 Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Move;
+                                isAMove = v_IsAEatOrMove;
                             }
                             else
                             {
                                 if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                                 {
                                     Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Eat;
+                                    isAMove = v_IsAEatOrMove;
                                 }
                             }
                             break;
@@ -300,14 +306,14 @@ namespace Ex05
                             if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                             {
                                 Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Move;
+                                isAMove = v_IsAEatOrMove;
                             }
                             else
                             {
                                 if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                                 {
                                     Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Eat;
+                                    isAMove = v_IsAEatOrMove;
                                 }
                             }
                             break;
@@ -319,32 +325,36 @@ namespace Ex05
                 if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                 {
                     Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                    //retVal = eMoveType.Move;
+                    isAMove = v_IsAEatOrMove;
                 }
                 else
                 {
                     if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                     {
                         Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                        //retVal = eMoveType.Eat;
+                        isAMove = v_IsAEatOrMove;
                     }
                     else
                     {
                         if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                         {
                             Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            //retVal = eMoveType.Move;
+                            isAMove = v_IsAEatOrMove;
                         }
                         else
                         {
                             if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                             {
                                 Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Eat;
+                                isAMove = v_IsAEatOrMove;
                             }
                         }
                     }
                 }
+            }
+            if(!isAMove)
+            {
+                NotifyInvalidMove("Incorrect move , please check if its your turn or if u did a correct move");
             }
         }
 
