@@ -88,26 +88,29 @@ namespace Ex05
         public bool IsValidMove(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             bool isValid = false;
-            if (i_Sign == ePlayer.O)
+            if (m_Board[i_ToRow, i_ToLine] == ePlayer.Empty&&m_Board[i_FromRow,i_FromLine]!=ePlayer.Empty)
             {
-                if (i_FromRow == i_ToRow - 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                if ((i_Sign == ePlayer.O) && (m_Board[i_FromRow, i_FromLine]==i_Sign))
                 {
-                    isValid = true;
+                    if (i_FromRow == i_ToRow - 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                    {
+                        isValid = true;
+                    }
                 }
-            }
-            else if (i_Sign == ePlayer.X)
-            {
-                if (i_FromRow == i_ToRow + 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                else if ((i_Sign == ePlayer.X)&& (m_Board[i_FromRow, i_FromLine]==i_Sign))
                 {
-                    isValid = true;
+                    if (i_FromRow == i_ToRow + 1 && (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                    {
+                        isValid = true;
+                    }
                 }
-            }
-            else if (i_Sign == ePlayer.U || i_Sign == ePlayer.K)
-            {
-                if ((i_FromRow == i_ToRow + 1 || i_FromRow == i_ToRow - 1) &&
-                    (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                else if (i_Sign == ePlayer.U || i_Sign == ePlayer.K)
                 {
-                    isValid = true;
+                    if ((i_FromRow == i_ToRow + 1 || i_FromRow == i_ToRow - 1) &&
+                        (i_FromLine + 1 == i_ToLine || i_FromLine - 1 == i_ToLine))
+                    {
+                        isValid = true;
+                    }
                 }
             }
             return isValid;
@@ -162,7 +165,7 @@ namespace Ex05
                 if (i_FromRow == i_ToRow - 2 && (i_FromLine + 2 == i_ToLine || i_FromLine - 2 == i_ToLine))
                 {
                     //if bottom right is empty and you eat your opponent
-                    if (i_ToLine - 2 == i_FromRow)
+                    if (i_ToLine - 2 == i_FromLine)
                     {
                         if (IsEmptyPlace(i_ToRow, i_ToLine) &&
                             (m_Board[i_ToRow - 1, i_ToLine - 1] == ePlayer.X ||

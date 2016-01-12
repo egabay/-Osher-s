@@ -73,8 +73,6 @@ namespace Ex05
             m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
             Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
             eaten.Text = string.Empty;
-            PassTurn();
-
         }
 
         private void GameSettings_NotifyInfoFromSettingDialog(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName)
