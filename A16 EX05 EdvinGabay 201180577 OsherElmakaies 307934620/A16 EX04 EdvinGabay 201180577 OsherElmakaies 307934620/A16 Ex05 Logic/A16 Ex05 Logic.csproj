@@ -39,6 +39,7 @@
     <Compile Include="Board.cs" />
     <Compile Include="Coin.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="PlayerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

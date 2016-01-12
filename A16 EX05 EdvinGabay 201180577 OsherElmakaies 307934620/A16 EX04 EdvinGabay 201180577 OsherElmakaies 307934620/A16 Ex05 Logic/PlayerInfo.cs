@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Ex05
 {
-    class PlayerInfo
+    public class PlayerInfo
     {
         private string m_Name;
         private int m_NumberOfWins;

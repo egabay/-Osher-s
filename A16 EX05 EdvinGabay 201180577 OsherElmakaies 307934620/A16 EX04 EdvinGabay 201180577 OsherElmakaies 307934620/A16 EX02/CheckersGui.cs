@@ -9,8 +9,6 @@ using System.Windows.Forms;
 namespace Ex05
 {
 
-
-
     public partial class CheckersGui : Form
     {
         private int m_BoardSize;
@@ -21,7 +19,7 @@ namespace Ex05
         private Point m_FromPoint;
         private Point m_ToPoint;
         private int turns = 0;
-        private ePlayer m_CurrentPlayerTurn=ePlayer.Empty;
+        private PlayerInfo m_CurrentPlayerTurn;
         private PlayerInfo m_FirstPlayer;
         private PlayerInfo m_SecondPlayer;
 
@@ -96,20 +94,20 @@ namespace Ex05
         
         private void PassTurn()
         {
-            switch (m_CurrentPlayerTurn)
+            if (m_CurrentPlayerTurn == m_FirstPlayer)
             {
-                case ePlayer.O:
-                    m_CurrentPlayerTurn = ePlayer.X;
-                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
-                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
-                    break;
-                case ePlayer.Empty:
-                case ePlayer.X:
-                    m_CurrentPlayerTurn = ePlayer.O;
-                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
-                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
-                    break;
+                m_CurrentPlayerTurn = m_SecondPlayer;
+                m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
+                m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
             }
+            else
+            {
+                m_CurrentPlayerTurn = m_FirstPlayer;
+                m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
+                m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
+
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
