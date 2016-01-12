@@ -22,7 +22,15 @@ namespace Ex05
         int[] o_ArrayOfEatingPossitions = new int[10 * 8];
         private bool eatingAvailbleStatus = false;
         List<RegularMoveCordinates> m_ListOfPossibleMoves = new List<RegularMoveCordinates>();
-
+        private void Dugma()
+        {
+         //   RegularMoveCordinates moveToAdd = new RegularMoveCordinates(i_FromXCordinate, i_FromYCordinate, i_ToXCordinate, i_ToYCordinate);
+          //  RegularMoveCordinates moveToAdd2 = new RegularMoveCordinates();
+          //  moveToAdd2.FromLocationXCordinate = i_FromXCordinate;
+          //  moveToAdd2.FromLocationYCordinate = i_FromYCordinate;
+          //  moveToAdd2.ToLocationYCordinate = i_ToYCordinate;
+          // moveToAdd2.ToLocationXCordinate = i_ToXCordinate;
+        }
 
         public GameLogic(int i_BoardSize)
         {
