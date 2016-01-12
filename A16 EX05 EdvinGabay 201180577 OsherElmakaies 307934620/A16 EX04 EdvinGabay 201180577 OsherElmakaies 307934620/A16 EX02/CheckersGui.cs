@@ -22,7 +22,7 @@ namespace Ex05
         private PlayerInfo m_CurrentPlayerTurn;
         private PlayerInfo m_FirstPlayer;
         private PlayerInfo m_SecondPlayer;
-        private int[] o_ArrayOfEatingPossitions;
+        
 
 
         public CheckersGui()
@@ -141,7 +141,7 @@ namespace Ex05
                 v_IsSecondPick = false;
                 m_ToPoint.X = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Row;
                 m_ToPoint.Y = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Column;
-                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn, o_ArrayOfEatingPossitions , false);
+                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn);
 
             }
         }
