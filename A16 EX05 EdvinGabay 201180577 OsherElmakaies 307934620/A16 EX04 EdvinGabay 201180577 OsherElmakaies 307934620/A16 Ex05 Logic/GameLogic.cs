@@ -5,8 +5,13 @@ using System.Text;
 namespace Ex05
 {
     public delegate void MovedOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow);
-    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
-    public delegate void UpdateInfoFromSettingDialogDelegate(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
+
+    public delegate void NotifyEatingOccuredDelegate(
+        int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
+
+    public delegate void UpdateInfoFromSettingDialogDelegate(
+        int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
+
     public delegate void NotifyInvalidMove(string i_InvalidMoveMsg);
 
     public class GameLogic
@@ -27,20 +32,26 @@ namespace Ex05
 
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate NotifyMovement;
+
         public event NotifyEatingOccuredDelegate NotifyEat;
         public event NotifyInvalidMove NotifyInvalidMove;
+
         private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
-        private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
+
+        private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine,
+            int i_EatenRow)
         {
             NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_EatenLine, i_EatenRow);
         }
+
         private void NotifyOnInvalidMove(string i_MsgToNotify)
         {
             NotifyInvalidMove(i_MsgToNotify);
         }
+
         //------------------------------------------------------
 
         public bool IsEmptyPlace(int i_ToRow, int i_ToLine)
@@ -51,7 +62,7 @@ namespace Ex05
 
         public void Move(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
-            if (IsValidMove(i_Sign,i_FromRow,i_FromLine,i_ToRow,i_ToLine))
+            if (IsValidMove(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine))
             {
                 m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                 m_Board[i_ToRow, i_ToLine] = i_Sign;
@@ -61,14 +72,14 @@ namespace Ex05
                 NotifyOnInvalidMove("Bad Move Please Try Again");
             }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
-            for (int i = 0; i < m_Board.BoardSize; i++)
-            {
-                for (int j = 0; j < m_Board.BoardSize; j++)
-                {
-                    Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
-                }
-                Console.WriteLine();
-            }
+            //for (int i = 0; i < m_Board.BoardSize; i++)
+            //{
+            //    for (int j = 0; j < m_Board.BoardSize; j++)
+            //    {
+            //        Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
+            //    }
+            //    Console.WriteLine();
+            //}
             Console.WriteLine("======================================================");
             // Updtaing Gui
             NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
@@ -105,39 +116,42 @@ namespace Ex05
 
         public void Eat(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
-            if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
+            if (IsValidEat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine))
             {
-                //bottom right
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine + 1, i_FromRow + 1] = ePlayer.Empty;
-                m_Board[i_FromLine + 2, i_FromRow + 2] = i_Sign;
-                //Updating UI
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow + 1);
-            }
-            else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
-            {
-                //bottom left
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine - 1, i_FromRow + 1] = ePlayer.Empty;
-                m_Board[i_FromLine - 2, i_FromRow + 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow + 1);
-            }
+                if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
+                {
+                    //bottom right
+                    m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                    m_Board[i_FromRow + 1, i_FromLine + 1] = ePlayer.Empty;
+                    m_Board[i_FromRow + 2, i_FromLine + 2] = i_Sign;
+                    //Updating UI
+                    NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine + 1);
+                }
+                else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
+                {
+                    //bottom left
+                    m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                    m_Board[i_FromRow + 1, i_FromLine - 1] = ePlayer.Empty;
+                    m_Board[i_FromRow + 2, i_FromLine - 2] = i_Sign;
+                    NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
+                }
 
-            else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
-            {
-                //up right
-                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
-                m_Board[i_FromRow + 1, i_FromLine - 1] = ePlayer.Empty;
-                m_Board[i_FromRow + 2, i_FromLine - 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow - 1);
-            }
-            else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
-            {
-                //up left
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine - 1, i_FromRow - 1] = ePlayer.Empty;
-                m_Board[i_FromLine - 2, i_FromRow - 2] = i_Sign;
-                NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine - 1, i_FromRow - 1);
+                else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
+                {
+                    //up left
+                    m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                    m_Board[i_FromRow - 1, i_FromLine - 1] = ePlayer.Empty;
+                    m_Board[i_FromRow - 2, i_FromLine - 2] = i_Sign;
+                    NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine - 1);
+                }
+                else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
+                {
+                    //up right
+                    m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                    m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
+                    m_Board[i_FromRow - 2, i_FromLine + 2] = i_Sign;
+                    NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
+                }
             }
         }
 
@@ -252,7 +266,8 @@ namespace Ex05
             return isValid;
         }
 
-        public void CheckWhichMoveIsIt(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, ePlayer i_Sign, bool i_CanEatAgainStatus)
+        public void CheckWhichMoveIsIt(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, ePlayer i_Sign,
+            bool i_CanEatAgainStatus)
         {
             //eMoveType retVal = eMoveType.None;
             if (i_CanEatAgainStatus)
@@ -265,73 +280,73 @@ namespace Ex05
                 switch (i_Sign)
                 {
                     case ePlayer.X:
+                    {
+                        if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                         {
-                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
-                            {
-                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Move;
-                            }
-                            else
-                            {
-                                if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
-                                {
-                                    Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Eat;
-                                }
-                            }
-                            break;
+                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                            //retVal = eMoveType.Move;
                         }
+                        else
+                        {
+                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                            {
+                                Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Eat;
+                            }
+                        }
+                        break;
+                    }
                     case ePlayer.O:
+                    {
+                        if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                         {
-                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
-                            {
-                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Move;
-                            }
-                            else
-                            {
-                                if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
-                                {
-                                    Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Eat;
-                                }
-                            }
-                            break;
+                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                            //retVal = eMoveType.Move;
                         }
+                        else
+                        {
+                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                            {
+                                Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Eat;
+                            }
+                        }
+                        break;
+                    }
                     case ePlayer.K:
                     case ePlayer.U:
+                    {
+                        if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                         {
-                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
+                            Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                            //retVal = eMoveType.Move;
+                        }
+                        else
+                        {
+                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                             {
-                                Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                //retVal = eMoveType.Move;
+                                Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                //retVal = eMoveType.Eat;
                             }
                             else
                             {
-                                if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
+                                if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
                                 {
-                                    Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                    //retVal = eMoveType.Eat;
+                                    Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                    //retVal = eMoveType.Move;
                                 }
                                 else
                                 {
-                                    if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_RegularMoveSteps))
+                                    if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
                                     {
-                                        Move(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                        //retVal = eMoveType.Move;
-                                    }
-                                    else
-                                    {
-                                        if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, k_EatMoveSteps))
-                                        {
-                                            Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                                            //retVal = eMoveType.Eat;
-                                        }
+                                        Eat(i_Sign, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                        //retVal = eMoveType.Eat;
                                     }
                                 }
                             }
-                            break;
                         }
+                        break;
+                    }
                 }
             }
         }
@@ -370,7 +385,7 @@ namespace Ex05
         {
             int indexForArray = 0;
             bool isEatingMoves = false;
-            o_ArrayOfEatingPossitions = new int[m_Board.BoardSize * 4];
+            o_ArrayOfEatingPossitions = new int[m_Board.BoardSize*4];
             for (int indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
             {
                 for (int indexFromLine = 0; indexFromLine < m_Board.BoardSize; indexFromLine++)
@@ -382,7 +397,9 @@ namespace Ex05
                             int indexToRow = indexFromRow - 2;
                             int indexToTopLeftLine = indexFromLine - 2;
                             int indexToTopRightLine = indexFromLine + 2;
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopLeftLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopLeftLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopLeftLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopLeftLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -392,7 +409,9 @@ namespace Ex05
                                 isEatingMoves = true;
                                 indexForArray += 4;
                             }
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopRightLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopRightLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopRightLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToTopRightLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -408,7 +427,10 @@ namespace Ex05
                             int indexToRow = indexFromRow + 2;
                             int indexToBottomLeftLine = indexFromLine - 2;
                             int indexToBottomRightLine = indexFromLine + 2;
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToBottomLeftLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToBottomLeftLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow,
+                                    indexToBottomLeftLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToBottomLeftLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -418,7 +440,11 @@ namespace Ex05
                                 isEatingMoves = true;
                                 indexForArray += 4;
                             }
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToBottomRightLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow, indexToBottomRightLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow,
+                                    indexToBottomRightLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToRow,
+                                    indexToBottomRightLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -437,7 +463,11 @@ namespace Ex05
                             int indexToDownRow = indexFromRow - 2;
                             int indexToBottomLeftLine = indexFromLine - 2;
                             int indexToBottomRightLine = indexFromLine + 2;
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow, indexToBottomLeftLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow, indexToBottomLeftLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow,
+                                    indexToBottomLeftLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow,
+                                    indexToBottomLeftLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -447,7 +477,11 @@ namespace Ex05
                                 isEatingMoves = true;
                                 indexForArray += 4;
                             }
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow, indexToBottomRightLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow, indexToBottomRightLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow,
+                                    indexToBottomRightLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToUpRow,
+                                    indexToBottomRightLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -457,7 +491,11 @@ namespace Ex05
                                 isEatingMoves = true;
                                 indexForArray += 4;
                             }
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow, indexToTopRightLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow, indexToTopRightLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow,
+                                    indexToTopRightLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow,
+                                    indexToTopRightLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -467,7 +505,11 @@ namespace Ex05
                                 isEatingMoves = true;
                                 indexForArray += 4;
                             }
-                            if (IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow, indexToTopLeftLine) && IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow, indexToTopLeftLine))
+                            if (
+                                IsValidMove(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow,
+                                    indexToTopLeftLine) &&
+                                IsValidEat(i_EPlayerSign, indexFromRow, indexFromLine, indexToDownRow,
+                                    indexToTopLeftLine))
                             {
                                 o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
                                 o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
@@ -484,12 +526,14 @@ namespace Ex05
             return isEatingMoves;
         }
 
-        public bool IsChoosedEatingFirst(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, int[] i_ArrayOfEatingPossitions)
+        public bool IsChoosedEatingFirst(ePlayer i_Sign, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine,
+            int[] i_ArrayOfEatingPossitions)
         {
             bool isChooshed = false;
             for (int i = 0; i < i_ArrayOfEatingPossitions.Length; i += 4)
             {
-                if (i_FromRow == i_ArrayOfEatingPossitions[i] && i_FromRow == i_ArrayOfEatingPossitions[i + 1] && i_FromRow == i_ArrayOfEatingPossitions[i + 2] && i_FromRow == i_ArrayOfEatingPossitions[i + 3])
+                if (i_FromRow == i_ArrayOfEatingPossitions[i] && i_FromRow == i_ArrayOfEatingPossitions[i + 1] &&
+                    i_FromRow == i_ArrayOfEatingPossitions[i + 2] && i_FromRow == i_ArrayOfEatingPossitions[i + 3])
                 {
                     //need to continue 
                     isChooshed = true;
