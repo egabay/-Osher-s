@@ -33,25 +33,25 @@ namespace Ex05
         }
 
         /// Updating the GUI With delegate that movement occured 
-        public event MovedOccuredDelegate NotifyMovement;
+        public event MovedOccuredDelegate m_NotifyMovement;
 
-        public event NotifyEatingOccuredDelegate NotifyEat;
-        public event NotifyInvalidMove NotifyInvalidMove;
+        public event NotifyEatingOccuredDelegate m_NotifyEat;
+        public event NotifyInvalidMove m_NotifyInvalidMove;
 
         private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
-            NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+            m_NotifyMovement(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
         }
 
         private void NotifyOnEatOccured(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine,
             int i_EatenRow)
         {
-            NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_EatenLine, i_EatenRow);
+            m_NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_EatenLine, i_EatenRow);
         }
 
         private void NotifyOnInvalidMove(string i_MsgToNotify)
         {
-            NotifyInvalidMove(i_MsgToNotify);
+            m_NotifyInvalidMove(i_MsgToNotify);
         }
 
         //------------------------------------------------------
@@ -135,7 +135,7 @@ namespace Ex05
                         m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                         m_Board[i_FromRow + 1, i_FromLine + 1] = ePlayer.Empty;
                         //Updating UI
-                        NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine + 1);
+                        m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine + 1);
                         TurningToKing(i_ToRow, i_ToLine);
                     }
                     else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
@@ -144,7 +144,7 @@ namespace Ex05
                         m_Board[i_FromRow + 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                         m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                         m_Board[i_FromRow + 1, i_FromLine - 1] = ePlayer.Empty;
-                        NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
+                        m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow + 1, i_FromLine - 1);
                         TurningToKing(i_ToRow, i_ToLine);
                     }
 
@@ -154,7 +154,7 @@ namespace Ex05
                         m_Board[i_FromRow - 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                         m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                         m_Board[i_FromRow - 1, i_FromLine - 1] = ePlayer.Empty;
-                        NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine - 1);
+                        m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine - 1);
                         TurningToKing(i_ToRow, i_ToLine);
                     }
                     else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
@@ -163,14 +163,14 @@ namespace Ex05
                         m_Board[i_FromRow - 2, i_FromLine + 2] = m_Board[i_FromRow, i_FromLine];
                         m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                         m_Board[i_FromRow - 1, i_FromLine + 1] = ePlayer.Empty;
-                        NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
+                        m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
                         TurningToKing(i_ToRow, i_ToLine);
                     }
                     eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
                 }
                 else
                 {
-                    NotifyInvalidMove("Invalid eating move, please enter a correct move");
+                    m_NotifyInvalidMove("Invalid eating move, please enter a correct move");
                 }
         }
 
@@ -318,7 +318,7 @@ namespace Ex05
                                     }
                                     else
                                     {
-                                        NotifyInvalidMove("Bad move! You must perform your eating move first");
+                                        m_NotifyInvalidMove("Bad move! You must perform your eating move first");
                                     }
                                 }
                                 else
@@ -354,7 +354,7 @@ namespace Ex05
                                     }
                                     else
                                     {
-                                        NotifyInvalidMove("Bad move! You must perform your eating move first");
+                                        m_NotifyInvalidMove("Bad move! You must perform your eating move first");
                                     }
                                 }
                                 else
@@ -392,7 +392,7 @@ namespace Ex05
                             }
                             else
                             {
-                                NotifyInvalidMove("Bad move! You must perform your eating move first");
+                                m_NotifyInvalidMove("Bad move! You must perform your eating move first");
                             }
                         }
                         else
@@ -425,7 +425,7 @@ namespace Ex05
                                     }
                                     else
                                     {
-                                        NotifyInvalidMove("Bad move! You must perform your eating move first");
+                                        m_NotifyInvalidMove("Bad move! You must perform your eating move first");
                                     }
                                 }
                                 else
@@ -440,7 +440,7 @@ namespace Ex05
             }
             if (!isAMove)
             {
-                NotifyInvalidMove("Incorrect move , please check if its your turn or if you did a correct move");
+                m_NotifyInvalidMove("Incorrect move , please check if its your turn or if you did a correct move");
             }
         }
 

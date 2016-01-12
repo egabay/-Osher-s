@@ -41,7 +41,7 @@ namespace Ex05
             m_Logic.m_NotifyEat += m_Logic_NotifyEat;
             m_Logic.m_NotifyMovement += m_NotifyMovement;
             m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+            //m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
             InitializeTableLayOut();
             PassTurn();
         }
