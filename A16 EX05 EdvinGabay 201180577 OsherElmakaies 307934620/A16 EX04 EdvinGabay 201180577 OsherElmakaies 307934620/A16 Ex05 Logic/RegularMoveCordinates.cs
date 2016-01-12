@@ -7,8 +7,8 @@ namespace Ex02_New
 {
     class RegularMoveCordinates
     {
-        Point m_FromLocationCordinates;
-        Point m_ToLocationCordinates;
+        private Point m_FromLocationCordinates;
+        private Point m_ToLocationCordinates;
 
         public RegularMoveCordinates()
         {
