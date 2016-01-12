@@ -126,9 +126,9 @@ namespace Ex05
             else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
             {
                 //up right
-                m_Board[i_FromLine, i_FromRow] = ePlayer.Empty;
-                m_Board[i_FromLine + 1, i_FromRow - 1] = ePlayer.Empty;
-                m_Board[i_FromLine + 2, i_FromRow - 2] = i_Sign;
+                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                m_Board[i_FromRow + 1, i_FromLine - 1] = ePlayer.Empty;
+                m_Board[i_FromRow + 2, i_FromLine - 2] = i_Sign;
                 NotifyEat(i_FromLine, i_FromRow, i_ToLine, i_ToRow, i_FromLine + 1, i_FromRow - 1);
             }
             else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
