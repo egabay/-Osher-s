@@ -7,7 +7,7 @@
     <ProjectGuid>{4B0DCD60-9F2B-4EFF-B311-4E9AB26E3E3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ex02_New</RootNamespace>
+    <RootNamespace>Ex05</RootNamespace>
     <AssemblyName>A16 Ex05 Logic</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing; 
 
-namespace Ex02_New
+namespace Ex05
 {
-    class RegularMoveCordinates
+    public class RegularMoveCordinates
     {
         private Point m_FromLocationCordinates;
         private Point m_ToLocationCordinates;
