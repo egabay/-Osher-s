@@ -305,6 +305,7 @@ namespace Ex05
             const bool v_IsAEatOrMove = true;
             bool isAMove = !v_IsAEatOrMove;
             eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, m_ListOfPossibleMoves); 
+
             if (m_Board[i_FromRow, i_FromLine] == i_Player.ENormalSign)
             {
                 switch (i_Player.ENormalSign)
