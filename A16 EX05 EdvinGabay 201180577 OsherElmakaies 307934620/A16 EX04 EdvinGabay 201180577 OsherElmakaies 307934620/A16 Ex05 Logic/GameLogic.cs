@@ -304,7 +304,7 @@ namespace Ex05
         {
             const bool v_IsAEatOrMove = true;
             bool isAMove = !v_IsAEatOrMove;
-            //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
+            eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, m_ListOfPossibleMoves); 
             if (m_Board[i_FromRow, i_FromLine] == i_Player.ENormalSign)
             {
                 switch (i_Player.ENormalSign)
@@ -495,7 +495,7 @@ namespace Ex05
         {
             int indexForArray = 0;
             bool isEatingMoves = false;
-            o_ArrayOfEatingPossitions = new int[m_Board.BoardSize*8];
+            //o_ArrayOfEatingPossitions = new int[m_Board.BoardSize*8];
             int indexToRow = 0; 
             int indexToLine = 0; 
             for (int indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
@@ -508,11 +508,13 @@ namespace Ex05
                         {
                             isEatingMoves = true; 
                         }
-                        o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
-                        o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
-                        o_ArrayOfEatingPossitions[indexForArray + 2] = indexToRow;
-                        o_ArrayOfEatingPossitions[indexForArray + 3] = indexToLine;
-                        indexForArray += 4;
+                        RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine, indexToRow, indexToLine);
+                        i_ListOfPossibleMoves.Add(eatingPosition); 
+                        //o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
+                        //o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
+                        //o_ArrayOfEatingPossitions[indexForArray + 2] = indexToRow;
+                        //o_ArrayOfEatingPossitions[indexForArray + 3] = indexToLine;
+                        //indexForArray += 4;
                     }
                 }
             }
