@@ -181,7 +181,7 @@ namespace Ex05
                         m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
                         TurningToKing(i_ToRow, i_ToLine);
                     }
-                    eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
+                    //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, m_ListOfPossibleMoves);
                 }
                 else
                 {
@@ -491,7 +491,7 @@ namespace Ex05
             return retVal;
         }
 
-        public bool CheckForEatingMovesFirst(PlayerInfo i_Player, out int[] o_ArrayOfEatingPossitions)
+        public bool CheckForEatingMovesFirst(PlayerInfo i_Player, List<RegularMoveCordinates> i_ListOfPossibleMoves)
         {
             int indexForArray = 0;
             bool isEatingMoves = false;
