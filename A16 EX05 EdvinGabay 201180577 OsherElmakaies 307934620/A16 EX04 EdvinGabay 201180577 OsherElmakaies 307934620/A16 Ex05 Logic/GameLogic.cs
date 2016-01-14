@@ -415,7 +415,7 @@ namespace Ex05
             return retVal;
         }
 
-        public bool CheckForEatingMovesFirst(PlayerInfo i_Player, List<RegularMoveCordinates> i_ListOfPossibleMoves)
+        public bool CheckForEatingMovesFirst(PlayerInfo i_Player)
         {
             int indexForArray = 0;
             bool isEatingMoves = false;
@@ -433,7 +433,7 @@ namespace Ex05
                             isEatingMoves = true;
                         }
                         RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine, indexToRow, indexToLine);
-                        i_ListOfPossibleMoves.Add(eatingPosition);
+                        m_ListOfPossibleMoves.Add(eatingPosition);
                     }
                 }
             }
