@@ -81,17 +81,21 @@ namespace Ex05
             int toRow = i_ToRow;
             int toLine = i_ToLine;
             //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, m_ListOfPossibleMoves); 
-            if (IsValidMove(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine))
+            CheckForEatingMovesFirst(i_Player);
+            if (m_ListOfPossibleMoves.Count == 0)
             {
-                m_Board[i_ToRow, i_ToLine] = m_Board[i_FromRow, i_FromLine];
-                m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
-                NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                TurningToKing(i_ToRow, i_ToLine);
-                //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
-            }
-            else
-            {
-                NotifyOnInvalidMove("Bad Move Please Try Again");
+                if (IsValidMove(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine))
+                {
+                    m_Board[i_ToRow, i_ToLine] = m_Board[i_FromRow, i_FromLine];
+                    m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
+                    NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                    TurningToKing(i_ToRow, i_ToLine);
+                    //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
+                }
+                else
+                {
+                    NotifyOnInvalidMove("Bad Move Please Try Again");
+                }
             }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
             for (int i = 0; i < m_Board.BoardSize; i++)
@@ -415,11 +419,10 @@ namespace Ex05
             return retVal;
         }
 
-        public bool CheckForEatingMovesFirst(PlayerInfo i_Player, List<RegularMoveCordinates> i_ListOfPossibleMoves)
+        public void CheckForEatingMovesFirst(PlayerInfo i_Player)
         {
             int indexForArray = 0;
             bool isEatingMoves = false;
-            //o_ArrayOfEatingPossitions = new int[m_Board.BoardSize*8];
             int indexToRow = 0;
             int indexToLine = 0;
             for (int indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
@@ -428,16 +431,11 @@ namespace Ex05
                 {
                     if (IsAnotherEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow, out indexToLine))
                     {
-                        if (!isEatingMoves)
-                        {
-                            isEatingMoves = true;
-                        }
                         RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine, indexToRow, indexToLine);
-                        i_ListOfPossibleMoves.Add(eatingPosition);
+                        m_ListOfPossibleMoves.Add(eatingPosition);
                     }
                 }
             }
-            return isEatingMoves;
         }
 
 
