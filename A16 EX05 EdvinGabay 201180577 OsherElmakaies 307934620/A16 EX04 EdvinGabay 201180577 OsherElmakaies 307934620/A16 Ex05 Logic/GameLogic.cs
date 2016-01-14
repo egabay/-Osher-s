@@ -434,34 +434,12 @@ namespace Ex05
                         }
                         RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine, indexToRow, indexToLine);
                         i_ListOfPossibleMoves.Add(eatingPosition);
-                        //o_ArrayOfEatingPossitions[indexForArray] = indexFromRow;
-                        //o_ArrayOfEatingPossitions[indexForArray + 1] = indexFromLine;
-                        //o_ArrayOfEatingPossitions[indexForArray + 2] = indexToRow;
-                        //o_ArrayOfEatingPossitions[indexForArray + 3] = indexToLine;
-                        //indexForArray += 4;
                     }
                 }
             }
             return isEatingMoves;
         }
 
-        public bool IsChoosedEatingFirst(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine,
-            int[] i_ArrayOfEatingPossitions)
-        {
-            bool isChooshed = false;
-            if (i_ArrayOfEatingPossitions != null)
-            {
-                for (int i = 0; i < i_ArrayOfEatingPossitions.Length; i += 4)
-                {
-                    if (i_FromRow == i_ArrayOfEatingPossitions[i] && i_FromRow == i_ArrayOfEatingPossitions[i + 1] &&
-                        i_FromRow == i_ArrayOfEatingPossitions[i + 2] && i_FromRow == i_ArrayOfEatingPossitions[i + 3])
-                    {
-                        isChooshed = true;
-                    }
-                }
-            }
-            return isChooshed;
-        }
 
         //Osher to add UI
         public void TurningToKing(int i_ToRow, int i_ToLine)
