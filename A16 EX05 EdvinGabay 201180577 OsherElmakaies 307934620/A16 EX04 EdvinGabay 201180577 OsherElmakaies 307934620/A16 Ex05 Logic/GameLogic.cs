@@ -20,7 +20,7 @@ namespace Ex05
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
         int[] o_ArrayOfEatingPossitions = new int[10 * 8];
-        List<RegularMoveCordinates> m_ListOfPossibleMoves = new List<RegularMoveCordinates>();
+        List<RegularMoveCordinates> m_ListOfPossibleEatingMoves = new List<RegularMoveCordinates>();
         private void Dugma()
         {
             //   RegularMoveCordinates moveToAdd = new RegularMoveCordinates(i_FromXCordinate, i_FromYCordinate, i_ToXCordinate, i_ToYCordinate);
@@ -80,9 +80,9 @@ namespace Ex05
         {
             int toRow = i_ToRow;
             int toLine = i_ToLine;
-            //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, m_ListOfPossibleMoves); 
+            
             CheckForEatingMovesFirst(i_Player);
-            if (m_ListOfPossibleMoves.Count == 0)
+            if (m_ListOfPossibleEatingMoves.Count == 0)
             {
                 if (IsValidMove(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine))
                 {
@@ -90,12 +90,16 @@ namespace Ex05
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                     NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
                     TurningToKing(i_ToRow, i_ToLine);
-                    //eatingAvailbleStatus = CheckForEatingMovesFirst(i_Player, out o_ArrayOfEatingPossitions);
+
                 }
                 else
                 {
                     NotifyOnInvalidMove("Bad Move Please Try Again");
                 }
+            }
+            else
+            {
+                NotifyOnInvalidMove("Please perform Eating before trying to do a regular move");
             }
             //Checking if table match gui(Delete it after) 3 = X / 1 = O
             for (int i = 0; i < m_Board.BoardSize; i++)
@@ -196,7 +200,7 @@ namespace Ex05
         public bool IsValidEat(PlayerInfo i_Player, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             bool isValid = false;
-            if (i_Player.ENormalSign == ePlayer.O)
+            if ((i_Player.ENormalSign == ePlayer.O)&&(m_Board[i_FromRow,i_FromLine])==i_Player.ENormalSign)
             {
                 if (i_FromRow == i_ToRow - 2 && (i_FromLine + 2 == i_ToLine || i_FromLine - 2 == i_ToLine))
                 {
@@ -222,7 +226,7 @@ namespace Ex05
                     }
                 }
             }
-            else if (i_Player.ENormalSign == ePlayer.X)
+            else if ((i_Player.ENormalSign == ePlayer.X)&&(m_Board[i_FromRow,i_FromLine])==i_Player.ENormalSign)
             {
                 if (i_FromRow == i_ToRow + 2 && (i_FromLine + 2 == i_ToLine || i_FromLine - 2 == i_ToLine))
                 {
@@ -248,7 +252,7 @@ namespace Ex05
                     }
                 }
             }
-            else if (i_Player.EKinglSign == ePlayer.U || i_Player.EKinglSign == ePlayer.K)
+            else if ((i_Player.EKinglSign == ePlayer.U || i_Player.EKinglSign == ePlayer.K) && (m_Board[i_FromRow, i_FromLine]) == i_Player.EKinglSign)
             {
                 if ((i_FromRow == i_ToRow + 2 || i_FromRow == i_ToRow - 2) &&
                     (i_FromLine + 2 == i_ToLine || i_FromLine - 2 == i_ToLine))
@@ -306,6 +310,7 @@ namespace Ex05
 
         public void CheckWhichMoveIsIt(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine, PlayerInfo i_Player)
         {
+            m_ListOfPossibleEatingMoves.Clear();
             const bool v_IsAEatOrMove = true;
             bool isAMove = !v_IsAEatOrMove;
             if (m_Board[i_FromRow, i_FromLine] == i_Player.ENormalSign)
@@ -432,7 +437,7 @@ namespace Ex05
                     if (IsAnotherEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow, out indexToLine))
                     {
                         RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine, indexToRow, indexToLine);
-                        m_ListOfPossibleMoves.Add(eatingPosition);
+                        m_ListOfPossibleEatingMoves.Add(eatingPosition);
                     }
                 }
             }
