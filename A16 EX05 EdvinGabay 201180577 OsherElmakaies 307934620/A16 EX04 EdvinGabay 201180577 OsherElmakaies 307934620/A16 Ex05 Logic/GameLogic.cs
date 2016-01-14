@@ -189,9 +189,12 @@ namespace Ex05
                     m_NotifyEat(i_FromRow, i_FromLine, i_ToRow, i_ToLine, i_FromRow - 1, i_FromLine + 1);
                     TurningToKing(i_ToRow, i_ToLine);
                 }
-                int indexToNewRow = 0;
-                int indexToNewLine = 0;
-                IsAnotherEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine);
+                int indexToNewRow;
+                int indexToNewLine;
+                if (IsAnotherEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine))
+                {
+                    //Osher - need to leave the turn to the current player
+                }
             }
             else
             {
@@ -547,7 +550,7 @@ namespace Ex05
         {
             bool isMoveStepsAvailble = false;
             int indexFromRow;
-            for (indexFromRow = 3; indexFromRow < m_Board.BoardSize; indexFromRow++)
+            for (indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
             {
                 int indexFromLine;
                 for (indexFromLine = 0; indexFromLine < m_Board.BoardSize; indexFromLine++)
