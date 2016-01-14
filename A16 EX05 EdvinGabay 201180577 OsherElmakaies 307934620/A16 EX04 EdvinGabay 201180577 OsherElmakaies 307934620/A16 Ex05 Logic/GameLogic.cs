@@ -22,8 +22,8 @@ namespace Ex05
         Board m_Board;
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
-        readonly List<AllMoveCordinates> m_ListOfPossibleEatingMoves = new List<AllMoveCordinates>();
-        readonly List<AllMoveCordinates> m_ListOfPossibleStepMoves = new List<AllMoveCordinates>();
+        readonly List<MoveCordinates> m_ListOfPossibleEatingMoves = new List<MoveCordinates>();
+        readonly List<MoveCordinates> m_ListOfPossibleStepMoves = new List<MoveCordinates>();
 
         public GameLogic(int i_BoardSize)
         {
@@ -428,7 +428,7 @@ namespace Ex05
                     if (IsEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow,
                         out indexToLine))
                     {
-                        AllMoveCordinates eatingPosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                        MoveCordinates eatingPosition = new MoveCordinates(indexFromRow, indexFromLine,
                             indexToRow, indexToLine);
                         m_ListOfPossibleEatingMoves.Add(eatingPosition);
                     }
@@ -552,7 +552,7 @@ namespace Ex05
                             if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToDownRow,
                                 indexToBottomRightLine))
                             {
-                                AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                                MoveCordinates movePosition = new MoveCordinates(indexFromRow, indexFromLine,
                             indexToDownRow, indexToBottomRightLine);
                                 m_ListOfPossibleStepMoves.Add(movePosition);
                                 isMoveStepsAvailble = true;
@@ -563,7 +563,7 @@ namespace Ex05
                                 if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToDownRow,
                                     indexToBottomLeftLine))
                                 {
-                                    AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                                    MoveCordinates movePosition = new MoveCordinates(indexFromRow, indexFromLine,
                             indexToDownRow, indexToBottomLeftLine);
                                     m_ListOfPossibleStepMoves.Add(movePosition);
                                     isMoveStepsAvailble = true;
@@ -577,7 +577,7 @@ namespace Ex05
                     //top right
                     if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToUpRow, indexToTopRightLine))
                     {
-                        AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                        MoveCordinates movePosition = new MoveCordinates(indexFromRow, indexFromLine,
                             indexToUpRow, indexToTopRightLine);
                         m_ListOfPossibleStepMoves.Add(movePosition);
                         isMoveStepsAvailble = true;
@@ -587,7 +587,7 @@ namespace Ex05
                     {
                         if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToUpRow, indexToTopLeftLine))
                         {
-                            AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                            MoveCordinates movePosition = new MoveCordinates(indexFromRow, indexFromLine,
                             indexToUpRow, indexToTopLeftLine);
                             m_ListOfPossibleStepMoves.Add(movePosition);
                             isMoveStepsAvailble = true;
