@@ -22,7 +22,7 @@ namespace Ex05
         Board m_Board;
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
-        readonly List<MoveCordinates> m_ListOfPossibleEatingMoves = new List<MoveCordinates>();
+        readonly List<EatCordinates> m_ListOfPossibleEatingMoves = new List<EatCordinates>();
         readonly List<MoveCordinates> m_ListOfPossibleStepMoves = new List<MoveCordinates>();
 
         public GameLogic(int i_BoardSize)
@@ -180,7 +180,9 @@ namespace Ex05
                 }
                 int indexToNewRow;
                 int indexToNewLine;
-                if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine))
+                int indexEatenNewRow;
+                int indexEatenNewLine;
+                if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine, out indexEatenNewRow, out indexEatenNewLine))
                 {
                     //Osher - need to leave the turn to the current player
                 }
@@ -256,7 +258,7 @@ namespace Ex05
                     if (i_ToLine - 2 == i_FromLine && i_FromRow + 2 == i_ToRow)
                     {
                         if (IsEmptyPlace(i_ToRow, i_ToLine) &&
-                            (m_Board[i_ToRow - 1, i_ToLine - 1] != i_Player.ENormalSign && m_Board[i_ToRow + 1, i_ToLine + 1] != ePlayer.Empty && 
+                            (m_Board[i_ToRow - 1, i_ToLine - 1] != i_Player.ENormalSign && m_Board[i_ToRow - 1, i_ToLine - 1] != ePlayer.Empty && 
                              m_Board[i_ToRow - 1, i_ToLine - 1] != i_Player.EKinglSign))
                         {
                             isValid = true;
@@ -266,7 +268,7 @@ namespace Ex05
                     if (i_ToLine + 2 == i_FromLine && i_FromRow + 2 == i_ToRow)
                     {
                         if (IsEmptyPlace(i_ToRow, i_ToLine) &&
-                            (m_Board[i_ToRow - 1, i_ToLine + 1] != i_Player.ENormalSign && m_Board[i_ToRow + 1, i_ToLine + 1] != ePlayer.Empty && 
+                            (m_Board[i_ToRow - 1, i_ToLine + 1] != i_Player.ENormalSign && m_Board[i_ToRow - 1, i_ToLine + 1] != ePlayer.Empty && 
                              m_Board[i_ToRow - 1, i_ToLine + 1] != i_Player.EKinglSign))
                         {
                             isValid = true;
@@ -276,7 +278,7 @@ namespace Ex05
                     if (i_ToLine - 2 == i_FromLine && i_FromRow == i_ToRow + 2)
                     {
                         if (IsEmptyPlace(i_ToRow, i_ToLine) &&
-                            (m_Board[i_ToRow + 1, i_ToLine - 1] != i_Player.ENormalSign && m_Board[i_ToRow + 1, i_ToLine + 1] != ePlayer.Empty && 
+                            (m_Board[i_ToRow + 1, i_ToLine - 1] != i_Player.ENormalSign && m_Board[i_ToRow + 1, i_ToLine - 1] != ePlayer.Empty && 
                              m_Board[i_ToRow + 1, i_ToLine - 1] != i_Player.EKinglSign))
                         {
                             isValid = true;
@@ -303,7 +305,8 @@ namespace Ex05
             m_ListOfPossibleEatingMoves.Clear();
             const bool v_IsAEatOrMove = true;
             bool isAMove = !v_IsAEatOrMove;
-            if (!IsMoveStepAvailble(i_Player))
+            CheckForEatingMovesFirst(i_Player);
+            if (!IsMoveStepAvailble(i_Player) && m_ListOfPossibleEatingMoves[0] == null)
             {
                 m_NotifyInvalidMove("You don't have any moves to do!");
             }
@@ -421,21 +424,22 @@ namespace Ex05
         {
             int indexToRow;
             int indexToLine;
+            int indexEatenPlaceRow;
+            int indexEatenPlaceLine;
             for (int indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
             {
                 for (int indexFromLine = 0; indexFromLine < m_Board.BoardSize; indexFromLine++)
                 {
                     if (IsEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow,
-                        out indexToLine))
+                        out indexToLine, out indexEatenPlaceRow, out indexEatenPlaceLine))
                     {
-                        MoveCordinates eatingPosition = new MoveCordinates(indexFromRow, indexFromLine,
-                            indexToRow, indexToLine);
+                        EatCordinates eatingPosition = new EatCordinates(indexFromRow, indexFromLine,
+                            indexToRow, indexToLine, indexEatenPlaceRow, indexEatenPlaceLine);
                         m_ListOfPossibleEatingMoves.Add(eatingPosition);
                     }
                 }
             }
         }
-
 
         //Osher to add UI
         public void TurningToKing(int i_ToRow, int i_ToLine)
@@ -466,7 +470,7 @@ namespace Ex05
         }
 
         public bool IsEatingMoveAroundYou(PlayerInfo i_Player, int i_FromRow, int i_FromLine, out int o_ToRow,
-            out int o_ToLine)
+            out int o_ToLine, out int o_EatenPlaceRow, out int o_EatenPlaceLine)
         {
             bool k_IsEatable = true;
             bool retVal = !k_IsEatable;
@@ -478,6 +482,8 @@ namespace Ex05
             int indexToBottomRightLine = i_FromLine + 2;
             o_ToRow = 0;
             o_ToLine = 0;
+            o_EatenPlaceRow = 0;
+            o_EatenPlaceLine = 0;
             //Top left
             if (IsInRange(indexToUpRow, indexToTopLeftLine))
             {
@@ -485,6 +491,8 @@ namespace Ex05
                 {
                     o_ToRow = indexToUpRow;
                     o_ToLine = indexToTopLeftLine;
+                    o_EatenPlaceRow = indexToUpRow + 1;
+                    o_EatenPlaceLine = indexToTopLeftLine + 1; 
                     retVal = k_IsEatable;
                 }
             }
@@ -495,6 +503,8 @@ namespace Ex05
                 {
                     o_ToRow = indexToUpRow;
                     o_ToLine = indexToTopRightLine;
+                    o_EatenPlaceRow = indexToUpRow + 1;
+                    o_EatenPlaceLine = indexToTopRightLine - 1; 
                     retVal = k_IsEatable;
                 }
             }
@@ -505,6 +515,8 @@ namespace Ex05
                 {
                     o_ToRow = indexToDownRow;
                     o_ToLine = indexToBottomLeftLine;
+                    o_EatenPlaceRow = indexToDownRow - 1;
+                    o_EatenPlaceLine = indexToBottomLeftLine + 1; 
                     retVal = k_IsEatable;
                 }
             }
@@ -515,6 +527,8 @@ namespace Ex05
                 {
                     o_ToRow = indexToDownRow;
                     o_ToLine = indexToBottomRightLine;
+                    o_EatenPlaceRow = indexToDownRow - 1;
+                    o_EatenPlaceLine = indexToBottomLeftLine - 1; 
                     retVal = k_IsEatable;
                 }
             }

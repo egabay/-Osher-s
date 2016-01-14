@@ -14,19 +14,23 @@ namespace Ex05
             m_EatenPlace= new Point();
         }
 
-        public EatCordinates(int i_XCordinate, int i_YCordinate)
+        public EatCordinates(int i_FromRowCordinate, int i_FromLineCordinate, int i_ToRowCordinate, int i_ToLineCordinate, int i_EatenRowPlace, int i_EatenLinePlace)
         {
-            m_EatenPlace.X = i_XCordinate;
-            m_EatenPlace.Y = i_YCordinate;
+            m_FromLocationCordinates.X = i_FromRowCordinate;
+            m_FromLocationCordinates.Y = i_FromLineCordinate;
+            m_ToLocationCordinates.X = i_ToRowCordinate;
+            m_ToLocationCordinates.Y = i_ToLineCordinate;
+            m_EatenPlace.X = i_EatenRowPlace;
+            m_EatenPlace.Y = i_EatenLinePlace;
         }
 
-        public int XCordinate
+        public int EatenRowXCordinate
         {
             get { return m_EatenPlace.X; }
             set { m_EatenPlace.X = value; }
         }
 
-        public int YCordinate
+        public int EatenLineYCordinate
         {
             get { return m_EatenPlace.Y; }
             set { m_EatenPlace.Y = value; }
