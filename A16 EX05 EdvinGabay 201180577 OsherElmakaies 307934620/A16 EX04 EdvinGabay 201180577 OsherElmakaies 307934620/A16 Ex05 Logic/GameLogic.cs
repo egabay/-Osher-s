@@ -22,7 +22,6 @@ namespace Ex05
         Board m_Board;
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
-        int[] o_ArrayOfEatingPossitions = new int[10*8];
         List<RegularMoveCordinates> m_ListOfPossibleEatingMoves = new List<RegularMoveCordinates>();
 
         public GameLogic(int i_BoardSize)
