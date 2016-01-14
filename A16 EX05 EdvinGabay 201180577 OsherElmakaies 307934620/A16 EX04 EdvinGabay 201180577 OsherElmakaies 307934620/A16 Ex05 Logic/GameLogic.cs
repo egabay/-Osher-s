@@ -480,8 +480,7 @@ namespace Ex05
             //Top left
             if (IsInRange(indexToUpRow, indexToTopLeftLine))
             {
-                if (//IsValidMove(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopLeftLine) &&
-                    IsValidEat(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopLeftLine))
+                if (IsValidEat(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopLeftLine))
                 {
                     o_ToRow = indexToUpRow;
                     o_ToLine = indexToTopLeftLine;
@@ -491,8 +490,7 @@ namespace Ex05
             //Top right
             if (IsInRange(indexToUpRow, indexToTopRightLine))
             {
-                if (//IsValidMove(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopRightLine) &&
-                    IsValidEat(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopRightLine))
+                if (IsValidEat(i_Player, i_FromRow, i_FromLine, indexToUpRow, indexToTopRightLine))
                 {
                     o_ToRow = indexToUpRow;
                     o_ToLine = indexToTopRightLine;
@@ -502,8 +500,7 @@ namespace Ex05
             //Bottom left
             if (IsInRange(indexToDownRow, indexToBottomLeftLine))
             {
-                if (//IsValidMove(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomLeftLine) &&
-                    IsValidEat(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomLeftLine))
+                if (IsValidEat(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomLeftLine))
                 {
                     o_ToRow = indexToDownRow;
                     o_ToLine = indexToBottomLeftLine;
@@ -513,8 +510,7 @@ namespace Ex05
             //Bottom right
             if (IsInRange(indexToDownRow, indexToBottomRightLine))
             {
-                if (//IsValidMove(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomRightLine) &&
-                    IsValidEat(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomRightLine))
+                if (IsValidEat(i_Player, i_FromRow, i_FromLine, indexToDownRow, indexToBottomRightLine))
                 {
                     o_ToRow = indexToDownRow;
                     o_ToLine = indexToBottomRightLine;
