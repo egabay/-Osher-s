@@ -53,15 +53,7 @@ namespace Ex05
         {
             Button toKing = m_CheckersBoardTableLayOut.GetControlFromPosition(i_Line, i_Row) as Button;
 
-            switch (i_SignToChangeTo)
-            {
-                case ePlayer.U:
-                    toKing.Text = "U";
-                    break;
-                case ePlayer.K:
-                    toKing.Text = "K";
-                    break;
-            }
+            toKing.Text = i_SignToChangeTo.ToString();
           
         }
         private void InitializeTableLayOut()

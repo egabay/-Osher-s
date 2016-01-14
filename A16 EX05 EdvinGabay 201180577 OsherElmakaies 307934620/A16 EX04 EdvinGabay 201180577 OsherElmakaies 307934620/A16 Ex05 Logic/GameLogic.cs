@@ -7,20 +7,20 @@ namespace Ex05
 {
     public delegate void MovedOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow);
 
-    public delegate void NotifyEatingOccuredDelegate(
-        int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
+    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
 
-    public delegate void UpdateInfoFromSettingDialogDelegate(
-        int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
+    public delegate void UpdateInfoFromSettingDialogDelegate(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
 
     public delegate void NotifyInvalidMove(string i_InvalidMoveMsg);
+
+    public delegate void ChangeToKing(int i_Row, int i_Line, ePlayer i_Player);
 
     public class GameLogic
     {
         Board m_Board;
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
-        int[] o_ArrayOfEatingPossitions = new int[10*8];
+        int[] o_ArrayOfEatingPossitions = new int[10 * 8];
         List<RegularMoveCordinates> m_ListOfPossibleEatingMoves = new List<RegularMoveCordinates>();
 
         private void Dugma()
@@ -49,7 +49,7 @@ namespace Ex05
 
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate m_NotifyMovement;
-
+        public event ChangeToKing m_NotifyToUpdateKing;
         public event NotifyEatingOccuredDelegate m_NotifyEat;
         public event NotifyInvalidMove m_NotifyInvalidMove;
 
@@ -69,6 +69,11 @@ namespace Ex05
             m_NotifyInvalidMove(i_MsgToNotify);
         }
 
+        private void NotifyChangeToKing(int i_Row, int i_Line, ePlayer i_Player)
+        {
+
+            m_NotifyToUpdateKing(i_Row, i_Line, i_Player);
+        }
         //------------------------------------------------------
 
         public bool IsEmptyPlace(int i_ToRow, int i_ToLine)
@@ -319,39 +324,39 @@ namespace Ex05
                 switch (i_Player.ENormalSign)
                 {
                     case ePlayer.X:
-                    {
-                        if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_RegularMoveSteps))
                         {
-                            Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            isAMove = v_IsAEatOrMove;
-                        }
-                        else
-                        {
-                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_EatMoveSteps))
+                            if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_RegularMoveSteps))
                             {
-                                Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
                                 isAMove = v_IsAEatOrMove;
                             }
+                            else
+                            {
+                                if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_EatMoveSteps))
+                                {
+                                    Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                    isAMove = v_IsAEatOrMove;
+                                }
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case ePlayer.O:
-                    {
-                        if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_RegularMoveSteps))
                         {
-                            Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
-                            isAMove = v_IsAEatOrMove;
-                        }
-                        else
-                        {
-                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_EatMoveSteps))
+                            if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_RegularMoveSteps))
                             {
-                                Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                Move(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
                                 isAMove = v_IsAEatOrMove;
                             }
+                            else
+                            {
+                                if (IsODirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_EatMoveSteps))
+                                {
+                                    Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
+                                    isAMove = v_IsAEatOrMove;
+                                }
+                            }
+                            break;
                         }
-                        break;
-                    }
                 }
             }
             else if (m_Board[i_FromLine, i_FromRow] == i_Player.EKinglSign)
@@ -453,6 +458,7 @@ namespace Ex05
                 if (m_Board[i_ToRow, i_ToLine] == ePlayer.X)
                 {
                     m_Board[i_ToRow, i_ToLine] = ePlayer.K;
+                    NotifyChangeToKing(i_ToRow,i_ToLine,ePlayer.K);
                     //m_NumberOfK++;
                     //m_NumberOfX--;
                 }
@@ -464,6 +470,7 @@ namespace Ex05
                     if (m_Board[i_ToRow, i_ToLine] == ePlayer.O)
                     {
                         m_Board[i_ToRow, i_ToLine] = ePlayer.U;
+                        NotifyChangeToKing(i_ToRow, i_ToLine, ePlayer.U);
                         // m_NumberOfU++;
                         //m_NumberOfO--;
                     }
