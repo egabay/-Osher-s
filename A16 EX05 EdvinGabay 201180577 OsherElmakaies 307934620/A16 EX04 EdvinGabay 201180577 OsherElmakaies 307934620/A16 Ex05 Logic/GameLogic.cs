@@ -22,8 +22,8 @@ namespace Ex05
         Board m_Board;
         public const int v_RegularMoveSteps = 1;
         public const int v_EatMoveSteps = 2;
-        int[] o_ArrayOfEatingPossitions = new int[10*8];
-        List<RegularMoveCordinates> m_ListOfPossibleEatingMoves = new List<RegularMoveCordinates>();
+        readonly List<AllMoveCordinates> m_ListOfPossibleEatingMoves = new List<AllMoveCordinates>();
+        readonly List<AllMoveCordinates> m_ListOfPossibleStepMoves = new List<AllMoveCordinates>();
 
         public GameLogic(int i_BoardSize)
         {
@@ -180,7 +180,7 @@ namespace Ex05
                 }
                 int indexToNewRow;
                 int indexToNewLine;
-                if (IsAnotherEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine))
+                if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine))
                 {
                     //Osher - need to leave the turn to the current player
                 }
@@ -419,18 +419,16 @@ namespace Ex05
 
         public void CheckForEatingMovesFirst(PlayerInfo i_Player)
         {
-            int indexForArray = 0;
-            bool isEatingMoves = false;
-            int indexToRow = 0;
-            int indexToLine = 0;
+            int indexToRow;
+            int indexToLine;
             for (int indexFromRow = 0; indexFromRow < m_Board.BoardSize; indexFromRow++)
             {
                 for (int indexFromLine = 0; indexFromLine < m_Board.BoardSize; indexFromLine++)
                 {
-                    if (IsAnotherEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow,
+                    if (IsEatingMoveAroundYou(i_Player, indexFromRow, indexFromLine, out indexToRow,
                         out indexToLine))
                     {
-                        RegularMoveCordinates eatingPosition = new RegularMoveCordinates(indexFromRow, indexFromLine,
+                        AllMoveCordinates eatingPosition = new AllMoveCordinates(indexFromRow, indexFromLine,
                             indexToRow, indexToLine);
                         m_ListOfPossibleEatingMoves.Add(eatingPosition);
                     }
@@ -467,7 +465,7 @@ namespace Ex05
             }
         }
 
-        public bool IsAnotherEatingMoveAroundYou(PlayerInfo i_Player, int i_FromRow, int i_FromLine, out int o_ToRow,
+        public bool IsEatingMoveAroundYou(PlayerInfo i_Player, int i_FromRow, int i_FromLine, out int o_ToRow,
             out int o_ToLine)
         {
             bool k_IsEatable = true;
@@ -545,7 +543,6 @@ namespace Ex05
                     int indexToDownRow = indexFromRow + 1;
                     int indexToBottomLeftLine = indexFromLine - 1;
                     int indexToBottomRightLine = indexFromLine + 1;
-
                     if (IsInRange(indexToDownRow, indexToBottomRightLine))
                     {
                         if (i_Player.ENormalSign == ePlayer.O || i_Player.ENormalSign == ePlayer.U ||
@@ -555,6 +552,9 @@ namespace Ex05
                             if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToDownRow,
                                 indexToBottomRightLine))
                             {
+                                AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                            indexToDownRow, indexToBottomRightLine);
+                                m_ListOfPossibleStepMoves.Add(movePosition);
                                 isMoveStepsAvailble = true;
                             }
                             //bottom left
@@ -563,6 +563,9 @@ namespace Ex05
                                 if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToDownRow,
                                     indexToBottomLeftLine))
                                 {
+                                    AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                            indexToDownRow, indexToBottomLeftLine);
+                                    m_ListOfPossibleStepMoves.Add(movePosition);
                                     isMoveStepsAvailble = true;
                                 }
                             }
@@ -574,6 +577,9 @@ namespace Ex05
                     //top right
                     if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToUpRow, indexToTopRightLine))
                     {
+                        AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                            indexToUpRow, indexToTopRightLine);
+                        m_ListOfPossibleStepMoves.Add(movePosition);
                         isMoveStepsAvailble = true;
                     }
                     //top left
@@ -581,6 +587,9 @@ namespace Ex05
                     {
                         if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToUpRow, indexToTopLeftLine))
                         {
+                            AllMoveCordinates movePosition = new AllMoveCordinates(indexFromRow, indexFromLine,
+                            indexToUpRow, indexToTopLeftLine);
+                            m_ListOfPossibleStepMoves.Add(movePosition);
                             isMoveStepsAvailble = true;
                         }
                     }

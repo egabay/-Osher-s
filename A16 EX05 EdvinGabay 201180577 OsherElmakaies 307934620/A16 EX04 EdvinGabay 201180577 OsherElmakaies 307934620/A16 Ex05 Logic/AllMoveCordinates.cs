@@ -5,18 +5,18 @@ using System.Drawing;
 
 namespace Ex05
 {
-    public class RegularMoveCordinates
+    public class AllMoveCordinates
     {
         private Point m_FromLocationCordinates;
         private Point m_ToLocationCordinates;
 
-        public RegularMoveCordinates()
+        public AllMoveCordinates()
         {
             m_FromLocationCordinates = new Point();
             m_ToLocationCordinates = new Point();
         }
 
-        public RegularMoveCordinates(int i_FromXCordinate,int i_FromYCordinate,int i_ToXCordinate,int i_ToYCordinate)
+        public AllMoveCordinates(int i_FromXCordinate,int i_FromYCordinate,int i_ToXCordinate,int i_ToYCordinate)
         {
             m_FromLocationCordinates.X = i_FromXCordinate;
             m_FromLocationCordinates.Y = i_FromYCordinate;
