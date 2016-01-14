@@ -6,13 +6,11 @@ namespace Ex05
 {
     public delegate void MovedOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow);
 
-    public delegate void NotifyEatingOccuredDelegate(
-        int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
-
-    public delegate void UpdateInfoFromSettingDialogDelegate(
-        int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName);
+    public delegate void NotifyEatingOccuredDelegate(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow);
 
     public delegate void NotifyInvalidMove(string i_InvalidMoveMsg);
+    
+    public delegate void NotifyChangeToKing(int i_Line,int i_Row,PlayerInfo i_Player);
 
     public class GameLogic
     {
@@ -21,21 +19,7 @@ namespace Ex05
         public const int v_EatMoveSteps = 2;
         int[] o_ArrayOfEatingPossitions = new int[10 * 8];
         List<RegularMoveCordinates> m_ListOfPossibleEatingMoves = new List<RegularMoveCordinates>();
-        private void Dugma()
-        {
-            //   RegularMoveCordinates moveToAdd = new RegularMoveCordinates(i_FromXCordinate, i_FromYCordinate, i_ToXCordinate, i_ToYCordinate);
-            //   m_ListOfPossibleMoves.Add(moveToAdd);
-
-
-            //  RegularMoveCordinates moveToAdd2 = new RegularMoveCordinates();
-            //  moveToAdd2.FromLocationXCordinate = i_FromXCordinate;
-            //  moveToAdd2.FromLocationYCordinate = i_FromYCordinate;
-            //  moveToAdd2.ToLocationYCordinate = i_ToYCordinate;
-            //  moveToAdd2.ToLocationXCordinate = i_ToXCordinate;
-            //  m_ListOfPossibleMoves.Add(moveToAdd2);
-
-        }
-
+    
         public GameLogic(int i_BoardSize)
         {
             InitializeBoard(i_BoardSize);
@@ -48,7 +32,7 @@ namespace Ex05
 
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate m_NotifyMovement;
-
+        public event NotifyChangeToKing m_NotifyToUpdateKing;
         public event NotifyEatingOccuredDelegate m_NotifyEat;
         public event NotifyInvalidMove m_NotifyInvalidMove;
 

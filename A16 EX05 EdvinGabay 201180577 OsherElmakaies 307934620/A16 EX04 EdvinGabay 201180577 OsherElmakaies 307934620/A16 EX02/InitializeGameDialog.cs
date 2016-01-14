@@ -18,7 +18,6 @@ namespace Ex05
     public partial class InitializeGameDialog : Form
     {
         private eBoardSize m_BoardSizeResult;
-        public event UpdateInfoFromSettingDialogDelegate NotifyInfoFromSettingDialog;
         public int shumdavar;
 
         public eBoardSize BoardSizeResult
@@ -66,9 +65,6 @@ namespace Ex05
 
         private void m_DoneButton_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            int boardSize = Convert.ToInt32(BoardSizeResult);
-            NotifyInfoFromSettingDialog(boardSize, FirstPlayerName, SecondPlayerName);
            this.Close();
         }
 

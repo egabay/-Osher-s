@@ -34,14 +34,17 @@ namespace Ex05
         private void InitGameProperties()
         {
             InitializeGameDialog GameSettings = new InitializeGameDialog();
-            GameSettings.NotifyInfoFromSettingDialog += GameSettings_NotifyInfoFromSettingDialog;
             GameSettings.ShowDialog();
-            GameSettings.NotifyInfoFromSettingDialog -= GameSettings_NotifyInfoFromSettingDialog;
+            m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult); 
+            m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
+            m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
+            m_Player1ScoreLabel.Text =m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
+            m_Player2ScoreLabel.Text =m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
             m_Logic = new GameLogic(m_BoardSize);
             m_Logic.m_NotifyEat += m_Logic_NotifyEat;
             m_Logic.m_NotifyMovement += m_NotifyMovement;
             m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            //m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
             InitializeTableLayOut();
             PassTurn();
         }
@@ -88,15 +91,6 @@ namespace Ex05
             m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
             Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
             eaten.Text = string.Empty;
-        }
-
-        private void GameSettings_NotifyInfoFromSettingDialog(int i_BoardSize, string i_FirstPlayerName, string i_SecondPlayerName)
-        {
-            m_BoardSize = i_BoardSize;
-            m_FirstPlayer = new PlayerInfo(i_FirstPlayerName, ePlayer.O, ePlayer.U);
-            m_SecondPlayer = new PlayerInfo(i_SecondPlayerName, ePlayer.X, ePlayer.K);
-            m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + m_FirstPlayer.Name;
-            m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + m_SecondPlayer.Name;
         }
 
         private void m_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
