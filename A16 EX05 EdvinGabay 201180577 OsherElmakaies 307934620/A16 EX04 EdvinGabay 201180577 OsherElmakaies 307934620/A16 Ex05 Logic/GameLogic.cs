@@ -186,7 +186,7 @@ namespace Ex05
                 if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine, out indexEatenNewRow, out indexEatenNewLine))
                 {
                     //Osher - need to leave the turn to the current player
-                    EatCordinates anotherEatPossotion = new EatCordinates(i_ToRow, i_ToLine, indexToNewRow, indexToNewLine, indexEatenNewLine, indexEatenNewLine);
+                    EatCordinates anotherEatPossotion = new EatCordinates(i_ToRow, i_ToLine, indexToNewRow, indexToNewLine, indexEatenNewRow, indexEatenNewLine);
                     m_ListOfAnotherEatMove.Add(anotherEatPossotion);
                 }
             }
