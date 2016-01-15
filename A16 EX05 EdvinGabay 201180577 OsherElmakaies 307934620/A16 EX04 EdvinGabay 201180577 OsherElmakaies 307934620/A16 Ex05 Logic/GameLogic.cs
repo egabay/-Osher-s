@@ -24,6 +24,7 @@ namespace Ex05
         public const int v_EatMoveSteps = 2;
         readonly List<EatCordinates> m_ListOfPossibleEatingMoves = new List<EatCordinates>();
         readonly List<MoveCordinates> m_ListOfPossibleStepMoves = new List<MoveCordinates>();
+        readonly List<EatCordinates> m_ListOfAnotherEatMove = new List<EatCordinates>();
 
         public GameLogic(int i_BoardSize)
         {
@@ -185,6 +186,8 @@ namespace Ex05
                 if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine, out indexEatenNewRow, out indexEatenNewLine))
                 {
                     //Osher - need to leave the turn to the current player
+                    EatCordinates anotherEatPossotion = new EatCordinates(i_ToRow, i_ToLine, indexToNewRow, indexToNewLine, indexEatenNewLine, indexEatenNewLine);
+                    m_ListOfAnotherEatMove.Add(anotherEatPossotion);
                 }
             }
             else
