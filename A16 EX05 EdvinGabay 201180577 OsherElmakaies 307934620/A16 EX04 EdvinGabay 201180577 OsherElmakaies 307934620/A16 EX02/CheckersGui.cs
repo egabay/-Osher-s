@@ -53,7 +53,7 @@ namespace Ex05
             m_Logic = new GameLogic(m_BoardSize);
             m_Logic.m_NotifyEat += m_Logic_NotifyEat;
             m_Logic.m_NotifyMovement += m_NotifyMovement;
-            m_Logic.m_NotifyToKeepTurn += m_Logic_m_NotifyToKeepTurn;
+            m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
             m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
             m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
             InitializeTableLayOut();
@@ -109,8 +109,6 @@ namespace Ex05
             Button toButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_ToRow, i_ToLine) as Button;
             toButton.Text = fromButton.Text;
             fromButton.Text = string.Empty;
-            PassTurn();
-
         }
         
         private void PassTurn()

@@ -40,15 +40,15 @@ namespace Ex05
 
         /// Updating the GUI With delegate that movement occured 
         public event MovedOccuredDelegate m_NotifyMovement;
-        public event KeepTurn m_NotifyToKeepTurn;
+        public event KeepTurn m_NotifyTurn;
         public event ChangeToKing m_NotifyToUpdateKing;
         public event NotifyEatingOccuredDelegate m_NotifyEat;
         public event NotifyInvalidMove m_NotifyInvalidMove;
 
 
-        private void notifyKeepTurn()
+        private void notifyTurn()
         {
-            m_NotifyToKeepTurn();
+            m_NotifyTurn();
         }
         private void NotifyMovementHandler(int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
@@ -90,6 +90,7 @@ namespace Ex05
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
                     NotifyMovementHandler(i_FromRow, i_FromLine, i_ToRow, i_ToLine);
                     TurningToKing(i_ToRow, i_ToLine);
+                    notifyTurn();
                 }
                 else
                 {
@@ -200,15 +201,20 @@ namespace Ex05
                 int indexToNewLine;
                 int indexEatenNewRow;
                 int indexEatenNewLine;
+                m_ListOfAnotherEatMove.Clear();
                 if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine, out indexEatenNewRow, out indexEatenNewLine))
                 {
                     //Osher - need to leave the turn to the current player
                     EatCordinates anotherEatPossotion = new EatCordinates(i_ToRow, i_ToLine, indexToNewRow, indexToNewLine, indexEatenNewRow, indexEatenNewLine);
                     m_ListOfAnotherEatMove.Add(anotherEatPossotion);
-                    notifyKeepTurn(); 
+                    if(i_Player.PlayingType==PlayerType.Computer)
+                    {
+                        AutoMovePlay(i_Player);
+                    }
                 }
                 else
                 {
+                    notifyTurn();
                     m_ListOfAnotherEatMove.Clear();
                 }
             }
@@ -375,7 +381,6 @@ namespace Ex05
                     }
                 }
             }
-            //else if (m_Board[i_FromLine, i_FromRow] == i_Player.EKinglSign)
             else
             {
                 if (IsXDirectionMove(i_FromRow, i_ToRow, i_FromLine, i_ToLine, v_RegularMoveSteps))

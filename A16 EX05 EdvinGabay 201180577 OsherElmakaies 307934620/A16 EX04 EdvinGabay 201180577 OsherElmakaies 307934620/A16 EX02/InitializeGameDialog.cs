@@ -31,7 +31,7 @@ namespace Ex05
         {
             get { return m_Player1NameTextBox.Text; }
         }
-        public string SecondPlayerName
+        public string SecondPlayerName  
         {
             get { return m_Player2NameTextBox.Text; }
         }
