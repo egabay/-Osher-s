@@ -150,6 +150,7 @@ namespace Ex05
             {
                 if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
                 {
+                    Score(i_Player, i_FromRow+1, i_FromLine+1);
                     //bottom right
                     m_Board[i_FromRow + 2, i_FromLine + 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -160,6 +161,7 @@ namespace Ex05
                 }
                 else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
                 {
+                    Score(i_Player, i_FromRow + 1, i_FromLine - 1);
                     //bottom left
                     m_Board[i_FromRow + 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -170,6 +172,7 @@ namespace Ex05
 
                 else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
                 {
+                    Score(i_Player, i_FromRow - 1, i_FromLine - 1);
                     //up left
                     m_Board[i_FromRow - 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -179,6 +182,7 @@ namespace Ex05
                 }
                 else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
                 {
+                    Score(i_Player, i_FromRow - 1, i_FromLine + 1);
                     //up right
                     m_Board[i_FromRow - 2, i_FromLine + 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -688,7 +692,18 @@ namespace Ex05
                 }
             }
                 
-            
+        }
+
+        public void Score(PlayerInfo i_PlayerScore, int i_EatenRow, int i_EatenLine)
+        {
+            if (m_Board[i_EatenRow, i_EatenLine] == ePlayer.O || m_Board[i_EatenRow, i_EatenLine] == ePlayer.X)
+            {
+                i_PlayerScore.Score += 1; 
+            }
+            else
+            {
+                i_PlayerScore.Score += 4; 
+            }
         }
     }
 }
