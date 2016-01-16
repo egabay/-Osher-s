@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 
-
+public enum PlayerType
+{
+    Human,
+    Computer
+};
 
 namespace Ex05
 {
@@ -14,6 +18,8 @@ namespace Ex05
         private int m_Score; 
         private ePlayer m_NormalSign;
         private ePlayer m_KinglSign;
+        private PlayerType m_Type;
+        
         public int PawnsNumber { get; private set; }
 
         public int Score
@@ -28,6 +34,14 @@ namespace Ex05
             EKinglSign = i_EKingPlayerSign;
             PlayerAmountOfWins = 0;
         }
+
+
+        public PlayerType PlayingType
+        {
+            get { return m_Type; }
+            set { m_Type = value; }
+        }
+        
 
         public ePlayer ENormalSign
         {

@@ -35,6 +35,10 @@ namespace Ex05
         {
             get { return m_Player2NameTextBox.Text; }
         }
+        public bool PlayingType
+        {
+            get { return m_EnableSecondPlayerCheckBox.Checked; }
+        }
 
         public InitializeGameDialog()
         {

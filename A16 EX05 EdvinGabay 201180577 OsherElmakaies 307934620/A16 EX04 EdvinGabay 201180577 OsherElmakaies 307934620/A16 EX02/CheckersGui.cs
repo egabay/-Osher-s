@@ -35,17 +35,34 @@ namespace Ex05
         {
             InitializeGameDialog GameSettings = new InitializeGameDialog();
             GameSettings.ShowDialog();
-            m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult); 
+            m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult);
             m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
             m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
-            m_Player1ScoreLabel.Text =m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
-            m_Player2ScoreLabel.Text =m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
+            m_FirstPlayer.PlayingType = PlayerType.Human;
+            if (!GameSettings.PlayingType)
+            {
+                m_SecondPlayer.PlayingType = PlayerType.Computer;
+            }
+            else
+            {
+                m_SecondPlayer.PlayingType = PlayerType.Human;
+            }
+
+            m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
+            m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
             m_Logic = new GameLogic(m_BoardSize);
             m_Logic.m_NotifyEat += m_Logic_NotifyEat;
             m_Logic.m_NotifyMovement += m_NotifyMovement;
+            m_Logic.m_NotifyToKeepTurn += m_Logic_m_NotifyToKeepTurn;
             m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
             m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
             InitializeTableLayOut();
+            PassTurn();
+
+        }
+
+        void m_Logic_m_NotifyToKeepTurn()
+        {
             PassTurn();
         }
 
@@ -80,9 +97,10 @@ namespace Ex05
 
         private void m_Logic_NotifyEat(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
         {
-            m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
             Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
             eaten.Text = string.Empty;
+            m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+
         }
 
         private void m_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
@@ -104,6 +122,10 @@ namespace Ex05
                 m_Player2ScoreLabel.ForeColor = Color.Red;
                 m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
                 m_Player1ScoreLabel.ForeColor = Color.Black;
+                if(m_CurrentPlayerTurn.PlayingType==PlayerType.Computer)
+                {
+                    m_Logic.AutoMovePlay(m_CurrentPlayerTurn);
+                }
                 
             }
             else
@@ -144,8 +166,8 @@ namespace Ex05
                 v_IsSecondPick = false;
                 m_ToPoint.X = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Row;
                 m_ToPoint.Y = m_CheckersBoardTableLayOut.GetCellPosition(wasClicked).Column;
-                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y,m_CurrentPlayerTurn);
-
+                if (m_CurrentPlayerTurn.PlayingType == PlayerType.Human)
+                m_Logic.CheckWhichMoveIsIt(m_FromPoint.X, m_FromPoint.Y, m_ToPoint.X, m_ToPoint.Y, m_CurrentPlayerTurn);
             }
         }
         private void EnterAPlayersIntoGuiMatrix()
