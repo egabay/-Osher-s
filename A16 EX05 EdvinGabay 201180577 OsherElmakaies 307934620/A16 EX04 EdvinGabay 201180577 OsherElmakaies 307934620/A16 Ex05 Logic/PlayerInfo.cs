@@ -27,6 +27,7 @@ namespace Ex05
             get { return m_Score; }
             set { m_Score = value; }
         }
+
         public PlayerInfo(string i_Name, ePlayer i_ENormalPlayerSign, ePlayer i_EKingPlayerSign)
         {
             Name = i_Name;
@@ -73,13 +74,6 @@ namespace Ex05
         public void UpdatePawnsNumber(int i_Number)
         {
             PawnsNumber = i_Number;
-        }
-            
-        public bool CheckEmptyAroundYou(string i_CurrentLocation)
-        {
-
-            bool answerForEmptyPlace = i_CurrentLocation.Equals(ePlayer.Empty.ToString());
-            return answerForEmptyPlace;
         }
     }
 }

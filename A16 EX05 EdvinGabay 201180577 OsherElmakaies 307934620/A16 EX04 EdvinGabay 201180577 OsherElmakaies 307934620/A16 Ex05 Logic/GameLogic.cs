@@ -151,6 +151,7 @@ namespace Ex05
             {
                 if (i_ToLine > i_FromLine && i_ToRow > i_FromRow)
                 {
+                    Score(i_Player, i_FromRow+1, i_FromLine+1);
                     //bottom right
                     m_Board[i_FromRow + 2, i_FromLine + 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -161,6 +162,7 @@ namespace Ex05
                 }
                 else if (i_ToLine < i_FromLine && i_ToRow > i_FromRow)
                 {
+                    Score(i_Player, i_FromRow + 1, i_FromLine - 1);
                     //bottom left
                     m_Board[i_FromRow + 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -171,6 +173,7 @@ namespace Ex05
 
                 else if (i_ToLine < i_FromLine && i_ToRow < i_FromRow)
                 {
+                    Score(i_Player, i_FromRow - 1, i_FromLine - 1);
                     //up left
                     m_Board[i_FromRow - 2, i_FromLine - 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -180,6 +183,7 @@ namespace Ex05
                 }
                 else if (i_ToLine > i_FromLine && i_ToRow < i_FromRow)
                 {
+                    Score(i_Player, i_FromRow - 1, i_FromLine + 1);
                     //up right
                     m_Board[i_FromRow - 2, i_FromLine + 2] = m_Board[i_FromRow, i_FromLine];
                     m_Board[i_FromRow, i_FromLine] = ePlayer.Empty;
@@ -188,15 +192,15 @@ namespace Ex05
                     TurningToKing(i_ToRow, i_ToLine);
                 }
                 // Checking if table match gui(Delete it after) 3 = X / 1 = O
-                for (int i = 0; i < m_Board.BoardSize; i++)
-                {
-                    for (int j = 0; j < m_Board.BoardSize; j++)
-                    {
-                        Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
-                    }
-                    Console.WriteLine();
-                }
-                Console.WriteLine("======================================================");
+                //for (int i = 0; i < m_Board.BoardSize; i++)
+                //{
+                //    for (int j = 0; j < m_Board.BoardSize; j++)
+                //    {
+                //        Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
+                //    }
+                //    Console.WriteLine();
+                //}
+                //Console.WriteLine("======================================================");
                 int indexToNewRow;
                 int indexToNewLine;
                 int indexEatenNewRow;
@@ -337,7 +341,7 @@ namespace Ex05
             const bool v_IsAEatOrMove = true;
             bool isAMove = !v_IsAEatOrMove;
             CheckForEatingMovesFirst(i_Player);
-            if (!IsMoveStepAvailble(i_Player) && m_ListOfPossibleEatingMoves[0] == null)
+            if (!IsMoveStepAvailble(i_Player) && m_ListOfPossibleEatingMoves.Count == 0)
             {
                 m_NotifyInvalidMove("You don't have any moves to do!");
             }
@@ -589,8 +593,8 @@ namespace Ex05
                     int indexToBottomRightLine = indexFromLine + 1;
                     if (IsInRange(indexToDownRow, indexToBottomRightLine))
                     {
-                        if ((i_Player.ENormalSign == ePlayer.O || i_Player.ENormalSign == ePlayer.U ||
-                            i_Player.ENormalSign == ePlayer.K)&&((m_Board[indexFromRow,indexFromLine]==i_Player.ENormalSign)||(m_Board[indexFromRow,indexFromLine]==i_Player.EKinglSign)))
+                        if ((i_Player.ENormalSign == ePlayer.O || i_Player.EKinglSign == ePlayer.U ||
+                            m_Board[indexFromRow, indexFromLine] == ePlayer.K))
                         {
                             //bottom right
                             if (IsValidMove(i_Player, indexFromRow, indexFromLine, indexToDownRow,
@@ -615,8 +619,8 @@ namespace Ex05
                             }
                         }
                     }
-                    if ((i_Player.ENormalSign != ePlayer.X && i_Player.ENormalSign != ePlayer.U &&
-                        i_Player.ENormalSign != ePlayer.K) &&((m_Board[indexFromRow,indexFromLine] != i_Player.ENormalSign)||(m_Board[indexFromRow,indexFromLine] != i_Player.EKinglSign)))continue;
+                    if ((i_Player.ENormalSign == ePlayer.O || i_Player.EKinglSign == ePlayer.U ||
+                            m_Board[indexFromRow, indexFromLine] == ePlayer.K)) continue;
                     if (IsInRange(indexToUpRow, indexToTopRightLine))
                     {
                         //top right
@@ -693,7 +697,18 @@ namespace Ex05
                 }
             }
                 
-            
+        }
+
+        public void Score(PlayerInfo i_PlayerScore, int i_EatenRow, int i_EatenLine)
+        {
+            if (m_Board[i_EatenRow, i_EatenLine] == ePlayer.O || m_Board[i_EatenRow, i_EatenLine] == ePlayer.X)
+            {
+                i_PlayerScore.Score += 1; 
+            }
+            else
+            {
+                i_PlayerScore.Score += 4; 
+            }
         }
     }
 }
