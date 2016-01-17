@@ -169,6 +169,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InitializeGameDialog";
             this.Text = "Game Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InitializeGameDialog_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

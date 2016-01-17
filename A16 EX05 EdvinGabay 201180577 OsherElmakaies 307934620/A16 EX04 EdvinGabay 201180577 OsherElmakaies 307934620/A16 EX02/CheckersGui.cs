@@ -35,32 +35,38 @@ namespace Ex05
         {
             InitializeGameDialog GameSettings = new InitializeGameDialog();
             GameSettings.ShowDialog();
-            m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult);
-            m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
-            m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
-            m_FirstPlayer.PlayingType = PlayerType.Human;
-            if (!GameSettings.PlayingType)
+            if (GameSettings.DialogResult == DialogResult.OK)
             {
-                m_SecondPlayer.PlayingType = PlayerType.Computer;
+                m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult);
+                m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
+                m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
+                m_FirstPlayer.PlayingType = PlayerType.Human;
+                if (!GameSettings.PlayingType)
+                {
+                    m_SecondPlayer.PlayingType = PlayerType.Computer;
+                }
+                else
+                {
+                    m_SecondPlayer.PlayingType = PlayerType.Human;
+                }
+
+                m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
+                m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
+                m_Logic = new GameLogic(m_BoardSize);
+                m_Logic.m_NotifyEat += m_Logic_NotifyEat;
+                m_Logic.m_NotifyMovement += m_NotifyMovement;
+                m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
+                m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
+                m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+                InitializeTableLayOut();
+                PassTurn();
             }
             else
             {
-                m_SecondPlayer.PlayingType = PlayerType.Human;
+                MessageBox.Show("Good Bye");
             }
 
-            m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
-            m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
-            m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.m_NotifyEat += m_Logic_NotifyEat;
-            m_Logic.m_NotifyMovement += m_NotifyMovement;
-            m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
-            m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
-            InitializeTableLayOut();
-            PassTurn();
-
         }
-
         void m_Logic_m_NotifyToKeepTurn()
         {
             PassTurn();

@@ -69,7 +69,13 @@ namespace Ex05
 
         private void m_DoneButton_Click(object sender, EventArgs e)
         {
-           this.Close();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void InitializeGameDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.DialogResult = DialogResult.Abort;
         }
 
     }
