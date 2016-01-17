@@ -18,7 +18,6 @@ namespace Ex05
     public partial class InitializeGameDialog : Form
     {
         private eBoardSize m_BoardSizeResult;
-        public int Shumdavar;
 
         public eBoardSize BoardSizeResult
         {

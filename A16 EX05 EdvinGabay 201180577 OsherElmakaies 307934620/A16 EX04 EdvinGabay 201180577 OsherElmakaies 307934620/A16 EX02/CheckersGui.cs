@@ -65,28 +65,36 @@ namespace Ex05
             {
                 InitializeTableLayOut();
                 m_CurrentPlayerTurn = null;
+                m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + m_FirstPlayer.Name + " : " + m_ScoreFirstPlayer.ToString();
+                m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + m_SecondPlayer.Name + " : " + m_ScoreSecondPlayer.ToString();
                 initializeLogic();
                 PassTurn();
             }
         }
-        
+
         private void initializeLogic()
         {
             m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.m_NotifyEat += m_Logic_NotifyEat;
-            m_Logic.m_NotifyMovement += m_NotifyMovement;
-            m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
-            m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+            m_Logic.m_NotifyEat += notifyEat;
+            m_Logic.m_NotifyMovement += notifyMovement;
+            m_Logic.m_NotifyTurn += notifyToKeepTurn;
+            m_Logic.m_NotifyInvalidMove += notifyInvalidMove;
+            m_Logic.m_NotifyToUpdateKing += notifyToUpdateKing;
+            m_Logic.m_NotifyScores += notifyScores;
         }
 
+        private void notifyScores(int i_FirstPlayerScore, int i_SecondPlayerScore)
+        {
+            m_ScoreFirstPlayer += i_FirstPlayerScore;
+            m_ScoreSecondPlayer += i_SecondPlayerScore;
+        }
 
-        private void m_Logic_m_NotifyToKeepTurn()
+        private void notifyToKeepTurn()
         {
             PassTurn();
         }
 
-        private void m_Logic_m_NotifyToUpdateKing(int i_Row, int i_Line, ePlayer i_SignToChangeTo)
+        private void notifyToUpdateKing(int i_Row, int i_Line, ePlayer i_SignToChangeTo)
         {
             Button toKing = m_CheckersBoardTableLayOut.GetControlFromPosition(i_Line, i_Row) as Button;
 
@@ -111,19 +119,19 @@ namespace Ex05
             EnterAPlayersIntoGuiMatrix();
         }
 
-        private void m_Logic_NotifyInvalidMove(string i_InvalidMoveMsg)
+        private void notifyInvalidMove(string i_InvalidMoveMsg)
         {
             MessageBox.Show(i_InvalidMoveMsg);
         }
 
-        private void m_Logic_NotifyEat(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
+        private void notifyEat(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow, int i_EatenLine, int i_EatenRow)
         {
             Button eaten = m_CheckersBoardTableLayOut.GetControlFromPosition(i_EatenRow, i_EatenLine) as Button;
             eaten.Text = string.Empty;
-            m_NotifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
+            notifyMovement(i_FromLine, i_FromRow, i_ToLine, i_ToRow);
         }
 
-        private void m_NotifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
+        private void notifyMovement(int i_FromLine, int i_FromRow, int i_ToLine, int i_ToRow)
         {
             Button fromButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_FromRow, i_FromLine) as Button;
             Button toButton = m_CheckersBoardTableLayOut.GetControlFromPosition(i_ToRow, i_ToLine) as Button;
@@ -181,7 +189,6 @@ namespace Ex05
                     }
                 }
             }
-
         }
 
         private void showDrawResult()
@@ -200,7 +207,7 @@ namespace Ex05
 
         private void showWinnerMessageBox(PlayerInfo i_Winner)
         {
-            DialogResult dialogResult = MessageBox.Show("The Winner is : " + i_Winner.Name+" Do you want to do another game?", "Damka", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("The Winner is : " + i_Winner.Name + " Do you want to do another game?", "Damka", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
             {
@@ -231,7 +238,6 @@ namespace Ex05
             }
             else
             {
-                // X= Row, Y= Line
                 m_ButtonTo = wasClicked;
                 m_ButtonFrom.BackColor = Color.White;
                 v_IsSecondPick = false;
@@ -253,7 +259,7 @@ namespace Ex05
 
         private void EnterGuiTablePlayerOneCoins()
         {
-            for (int i = 0; i < m_BoardSize / 2 - 1; i++)
+            for (int i = 0; i < (m_BoardSize / 2) - 1; i++)
             {
                 for (int j = 0; j < m_BoardSize; j++)
                 {
@@ -309,7 +315,7 @@ namespace Ex05
 
         private void EnterGuiTableSpacers()
         {
-            for (int i = m_BoardSize / 2 - 1; i <= m_BoardSize / 2; i++)
+            for (int i = (m_BoardSize / 2) - 1; i <= m_BoardSize / 2; i++)
             {
                 for (int j = 0; j < m_BoardSize; j++)
                 {
