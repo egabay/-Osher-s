@@ -10,15 +10,15 @@ namespace Ex05
 {
     public enum eBoardSize
     {
-        Six=6,
-        Eight=8,
-        Ten=10
+        Six = 6,
+        Eight = 8,
+        Ten = 10
     }
 
     public partial class InitializeGameDialog : Form
     {
         private eBoardSize m_BoardSizeResult;
-        public int shumdavar;
+        public int Shumdavar;
 
         public eBoardSize BoardSizeResult
         {
@@ -26,15 +26,16 @@ namespace Ex05
             set { m_BoardSizeResult = value; }
         }
         
-
         public string FirstPlayerName
         {
             get { return m_Player1NameTextBox.Text; }
         }
+
         public string SecondPlayerName  
         {
             get { return m_Player2NameTextBox.Text; }
         }
+
         public bool PlayingType
         {
             get { return m_EnableSecondPlayerCheckBox.Checked; }
@@ -45,7 +46,6 @@ namespace Ex05
             InitializeComponent();
         }
        
-
         private void m_EnableSecondPlayerCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             m_Player2NameTextBox.Enabled = !m_Player2NameTextBox.Enabled;
@@ -71,6 +71,5 @@ namespace Ex05
         {
            this.Close();
         }
-
     }
 }

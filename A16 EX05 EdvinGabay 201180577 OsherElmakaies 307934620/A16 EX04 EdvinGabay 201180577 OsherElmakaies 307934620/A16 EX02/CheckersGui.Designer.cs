@@ -17,6 +17,7 @@
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -661,6 +662,5 @@
         private System.Windows.Forms.TableLayoutPanel m_HeadersTableLayout;
         private System.Windows.Forms.Label m_Player2ScoreLabel;
         private System.Windows.Forms.Label m_Player1ScoreLabel;
-
     }
 }
