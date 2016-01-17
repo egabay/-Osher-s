@@ -11,7 +11,7 @@ namespace Ex05
 
         public EatCordinates()
         {
-            m_EatenPlace= new Point();
+            m_EatenPlace = new Point();
         }
 
         public EatCordinates(int i_FromRowCordinate, int i_FromLineCordinate, int i_ToRowCordinate, int i_ToLineCordinate, int i_EatenRowPlace, int i_EatenLinePlace)

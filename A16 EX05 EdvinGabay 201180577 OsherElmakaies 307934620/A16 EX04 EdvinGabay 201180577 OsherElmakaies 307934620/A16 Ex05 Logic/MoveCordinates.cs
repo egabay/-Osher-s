@@ -16,12 +16,12 @@ namespace Ex05
             m_ToLocationCordinates = new Point();
         }
 
-        public MoveCordinates(int i_FromRowCordinate,int i_FromLineCordinate,int i_ToRowCordinate,int i_ToLineCordinate)
+        public MoveCordinates(int i_FromRowCordinate, int i_FromLineCordinate, int i_ToRowCordinate, int i_ToLineCordinate)
         {
             m_FromLocationCordinates.X = i_FromRowCordinate;
             m_FromLocationCordinates.Y = i_FromLineCordinate;
             m_ToLocationCordinates.X = i_ToRowCordinate;
-            m_ToLocationCordinates.Y= i_ToLineCordinate;
+            m_ToLocationCordinates.Y = i_ToLineCordinate;
         }
 
         public int FromRowXCordinate
@@ -35,6 +35,7 @@ namespace Ex05
             get { return m_FromLocationCordinates.Y; }
             set { m_FromLocationCordinates.Y = value; }
         }
+
         public int ToRowXCordinate
         {
             get { return m_ToLocationCordinates.X; }
