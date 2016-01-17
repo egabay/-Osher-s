@@ -55,11 +55,13 @@ namespace Ex05
         public int NumberOfK
         {
             get { return m_NumberOfK; }
+            set { m_NumberOfK = value; }
         }
 
         public int NumberOfU
         {
             get { return m_NumberOfU; }
+            set { m_NumberOfU = value; }
         }
 
 
@@ -74,13 +76,15 @@ namespace Ex05
         public int NumberOfX
         {
             get { return m_NumberOfX; }
+            set { m_NumberOfX = value; }
+
         }
 
         public int NumberOfO
         {
             get { return m_NumberOfO; }
+            set { m_NumberOfO = value; }
         }
-
 
         private void InitiateBoardToEmpty()
         {

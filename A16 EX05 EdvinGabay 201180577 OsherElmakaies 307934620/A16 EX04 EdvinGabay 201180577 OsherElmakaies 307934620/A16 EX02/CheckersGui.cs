@@ -17,7 +17,8 @@ namespace Ex05
         private bool v_IsSecondPick = false;
         private Point m_FromPoint;
         private Point m_ToPoint;
-        private int turns = 0;
+        private int m_ScoreFirstPlayer = 0;
+        private int m_ScoreSecondPlayer = 0;
         private PlayerInfo m_CurrentPlayerTurn;
         private PlayerInfo m_FirstPlayer;
         private PlayerInfo m_SecondPlayer;
@@ -32,29 +33,36 @@ namespace Ex05
         {
             InitializeGameDialog GameSettings = new InitializeGameDialog();
             GameSettings.ShowDialog();
-            m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult);
-            m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
-            m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
-            m_FirstPlayer.PlayingType = PlayerType.Human;
-            if (!GameSettings.PlayingType)
+            if (GameSettings.DialogResult == DialogResult.OK)
             {
-                m_SecondPlayer.PlayingType = PlayerType.Computer;
+                m_BoardSize = Convert.ToInt32(GameSettings.BoardSizeResult);
+                m_FirstPlayer = new PlayerInfo(GameSettings.FirstPlayerName, ePlayer.O, ePlayer.U);
+                m_SecondPlayer = new PlayerInfo(GameSettings.SecondPlayerName, ePlayer.X, ePlayer.K);
+                m_Logic = new GameLogic(m_BoardSize);
+                m_FirstPlayer.PlayingType = PlayerType.Human;
+                if (!GameSettings.PlayingType)
+                {
+                    m_SecondPlayer.PlayingType = PlayerType.Computer;
+                }
+                else
+                {
+                    m_SecondPlayer.PlayingType = PlayerType.Human;
+                }
+
+                m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName + " : " + m_ScoreFirstPlayer.ToString();
+                m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName + " : " + m_ScoreSecondPlayer.ToString();
+                m_Logic.m_NotifyEat += m_Logic_NotifyEat;
+                m_Logic.m_NotifyMovement += m_NotifyMovement;
+                m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
+                m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
+                m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
+                InitializeTableLayOut();
+                PassTurn();
             }
             else
             {
-                m_SecondPlayer.PlayingType = PlayerType.Human;
+                MessageBox.Show("Thanks and good bye,If you want to play please re enter the application and put in size of board");
             }
-
-            m_Player1ScoreLabel.Text = m_FirstPlayer.ENormalSign + " " + GameSettings.FirstPlayerName;
-            m_Player2ScoreLabel.Text = m_SecondPlayer.ENormalSign + " " + GameSettings.SecondPlayerName;
-            m_Logic = new GameLogic(m_BoardSize);
-            m_Logic.m_NotifyEat += m_Logic_NotifyEat;
-            m_Logic.m_NotifyMovement += m_NotifyMovement;
-            m_Logic.m_NotifyTurn += m_Logic_m_NotifyToKeepTurn;
-            m_Logic.m_NotifyInvalidMove += m_Logic_NotifyInvalidMove;
-            m_Logic.m_NotifyToUpdateKing += m_Logic_m_NotifyToUpdateKing;
-            InitializeTableLayOut();
-            PassTurn();
         }
 
         private void m_Logic_m_NotifyToKeepTurn()
@@ -112,26 +120,83 @@ namespace Ex05
             if (m_CurrentPlayerTurn == m_FirstPlayer)
             {
                 m_CurrentPlayerTurn = m_SecondPlayer;
-                m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
-                m_Player2ScoreLabel.ForeColor = Color.Red;
-                m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
-                m_Player1ScoreLabel.ForeColor = Color.Black;
-                if (m_CurrentPlayerTurn.PlayingType == PlayerType.Computer)
+                if (m_Logic.IsGotMoreMoves(m_CurrentPlayerTurn))
                 {
-                    m_Logic.AutoMovePlay(m_CurrentPlayerTurn);
+                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Bold);
+                    m_Player2ScoreLabel.ForeColor = Color.Red;
+                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Regular);
+                    m_Player1ScoreLabel.ForeColor = Color.Black;
+                    if (m_CurrentPlayerTurn.PlayingType == PlayerType.Computer)
+                    {
+                        m_Logic.AutoMovePlay(m_CurrentPlayerTurn);
+                    }
+                }
+                else
+                {
+                    if (!m_Logic.IsGotMoreMoves(m_FirstPlayer))
+                    {
+                        showDrawResult();
+                    }
+                    else
+                    {
+                        showWinnerMessageBox(m_FirstPlayer);
+                    }
                 }
             }
             else
             {
                 m_CurrentPlayerTurn = m_FirstPlayer;
-                m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
-                m_Player2ScoreLabel.ForeColor = Color.Black;
-                m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
-                m_Player1ScoreLabel.ForeColor = Color.Red;
+                if (m_Logic.IsGotMoreMoves(m_CurrentPlayerTurn))
+                {
+                    m_Player2ScoreLabel.Font = new Font(m_Player2ScoreLabel.Font, FontStyle.Regular);
+                    m_Player2ScoreLabel.ForeColor = Color.Black;
+                    m_Player1ScoreLabel.Font = new Font(m_Player1ScoreLabel.Font, FontStyle.Bold);
+                    m_Player1ScoreLabel.ForeColor = Color.Red;
+                }
+                else
+                {
+                    if (!m_Logic.IsGotMoreMoves(m_SecondPlayer))
+                    {
+                        showDrawResult();
+                    }
+                    else
+                    {
+                        showWinnerMessageBox(m_SecondPlayer);
+                    }
+                }
+            }
+
+        }
+
+        private void showDrawResult()
+        {
+            DialogResult dialogResult = MessageBox.Show("Draw , Do you want to do another game ? ", "Damka", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                InitGameProperties();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                this.Close();
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void showWinnerMessageBox(PlayerInfo i_Winner)
+        {
+            DialogResult dialogResult = MessageBox.Show("The Winner is : " + i_Winner.Name+" Do you want to do another game?", "Damka", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                InitGameProperties();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                this.Close();
+            }
+        }
+
+        private void onButton_Click(object sender, EventArgs e)
         {
             Button wasClicked = sender as Button;
             if (!v_IsSecondPick)
@@ -259,7 +324,7 @@ namespace Ex05
             inner.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             inner.TabIndex = 4;
             inner.UseVisualStyleBackColor = false;
-            inner.Click += new System.EventHandler(this.button1_Click);
+            inner.Click += new System.EventHandler(this.onButton_Click);
             return inner;
         }
     }

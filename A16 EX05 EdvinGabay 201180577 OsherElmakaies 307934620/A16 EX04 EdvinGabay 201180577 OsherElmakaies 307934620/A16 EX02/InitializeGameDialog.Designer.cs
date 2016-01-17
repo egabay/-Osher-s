@@ -117,6 +117,7 @@
             this.m_Player1NameTextBox.Name = "m_Player1NameTextBox";
             this.m_Player1NameTextBox.Size = new System.Drawing.Size(100, 26);
             this.m_Player1NameTextBox.TabIndex = 6;
+            this.m_Player1NameTextBox.Text = "Player1";
             // 
             // m_Player2NameTextBox
             // 

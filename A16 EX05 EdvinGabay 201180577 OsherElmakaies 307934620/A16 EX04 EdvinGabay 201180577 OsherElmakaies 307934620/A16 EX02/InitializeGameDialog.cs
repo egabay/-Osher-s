@@ -75,7 +75,10 @@ namespace Ex05
 
         private void InitializeGameDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.DialogResult = DialogResult.Abort;
+            if (this.DialogResult != DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.Abort;
+            }
         }
     }
 }
