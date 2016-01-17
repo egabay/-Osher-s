@@ -80,6 +80,13 @@ namespace Ex05
             return isEmpty;
         }
 
+
+        public void ResetValues()
+        {
+            m_ListOfPossibleEatingMoves.Clear();
+            m_ListOfPossibleStepMoves.Clear();
+            m_ListOfAnotherEatMove.Clear();
+        }
         public void Move(PlayerInfo i_Player, int i_FromRow, int i_FromLine, int i_ToRow, int i_ToLine)
         {
             CheckForEatingMovesFirst(i_Player);
@@ -110,10 +117,8 @@ namespace Ex05
                 {
                     Console.Write(Convert.ToInt32(m_Board[i, j]) + " |");
                 }
-
                 Console.WriteLine();
             }
-
             Console.WriteLine("======================================================");
         }
 
@@ -208,7 +213,6 @@ namespace Ex05
                 m_ListOfAnotherEatMove.Clear();
                 if (IsEatingMoveAroundYou(i_Player, i_ToRow, i_ToLine, out indexToNewRow, out indexToNewLine, out indexEatenNewRow, out indexEatenNewLine))
                 {
-                    // Osher - need to leave the turn to the current player
                     EatCordinates anotherEatPossotion = new EatCordinates(i_ToRow, i_ToLine, indexToNewRow, indexToNewLine, indexEatenNewRow, indexEatenNewLine);
                     m_ListOfAnotherEatMove.Add(anotherEatPossotion);
                     if (i_Player.PlayingType == PlayerType.Computer)
@@ -426,16 +430,17 @@ namespace Ex05
             else
             {
                 bool doneEating = false;
-                foreach (EatCordinates item in m_ListOfAnotherEatMove)
+                for (int i = 0; i < m_ListOfAnotherEatMove.Count; i++)
                 {
-                    if((item.FromRowXCordinate==i_FromRow)&&(item.FromLineYCordinate==i_FromLine)&&(item.ToRowXCordinate==i_ToRow)&&(item.ToLineYCordinate==i_ToLine))
+                    if ((m_ListOfAnotherEatMove[i].FromRowXCordinate == i_FromRow) && (m_ListOfAnotherEatMove[i].FromLineYCordinate == i_FromLine) && (m_ListOfAnotherEatMove[i].ToRowXCordinate == i_ToRow) && (m_ListOfAnotherEatMove[i].ToLineYCordinate == i_ToLine))
                     {
                         m_ListOfAnotherEatMove.Clear();
                         Eat(i_Player, i_FromRow, i_FromLine, i_ToRow, i_ToLine);
                         doneEating = true;
+                        isAMove = v_IsAEatOrMove;
                     }
                 }
-                if(!doneEating)
+                if (!doneEating)
                 {
                     NotifyOnInvalidMove("You have a eating you must proceed with , please dont try to do another move.");
                 }
@@ -503,9 +508,6 @@ namespace Ex05
                 {
                     m_Board[i_ToRow, i_ToLine] = ePlayer.K;
                     NotifyChangeToKing(i_ToRow, i_ToLine, ePlayer.K);
-
-                    // m_NumberOfK++;
-                    // m_NumberOfX--;
                 }
             }
             else
@@ -516,9 +518,6 @@ namespace Ex05
                     {
                         m_Board[i_ToRow, i_ToLine] = ePlayer.U;
                         NotifyChangeToKing(i_ToRow, i_ToLine, ePlayer.U);
-
-                        // m_NumberOfU++;
-                        // m_NumberOfO--;
                     }
                 }
             }
